@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+// Force reload comment
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -14,6 +15,8 @@ import Footer from './components/Footer';
 import PainPoints from './components/PainPoints';
 import Founder from './components/Founder';
 import JadeCTA from './components/JadeCTA';
+import ContactPage from './components/ContactPage';
+import AuthorityManifesto from './components/AuthorityManifesto';
 import BirthdayPage from './components/BirthdayPage';
 
 // Legal Pages
@@ -40,12 +43,12 @@ export default function App() {
 
               <Founder />
               <Team />
-              <JadeCTA />
-
+              <AuthorityManifesto />
             </>
           } />
           <Route path="/destinos" element={<DestinationsPage />} />
           <Route path="/aniversarios" element={<BirthdayPage />} />
+          <Route path="/contato" element={<ContactPage />} />
           <Route path="/privacidade" element={<PrivacyPolicy />} />
           <Route path="/termos" element={<TermsOfService />} />
         </Routes>

@@ -12,7 +12,7 @@ interface DestinationCardProps {
     subtitle?: string;
     images: string[];
     categories: Category[];
-    reverse?: boolean;
+    reverse?: boolean; // Kept for compatibility but not used in new design
 }
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, images, categories }) => {
@@ -22,22 +22,20 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
         if (images.length <= 1) return;
         const interval = setInterval(() => {
             setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 4000); // Change image every 4 seconds
+        }, 5000); // Slower transition for cinematic feel
         return () => clearInterval(interval);
     }, [images.length]);
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8 }}
-            className={`flex flex-col md:flex-row h-full w-full bg-slate-50 rounded-3xl overflow-hidden shadow-2xl my-4 hover:shadow-[0_20px_50px_rgba(255,107,53,0.15)] transition-shadow duration-300`}
+            className="relative w-full h-[550px] md:h-[600px] rounded-[2rem] overflow-hidden shadow-lg group hover:shadow-2xl transition-all duration-500 ease-out"
         >
-            {/* Image Section (Carousel) - Left Side (50%) */}
-            <div className="w-full md:w-1/2 relative overflow-hidden group h-[300px] md:h-auto shrink-0">
-                <div className="absolute inset-0 bg-slate-900/10 z-10 transition-opacity group-hover:opacity-0 pointer-events-none" />
-
+            {/* Background Image Carousel */}
+            <div className="absolute inset-0 z-0">
                 <AnimatePresence mode="popLayout">
                     <motion.img
                         key={currentImageIndex}
@@ -46,61 +44,46 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 1 }}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="w-full h-full object-cover"
                     />
                 </AnimatePresence>
+                {/* Gradient Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
+            </div>
 
-                {/* Carousel Indicators - Orange Bar Style */}
-                <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2">
+            {/* Content Container */}
+            <div className="absolute inset-0 z-10 p-8 md:p-12 flex flex-col justify-end">
+
+                {/* Top Section: Indicators */}
+                <div className="absolute top-8 right-8 flex gap-2">
                     {images.map((_, idx) => (
                         <div
                             key={idx}
-                            className={`transition-all duration-300 rounded-full border border-white/20 shadow-sm ${idx === currentImageIndex
-                                ? 'w-10 h-3 bg-brand-orange border-none'
-                                : 'w-3 h-3 bg-white/70 backdrop-blur-sm'
+                            className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/30'
                                 }`}
                         />
                     ))}
                 </div>
 
-                {/* Decorative elements */}
-                <div className="absolute top-6 left-6 z-20 pointer-events-none">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30">
-                        <div className="w-3 h-3 bg-brand-orange rounded-full animate-pulse" />
-                    </div>
-                </div>
-            </div>
-
-            {/* Content Section - Right Side (50%) */}
-            <div className="w-full md:w-1/2 bg-brand-orange text-white p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-
-                <div className="relative z-10">
+                <div className="relative z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     {subtitle && (
-                        <h4 className="text-orange-100 font-fun tracking-widest uppercase mb-2 text-xl md:text-2xl opacity-90">
+                        <h4 className="text-orange-300 font-medium tracking-widest uppercase mb-3 text-sm md:text-base">
                             {subtitle}
                         </h4>
                     )}
-                    <h2 className="text-4xl md:text-6xl font-fun font-bold mb-6 leading-none tracking-wide">
+
+                    <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-8 shadow-black drop-shadow-lg">
                         {title}
                     </h2>
 
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 text-slate-200">
                         {categories.map((cat, idx) => (
-                            <div key={idx}>
-                                <h3 className="text-xl font-fun tracking-wide mb-2 flex items-center gap-2 text-orange-100">
-                                    <span className="w-2 h-6 bg-white/20 rounded-full" />
-                                    {cat.title}
-                                </h3>
-                                <ul className="pl-4 space-y-1">
+                            <div key={idx} className="border-l border-white/20 pl-4">
+                                <h3 className="text-lg font-bold text-white mb-2">{cat.title}</h3>
+                                <ul className="space-y-1 text-sm md:text-base font-light opacity-90">
                                     {cat.items.map((item, itemIdx) => (
-                                        <li key={itemIdx} className="flex items-start gap-2 text-orange-50/90 text-base font-medium">
-                                            <span className="mt-2 w-1.5 h-1.5 bg-white rounded-full flex-shrink-0" />
-                                            {item}
-                                        </li>
+                                        <li key={itemIdx}>{item}</li>
                                     ))}
                                 </ul>
                             </div>
@@ -108,12 +91,12 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                     </div>
 
                     <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="mt-10 bg-white text-brand-orange px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 w-fit shadow-lg hover:shadow-xl transition-all font-heading uppercase tracking-wider"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="bg-white/10 hover:bg-white text-white hover:text-slate-900 backdrop-blur-md border border-white/30 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider flex items-center gap-3 transition-all duration-300 group/btn w-fit"
                     >
                         Solicitar Orçamento
-                        <ArrowUpRight className="w-5 h-5" />
+                        <ArrowUpRight className="w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                     </motion.button>
                 </div>
             </div>

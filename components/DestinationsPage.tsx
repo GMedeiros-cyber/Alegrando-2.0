@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
-    MessageCircle, Map, CheckCircle, Shield,
+    MessageCircle, Map, CheckCircle, Shield, ShieldCheck,
     Landmark, Bus, Leaf, Tent, GraduationCap, Drama,
-    FerrisWheel, Cpu, Calculator, Rocket, Star
+    FerrisWheel, Cpu, Calculator, Rocket, Star, ArrowRight
 } from 'lucide-react';
 import DestinationCard from './DestinationCard';
 
@@ -150,163 +150,42 @@ const DestinationsPage: React.FC = () => {
 
     return (
         <div id="destinos" className="bg-slate-50 min-h-screen">
-            {/* MANIFESTO & FEEDBACK SECTION - Combined Layout */}
-            <section className="relative pt-40 pb-24 px-6 bg-slate-50 overflow-hidden">
-                <div className="container mx-auto relative z-10">
-                    <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-slate-100 flex flex-col lg:flex-row min-h-[600px]">
 
-                        {/* LEFT COLUMN: Manifesto / Jornada / Profile */}
-                        <div className="lg:w-5/12 bg-slate-900 text-white p-10 md:p-14 relative flex flex-col justify-between overflow-hidden">
-                            {/* Texture/Decoration */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange opacity-20 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-                            <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500 opacity-10 blur-[60px] rounded-full pointer-events-none translate-y-1/2 -translate-x-1/2"></div>
-
-                            {/* Top Content */}
-                            <div className="relative z-10 space-y-8">
-                                {/* Jornada 360 Title */}
-                                <div className="flex items-center gap-4">
-                                    <div className="relative w-12 h-12 flex items-center justify-center bg-white/10 rounded-full border border-white/20">
-                                        <Rocket size={20} className="text-brand-orange" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-2xl font-bold leading-none">Jornada <span className="text-brand-orange">360°</span></h3>
-                                        <p className="text-slate-400 text-xs tracking-widest uppercase">Metodologia Exclusiva</p>
-                                    </div>
-                                </div>
-
-                                {/* 4 Steps - Visual Representation */}
-                                <div className="flex flex-wrap gap-2">
-                                    {["Consultoria", "Planejamento", "Logística", "Execução"].map((step, i) => (
-                                        <div key={i} className="px-3 py-1 rounded-full border border-brand-orange/30 bg-brand-orange/10 text-brand-orange text-xs font-bold uppercase tracking-wide">
-                                            {step}
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <blockquote className="text-2xl md:text-3xl font-serif italic leading-loose text-slate-200">
-                                    "A proposta é entregar um produto <span className="text-brand-orange">planejado e completo</span>, que vai muito além do passeio."
-                                </blockquote>
-                            </div>
-
-                            {/* Bottom Content: Director Profile */}
-                            <div className="relative z-10 flex items-center gap-5 pt-8 mt-auto border-t border-slate-800/50">
-                                <div className="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-brand-orange to-orange-600 shadow-lg overflow-hidden shrink-0">
-                                    <img
-                                        src={camisaImg}
-                                        alt="Silvana Moura"
-                                        className="w-full h-full object-cover object-top rounded-full border-2 border-white/20"
-                                    />
-                                </div>
-                                <div>
-                                    <p className="text-xl font-bold text-white">Silvana Moura</p>
-                                    <p className="text-brand-orange text-sm font-medium tracking-wide opacity-90">Fundadora e Diretora</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* RIGHT COLUMN: Feedbacks / Testimonials List */}
-                        <div className="lg:w-7/12 bg-white p-10 md:p-16 relative">
-                            {/* Oversized Quote Background */}
-                            <div className="absolute top-8 left-8 text-[12rem] text-slate-50 font-serif leading-none select-none pointer-events-none -translate-y-12 -translate-x-8">“</div>
-
-                            <div className="relative z-10 flex flex-col gap-12 h-full justify-center">
-
-                                {/* Item 01 */}
-                                <div className="group">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="flex text-yellow-400">
-                                            {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
-                                        </div>
-                                        <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-orange transition-colors">
-                                            Mais de 15 anos de parceria
-                                        </h4>
-                                    </div>
-                                    <div className="pl-6 border-l-4 border-slate-100 group-hover:border-brand-orange transition-colors py-1">
-                                        <p className="text-slate-600 mb-6 leading-relaxed italic text-lg">
-                                            "Ao longo de todo esse tempo, a Alegrando sempre demonstrou um trabalho <strong className="text-slate-800 font-bold">extremamente sério, organizado e comprometido</strong> com a segurança."
-                                        </p>
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-16 h-16 bg-slate-50 rounded-full p-1 overflow-hidden shrink-0 border border-slate-200">
-                                                <img src={autenticoImg} alt="Colégio Autêntico" className="w-full h-full object-contain" />
-                                            </div>
-                                            <div>
-                                                <p className="text-slate-900 font-bold text-sm">Caroline Freire</p>
-                                                <p className="text-slate-500 text-xs">Coordenadora Fund I • Colégio Autêntico</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Item 02 */}
-                                <div className="group">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="flex text-yellow-400">
-                                            {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
-                                        </div>
-                                        <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-orange transition-colors">
-                                            Parceria de mais de 10 anos
-                                        </h4>
-                                    </div>
-                                    <div className="pl-6 border-l-4 border-slate-100 group-hover:border-brand-orange transition-colors py-1">
-                                        <p className="text-slate-600 mb-6 leading-relaxed italic text-lg">
-                                            "As experiências vão muito além do passeio: são momentos de aprendizado. A Alegrando zela pela <strong className="text-slate-800 font-bold">segurança em cada detalhe</strong>."
-                                        </p>
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-16 h-16 bg-slate-50 rounded-full p-1 overflow-hidden shrink-0 border border-slate-200">
-                                                <img src={viniciusImg} alt="Colégio Vinicius" className="w-full h-full object-contain" />
-                                            </div>
-                                            <div>
-                                                <p className="text-slate-900 font-bold text-sm">Juliana Beltran</p>
-                                                <p className="text-slate-500 text-xs">Diretora • Colégio Vinicius de Moraes</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <div className="pt-8 pb-8 container mx-auto px-6 text-center">
+            {/* --- HEADER SECTION --- */}
+            <div className="pt-40 pb-12 container mx-auto px-6 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="relative inline-block"
+                    className="max-w-3xl mx-auto"
                 >
-                    <h1 className="text-4xl md:text-6xl font-heading font-bold text-brand-orange mb-2 flex items-center justify-center gap-4 relative z-10">
-                        Conheça alguns de nossos destinos
-                        <motion.div
-                            animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="inline-block"
-                        >
-                            <Rocket size={48} className="text-brand-orange drop-shadow-lg" />
-                        </motion.div>
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                        <span className="h-[1px] w-12 bg-orange-300"></span>
+                        <span className="text-orange-500 font-bold tracking-widest uppercase text-xs">Nossos Roteiros</span>
+                        <span className="h-[1px] w-12 bg-orange-300"></span>
+                    </div>
+                    <h1 className="text-3xl md:text-5xl font-heading font-bold text-slate-800 mb-6 relative z-10">
+                        Destinos <span className="text-brand-orange italic font-serif">Inesquecíveis</span>
                     </h1>
-                    <div className="absolute -bottom-2 right-12 w-48 h-4 bg-orange-200/50 -rotate-2 rounded-full blur-sm -z-0 hidden md:block" />
-                    <svg className="w-64 h-4 mx-auto text-brand-orange mt-2" viewBox="0 0 200 10" preserveAspectRatio="none">
-                        <path d="M0 5 Q 100 15 200 5" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
-                    </svg>
+                    <p className="text-slate-500 text-lg md:text-xl font-light leading-relaxed">
+                        Explore nossa seleção de roteiros pedagógicos e de lazer, projetados para encantar e educar.
+                    </p>
                 </motion.div>
             </div>
 
-            {/* Categories Navigation Bar */}
+            {/* --- CATEGORIES NAVIGATION --- */}
             <div className="container mx-auto px-6 mb-16">
                 <div className="flex overflow-x-auto gap-6 md:gap-8 pb-6 justify-start md:justify-center hide-scrollbar px-4">
                     {categoriesNav.map((cat, idx) => (
                         <motion.div
                             key={idx}
-                            whileHover={{ scale: 1.1 }}
+                            whileHover={{ scale: 1.05 }}
                             className="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group"
                         >
-                            <div className="w-16 h-16 md:w-20 md:h-20 bg-orange-50 rounded-full flex items-center justify-center text-brand-orange shadow-sm border border-orange-100 group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
+                            <div className="w-16 h-16 md:w-20 md:h-20 bg-transparent rounded-full flex items-center justify-center text-slate-400 border border-slate-200 group-hover:border-brand-orange group-hover:text-brand-orange group-hover:bg-orange-50/50 transition-all duration-300">
                                 {cat.icon}
                             </div>
-                            <span className="text-sm md:text-base font-bold text-slate-600 group-hover:text-brand-orange transition-colors whitespace-nowrap">
+                            <span className="text-sm md:text-base font-medium text-slate-500 group-hover:text-slate-800 transition-colors whitespace-nowrap">
                                 {cat.label}
                             </span>
                         </motion.div>
@@ -314,10 +193,8 @@ const DestinationsPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Horizontal Scroll Carousel - Full Width Feel */}
+            {/* --- DESTINATIONS CAROUSEL --- */}
             <div className="relative w-full pb-20">
-
-                {/* Scroll Container */}
                 <div
                     ref={scrollContainerRef}
                     className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory gap-8 px-6 md:px-12 items-stretch pb-8
@@ -341,61 +218,92 @@ const DestinationsPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Safety & Comfort Section */}
-            <section className="py-24 bg-slate-50 relative overflow-hidden">
-                <div className="container mx-auto px-6 relative z-10">
-                    <div className="bg-white rounded-[3rem] shadow-xl p-8 md:p-16 border border-slate-100 relative overflow-hidden">
-                        {/* Decorative Doodles */}
-                        <div className="absolute top-10 left-0 w-32 h-32 border-4 border-dashed border-orange-200 rounded-full opacity-50 -translate-x-1/2 pointer-events-none" />
-                        <div className="absolute bottom-10 right-0 w-48 h-12 bg-orange-100 -rotate-12 rounded-full opacity-50 translate-x-12 pointer-events-none" />
+            {/* --- 1. JORNADA 360 (Dark Full Width Section) --- */}
+            <section className="w-full bg-slate-900 text-white py-24 relative overflow-hidden">
+                {/* Background Texture */}
+                <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-orange/10 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
 
-                        <div className="flex flex-col md:flex-row items-center gap-16 text-left">
-                            {/* Text Content */}
-                            <div className="md:w-1/2 space-y-8 z-10">
-                                <h2 className="text-4xl md:text-6xl font-heading font-bold text-slate-900 leading-none">
-                                    Segurança e conforto
-                                </h2>
-                                <h3 className="text-2xl md:text-3xl font-light text-slate-600">
-                                    Para o bem <span className="text-brand-orange font-bold relative inline-block">
-                                        mais precioso
-                                        <svg className="absolute w-full h-3 -bottom-1 left-0 text-brand-orange opacity-40" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
-                                        </svg>
-                                    </span> que temos: as crianças!
-                                </h3>
+                <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+                    {/* Header */}
+                    <div className="inline-flex items-center gap-3 mb-8 bg-white/5 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
+                        <Rocket size={18} className="text-brand-orange" />
+                        <span className="text-sm font-bold tracking-widest uppercase text-slate-300">Metodologia Exclusiva</span>
+                    </div>
 
-                                <div className="space-y-4 text-lg text-slate-600">
-                                    <p>
-                                        Não abrimos mão dos nossos ônibus de <span className="font-bold text-slate-800">classe executiva</span>, que são equipados com poltronas reclináveis, toalete e ar-condicionado.
-                                    </p>
-                                    <p>
-                                        Garantimos um rigoroso processo de seleção para nossos motoristas, assegurando <span className="font-bold text-slate-800">qualidade e segurança</span> em cada trajeto.
-                                    </p>
+                    <h2 className="text-4xl md:text-6xl font-bold mb-6">Jornada <span className="text-brand-orange">360°</span></h2>
+
+                    {/* Quote */}
+                    <blockquote className="text-2xl md:text-4xl font-serif italic leading-relaxed text-slate-200 max-w-4xl mx-auto mb-16">
+                        "A proposta é entregar um produto <span className="text-brand-orange font-light">planejado e completo</span>, que vai muito além do passeio."
+                    </blockquote>
+
+                    {/* Steps */}
+                    <div className="flex flex-wrap justify-center gap-4 mb-16">
+                        {["Consultoria", "Planejamento", "Logística", "Execução"].map((step, i) => (
+                            <div key={i} className="px-6 py-3 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-colors text-white text-sm font-bold uppercase tracking-wider">
+                                {step}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Profile */}
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-brand-orange to-orange-600 shadow-2xl overflow-hidden shrink-0">
+                            <img src={camisaImg} alt="Silvana Moura" className="w-full h-full object-cover object-top rounded-full border-2 border-white/20" />
+                        </div>
+                        <div>
+                            <p className="text-xl font-bold text-white">Silvana Moura</p>
+                            <p className="text-brand-orange text-sm font-medium tracking-wide opacity-80">Fundadora e Diretora</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- 2. FEEDBACKS (Light Full Width Section) --- */}
+            <section className="w-full bg-white py-24 border-b border-slate-100 relative">
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Depoimentos</h3>
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">O que dizem nossos parceiros</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 max-w-5xl mx-auto">
+                        {/* Feedback 1 */}
+                        <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow duration-300">
+                            <div className="flex items-center gap-1 mb-6 text-brand-orange">
+                                {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+                            </div>
+                            <h4 className="text-xl font-bold text-slate-900 mb-4">Mais de 15 anos de parceria</h4>
+                            <p className="text-slate-600 text-lg leading-relaxed italic mb-8">
+                                "Ao longo de todo esse tempo, a Alegrando sempre demonstrou um trabalho <strong className="text-slate-900">extremamente sério, organizado e comprometido</strong> com a segurança."
+                            </p>
+                            <div className="flex items-center gap-4 border-t border-slate-200 pt-6">
+                                <div className="w-12 h-12 bg-white rounded-full border border-slate-200 p-1 shrink-0">
+                                    <img src={autenticoImg} alt="Colégio Autêntico" className="w-full h-full object-contain" />
                                 </div>
-
-                                <div className="flex items-center gap-4 pt-4">
-                                    <img
-                                        src={cadasturImg}
-                                        alt="Cadastur Certificação"
-                                        className="h-16 w-auto object-contain"
-                                    />
+                                <div>
+                                    <p className="text-slate-900 font-bold text-sm">Caroline Freire</p>
+                                    <p className="text-slate-500 text-xs">Colégio Autêntico</p>
                                 </div>
                             </div>
+                        </div>
 
-                            {/* Image/Visual Content */}
-                            <div className="md:w-1/2 relative z-10">
-                                <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                                    <img
-                                        src={onibusImg}
-                                        alt="Interior Ônibus Executivo"
-                                        className="w-full h-[400px] object-cover"
-                                    />
-                                    <div className="absolute bottom-0 left-0 bg-brand-orange text-white px-8 py-4 rounded-tr-3xl">
-                                        <div className="flex items-center gap-2">
-                                            <CheckCircle size={20} />
-                                            <span className="font-bold tracking-wider">CLASSE EXECUTIVA</span>
-                                        </div>
-                                    </div>
+                        {/* Feedback 2 */}
+                        <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow duration-300">
+                            <div className="flex items-center gap-1 mb-6 text-brand-orange">
+                                {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+                            </div>
+                            <h4 className="text-xl font-bold text-slate-900 mb-4">Parceria de mais de 10 anos</h4>
+                            <p className="text-slate-600 text-lg leading-relaxed italic mb-8">
+                                "As experiências vão muito além do passeio: são momentos de aprendizado. A Alegrando zela pela <strong className="text-slate-900">segurança em cada detalhe</strong>."
+                            </p>
+                            <div className="flex items-center gap-4 border-t border-slate-200 pt-6">
+                                <div className="w-12 h-12 bg-white rounded-full border border-slate-200 p-1 shrink-0">
+                                    <img src={viniciusImg} alt="Colégio Vinicius" className="w-full h-full object-contain" />
+                                </div>
+                                <div>
+                                    <p className="text-slate-900 font-bold text-sm">Juliana Beltran</p>
+                                    <p className="text-slate-500 text-xs">Colégio Vinicius de Moraes</p>
                                 </div>
                             </div>
                         </div>
@@ -403,53 +311,105 @@ const DestinationsPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <div className="py-20 relative z-20">
+            {/* --- 3. SEGURANÇA E CADASTUR (Clean Section - No Box) --- */}
+            <section className="py-24 bg-slate-50 border-b border-slate-200">
                 <div className="container mx-auto px-6">
+                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start max-w-6xl mx-auto">
+
+                        {/* Left Column: Title & Description */}
+                        <div className="lg:w-5/12 sticky top-24">
+                            <div className="w-12 h-1 bg-brand-orange mb-8"></div>
+                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 mb-6 leading-tight">
+                                Segurança em <br className="hidden lg:block" /> <span className="text-brand-orange">primeiro lugar</span>
+                            </h2>
+                            <p className="text-lg text-slate-600 leading-relaxed max-w-md">
+                                Para o bem mais precioso que temos: as crianças. Não abrimos mão de ônibus classe executiva com poltronas reclináveis, toalete e ar-condicionado.
+                            </p>
+                        </div>
+
+                        {/* Right Column: List & Certification */}
+                        <div className="lg:w-7/12 w-full">
+                            <ul className="space-y-6 mb-12">
+                                <li className="group flex items-start gap-6">
+                                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                                        <CheckCircle size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xl font-bold text-slate-900 mb-2">Motoristas Selecionados</h4>
+                                        <p className="text-slate-600 leading-relaxed">Profissionais experientes, treinados e com histórico verificado para garantir tranquilidade total.</p>
+                                    </div>
+                                </li>
+                                <li className="group flex items-start gap-6">
+                                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                                        <ShieldCheck size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xl font-bold text-slate-900 mb-2">Protocolos Ativos</h4>
+                                        <p className="text-slate-600 leading-relaxed">Monitoramento em tempo real e comunicação constante com a coordenação escolar.</p>
+                                    </div>
+                                </li>
+                                <li className="group flex items-start gap-6">
+                                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                                        <Bus size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xl font-bold text-slate-900 mb-2">Frota Moderna</h4>
+                                        <p className="text-slate-600 leading-relaxed">Veículos novos, vistoriados regularmente e com todos os itens de conforto e segurança.</p>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div className="flex items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Certificação Oficial</span>
+                                <div className="h-px bg-slate-300 w-12"></div>
+                                <img src={cadasturImg} alt="Cadastur" className="h-8 w-auto grayscale hover:grayscale-0 transition-all" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            {/* --- 4. CTA FINAL (Full Width Clean) --- */}
+            <section className="py-32 bg-white relative overflow-hidden">
+                <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+
+                <div className="container mx-auto px-6 text-center relative z-10">
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="max-w-4xl mx-auto bg-white rounded-3xl p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 text-center relative overflow-hidden"
+                        className="max-w-4xl mx-auto"
                     >
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-red-500" />
-
-                        <h3 className="text-3xl md:text-4xl font-heading font-bold text-slate-800 mb-4">
-                            Não achou o destino que gostaria?
-                        </h3>
-                        <p className="text-slate-600 text-lg mb-10 max-w-2xl mx-auto">
-                            Não se preocupe, temos muitas outras opções! Nossa equipe pode personalizar o roteiro ideal.
+                        <h2 className="text-4xl md:text-6xl font-heading font-bold text-slate-900 mb-6">
+                            Não achou o que procurava?
+                        </h2>
+                        <p className="text-xl text-slate-500 font-light mb-12 max-w-2xl mx-auto">
+                            Não se preocupe! Nossa equipe é especialista em criar roteiros personalizados para as necessidades da sua escola.
                         </p>
 
-                        <div className="flex flex-col md:flex-row justify-center gap-6">
+                        <div className="flex flex-col sm:flex-row justify-center gap-6">
                             <a
-                                href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Tenho%20interesse%20nos%20passeios%20escolares%20da%20Alegrando%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es."
+                                href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Gostaria%20de%20personalizar%20um%20roteiro%20escolar."
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group bg-orange-50 hover:bg-orange-100 p-6 rounded-2xl border border-orange-100 transition-all duration-300 flex items-center gap-4 min-w-[280px]"
+                                className="inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-orange-600 text-white text-lg font-bold py-5 px-10 rounded-full shadow-xl shadow-orange-200 hover:shadow-2xl transition-all hover:-translate-y-1"
                             >
-                                <div className="w-12 h-12 bg-white text-brand-orange rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                    <MessageCircle size={24} />
-                                </div>
-                                <div className="text-left">
-                                    <p className="text-xs text-orange-600 font-bold uppercase tracking-wider">Whatsapp</p>
-                                    <p className="font-bold text-slate-900 text-lg">Falar com Consultor</p>
-                                </div>
+                                <MessageCircle size={24} />
+                                Falar com Consultor
                             </a>
-
-                            <a href="#contato" className="group bg-slate-50 hover:bg-slate-100 p-6 rounded-2xl border border-slate-200 transition-all duration-300 flex items-center gap-4 min-w-[280px]">
-                                <div className="w-12 h-12 bg-white text-green-600 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                    <Map size={24} />
-                                </div>
-                                <div className="text-left">
-                                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Personalizado</p>
-                                    <p className="font-bold text-slate-900 text-lg">Roteiro Personalizado</p>
-                                </div>
+                            <a
+                                href="#contato"
+                                className="inline-flex items-center justify-center gap-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-lg font-bold py-5 px-10 rounded-full border border-slate-200 transition-all hover:-translate-y-1"
+                            >
+                                <Map size={24} />
+                                Roteiro Sob Medida
                             </a>
                         </div>
                     </motion.div>
                 </div>
-            </div>
+            </section>
+
         </div>
     );
 };

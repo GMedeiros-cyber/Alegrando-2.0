@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
     { name: 'Sobre', href: '/#sobre' },
     { name: 'Destinos', href: '/destinos' },
     { name: 'Equipe', href: '/#equipe' },
-    { name: 'Contato', href: '/#contato' },
+    { name: 'Contato', href: '/contato' },
   ];
 
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -96,8 +96,8 @@ const Navbar: React.FC = () => {
               Aniversários
             </Link>
             <a
-              href="#contato"
-              onClick={(e) => handleNavigation(e, '#contato')}
+              href="/contato"
+              onClick={(e) => handleNavigation(e, '/contato')}
               className="px-6 py-2 rounded-full font-bold text-xs bg-brand-orange text-white hover:bg-orange-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 uppercase tracking-wider"
             >
               Fale Conosco
@@ -138,8 +138,8 @@ const Navbar: React.FC = () => {
                 Aniversários
               </Link>
               <a
-                href="#contato"
-                onClick={(e) => handleNavigation(e, '#contato')}
+                href="/contato"
+                onClick={(e) => handleNavigation(e, '/contato')}
                 className="w-full bg-brand-orange text-white text-center py-3 rounded-xl font-bold uppercase tracking-wider shadow-md"
               >
                 Fale Conosco

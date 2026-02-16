@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, CheckCircle, Car, Users, Star, ArrowRight, Sparkles } from 'lucide-react';
+import { MapPin, CheckCircle, Car, Users, Star, ArrowRight, Sparkles, Ticket, Armchair, Wand2 } from 'lucide-react';
 
 // Import assets
 import neogeoHeroImg from '../assets/neogeo.jpg';
+
 import barueriImg from '../assets/barueri.jpeg';
 import morumbiImg from '../assets/morumbi.jpeg';
 import internacionalImg from '../assets/internacional.jpg';
@@ -11,36 +12,112 @@ import internacionalImg from '../assets/internacional.jpg';
 const BirthdayPage: React.FC = () => {
     return (
         <div id="aniversarios" className="bg-slate-50 min-h-screen">
-            {/* 1️⃣ Bloco Hero interno */}
-            <div className="relative h-[60vh] min-h-[500px] flex items-center justify-center text-center text-white overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img
-                        src={neogeoHeroImg}
-                        alt="Festa no Neo Geo Family"
-                        className="w-full h-full object-cover brightness-50"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent" />
+            {/* 1️⃣ Bloco Hero interno (Redesigned) */}
+            <div className="relative h-[85vh] min-h-[600px] flex items-center justify-center text-center text-white overflow-hidden">
+
+                {/* Animated Gradient Background */}
+                <style>
+                    {`
+                    @keyframes gradient-xy {
+                        0%, 100% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                    }
+                    .animate-gradient-xy {
+                        background: linear-gradient(-45deg, #FF6B35, #e85d2e, #1e293b, #0F172A);
+                        background-size: 300% 300%;
+                        animation: gradient-xy 15s ease infinite;
+                    }
+                    `}
+                </style>
+                <div className="absolute inset-0 z-0 animate-gradient-xy">
+                    <div className="absolute inset-0 bg-black/30" />
                 </div>
 
-                <div className="relative z-10 container mx-auto px-6 max-w-4xl pt-20">
+                <div className="relative z-10 container mx-auto px-6 max-w-5xl pt-20">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 1 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/20 border border-brand-orange/40 backdrop-blur-sm mb-6">
-                            <Sparkles size={16} className="text-brand-orange" />
-                            <span className="text-brand-orange font-bold text-xs uppercase tracking-wider">Metodologia Exclusiva</span>
+                        {/* Badge */}
+                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 shadow-sm hover:bg-white/10 transition-colors duration-300">
+                            <CheckCircle size={14} className="text-brand-orange" />
+                            <span className="text-white/90 font-medium text-xs uppercase tracking-wider">Somos Parceiros Oficiais Neo Geo</span>
                         </div>
-                        <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 leading-tight">
-                            Uma festa que vai <br />
-                            <span className="text-brand-orange">além do parabéns</span>
-                        </h2>
-                        <p className="text-lg md:text-xl text-slate-200 leading-relaxed font-light max-w-2xl mx-auto">
+
+                        {/* Main Title */}
+                        <div className="flex flex-col items-center justify-center mb-10 leading-none space-y-2 md:space-y-4">
+                            <span className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white drop-shadow-xl">
+                                Uma festa que vai
+                            </span>
+                            <span className="text-5xl md:text-7xl lg:text-8xl font-expressive text-brand-orange italic drop-shadow-2xl translate-y-2 md:translate-y-0 block">
+                                além do parabéns
+                            </span>
+                        </div>
+
+                        {/* Subtitle */}
+                        <p className="text-lg md:text-2xl text-slate-100 leading-relaxed font-light max-w-3xl mx-auto drop-shadow-md">
                             No Neo Geo Family, o aniversário é uma experiência completa. Salões exclusivos, acesso às atrações do parque, ambiente moderno e segurança em cada detalhe.
                         </p>
                     </motion.div>
+                </div>
+            </div>
+
+            {/* 2️⃣ Post-it Cards Section */}
+            <div className="bg-stone-50 py-16">
+                <div className="container mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                        {/* Card 1: Ambientes de Sonho */}
+                        <div className="bg-[#F3E9D8] p-8 rounded-xl shadow-md transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 relative group cursor-default">
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-4 bg-yellow-200/50 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="flex items-center gap-3 mb-4">
+                                <Sparkles className="text-brand-orange" size={24} />
+                                <h3 className="font-heading font-bold text-lg text-slate-800">Ambientes de Sonho!</h3>
+                            </div>
+                            <p className="text-slate-600 leading-relaxed text-sm">
+                                Decoração moderna e luzes aconchegantes para criar um cenário de festa inesquecível.
+                            </p>
+                        </div>
+
+                        {/* Card 2: Cartão da Diversão */}
+                        <div className="bg-[#F3E9D8] p-8 rounded-xl shadow-md transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 relative group cursor-default">
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-4 bg-blue-200/50 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="flex items-center gap-3 mb-4">
+                                <Ticket className="text-brand-orange" size={24} />
+                                <h3 className="font-heading font-bold text-lg text-slate-800">Cartão da Diversão!</h3>
+                            </div>
+                            <p className="text-slate-600 leading-relaxed text-sm">
+                                Seus convidados ganham acesso livre (exceto máquinas de prêmios) às atrações do Neo Geo Family.
+                            </p>
+                        </div>
+
+                        {/* Card 3: Conforto para Todos */}
+                        <div className="bg-[#F3E9D8] p-8 rounded-xl shadow-md transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 relative group cursor-default">
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-4 bg-green-200/50 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="flex items-center gap-3 mb-4">
+                                <Armchair className="text-brand-orange" size={24} />
+                                <h3 className="font-heading font-bold text-lg text-slate-800">Conforto para Todos!</h3>
+                            </div>
+                            <p className="text-slate-600 leading-relaxed text-sm">
+                                Salões espaçosos, móveis confortáveis e tudo preparado para a alegria de todas as idades.
+                            </p>
+                        </div>
+
+                        {/* Card 4: Como a Magia Acontece? */}
+                        <div className="bg-[#F3E9D8] p-8 rounded-xl shadow-md transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 relative group cursor-default">
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-4 bg-purple-200/50 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div className="flex items-center gap-3 mb-4">
+                                <Wand2 className="text-brand-orange" size={24} />
+                                <h3 className="font-heading font-bold text-lg text-slate-800">Como a Magia Acontece?</h3>
+                            </div>
+                            <p className="text-slate-600 leading-relaxed text-sm">
+                                Escolha sua unidade, fale conosco pelo WhatsApp e organizamos o roteiro com você.
+                            </p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
