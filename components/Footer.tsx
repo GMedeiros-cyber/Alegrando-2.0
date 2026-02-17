@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Mail } from 'lucide-react';
+import { Facebook, Instagram, Mail, MessageCircle } from 'lucide-react';
 import logo from '../assets/alegrando.png';
 
 const Footer: React.FC = () => {
@@ -61,6 +61,15 @@ const Footer: React.FC = () => {
                 title="E-mail"
               >
                 <Mail size={20} className="group-hover:scale-110 transition-transform" />
+              </a>
+              <a
+                href="https://wa.me/5511916032904"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-slate-900 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
+                title="WhatsApp"
+              >
+                <MessageCircle size={20} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>

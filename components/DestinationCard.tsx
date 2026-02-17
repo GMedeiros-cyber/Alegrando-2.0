@@ -13,9 +13,10 @@ interface DestinationCardProps {
     images: string[];
     categories: Category[];
     reverse?: boolean; // Kept for compatibility but not used in new design
+    whatsappMessage?: string;
 }
 
-const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, images, categories }) => {
+const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, images, categories, whatsappMessage }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
@@ -90,14 +91,15 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                         ))}
                     </div>
 
-                    <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                    <a
+                        href={`https://wa.me/5511916032904?text=${encodeURIComponent(whatsappMessage || '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="bg-white/10 hover:bg-white text-white hover:text-slate-900 backdrop-blur-md border border-white/30 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider flex items-center gap-3 transition-all duration-300 group/btn w-fit"
                     >
                         Solicitar Orçamento
                         <ArrowUpRight className="w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                    </motion.button>
+                    </a>
                 </div>
             </div>
         </motion.div>

@@ -21,7 +21,7 @@ const TrustedSchools: React.FC = () => {
         <section className="py-16 bg-white overflow-hidden">
             <div className="container mx-auto px-6 mb-12 text-center">
                 <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-800">
-                    Veja algumas das escolas que <span className="text-brand-orange">confiam na gente!</span>
+                    Escolas que <span className="text-brand-orange font-expressive italic">confiam na gente</span>
                 </h2>
                 <div className="w-16 h-1 bg-brand-orange mx-auto mt-4 rounded-full"></div>
             </div>

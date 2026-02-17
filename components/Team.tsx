@@ -70,7 +70,7 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-6xl font-heading font-bold text-slate-900 mb-6 relative inline-block">
-              Nossa <span className="text-brand-orange">Equipe</span>
+              Conheça nossa <span className="text-brand-orange font-expressive italic">Equipe</span>
               {/* Decorativo sublinhado "torto" */}
               <svg className="absolute w-full h-4 -bottom-2 left-0 text-brand-orange/40" viewBox="0 0 100 10" preserveAspectRatio="none">
                 <path d="M0 5 Q 50 15 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
@@ -90,10 +90,7 @@ const Team: React.FC = () => {
             <Bonfire scale={0.9} delay={0} />
           </div>
 
-          {/* Bonfire 2 - Right Side (Background) */}
-          <div className="absolute bottom-32 right-32 z-0 pointer-events-none opacity-90">
-            <Bonfire scale={1.2} delay={0.5} />
-          </div>
+          {/* Bonfire 2 - Right Side (Background) - Removed as requested */}
 
           {/* Equipe 1 */}
           <motion.div

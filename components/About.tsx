@@ -17,7 +17,7 @@ const About: React.FC = () => {
           {/* Header Title - Top Left */}
           <div className="absolute top-0 left-0 md:left-10 z-20 max-w-md">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 leading-tight">
-              Entendemos as <span className="text-brand-orange">dores</span> de professores e coordenadores!
+              Entendemos as <span className="text-brand-orange font-expressive italic">dores</span> de professores e coordenadores!
             </h2>
           </div>
 
@@ -34,6 +34,7 @@ const About: React.FC = () => {
 
             {/* Pain Points - Absolute Positioning for Desktop, Stacked for Mobile */}
 
+            {/* Right Side Items */}
             {/* 1. Top Right - Teoria */}
             <div className="md:absolute md:top-20 md:right-0 max-w-xs text-center md:text-left mt-8 md:mt-0">
               <div className="hidden md:block absolute -left-16 top-4 w-16 h-12">
@@ -42,7 +43,7 @@ const About: React.FC = () => {
                 </svg>
               </div>
               <p className="text-slate-700 font-medium text-lg">
-                Sentem falta de complemento educativo com a <span className="font-bold">teoria em sala.</span>
+                Sentem falta de complemento educativo com a <span className="text-brand-orange font-expressive italic text-xl">teoria em sala.</span>
               </p>
             </div>
 
@@ -54,7 +55,7 @@ const About: React.FC = () => {
                 </svg>
               </div>
               <p className="text-slate-700 font-medium text-lg">
-                Possuem grande desafio em <span className="font-bold">engajar</span> os alunos nos conteúdos.
+                Possuem grande desafio em <span className="text-brand-orange font-expressive italic text-xl">engajar</span> os alunos nos conteúdos.
               </p>
             </div>
 
@@ -66,32 +67,35 @@ const About: React.FC = () => {
                 </svg>
               </div>
               <p className="text-slate-700 font-medium text-lg">
-                Necessitam de uma didática inovadora com foco em <span className="font-bold">retenção de alunos.</span>
+                Necessitam de uma didática inovadora com foco em <span className="text-brand-orange font-expressive italic text-xl">retenção de alunos.</span>
               </p>
             </div>
 
-            {/* 4. Left Top - Segurança */}
-            <div className="md:absolute md:top-1/3 md:left-0 max-w-xs text-center md:text-right mt-8 md:mt-0">
-              <div className="hidden md:block absolute -right-24 top-4 w-24 h-12">
-                <svg viewBox="0 0 100 50" fill="none" className="text-brand-orange w-full h-full">
-                  <path d="M0 20 C 30 0, 60 40, 100 10" stroke="currentColor" strokeWidth="3" fill="none" />
-                </svg>
+            {/* Left Side Group - Centered Wrapper */}
+            <div className="w-full md:w-auto md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 flex flex-col gap-8 md:gap-32 md:items-start z-10">
+              {/* 4. Left Top - Segurança */}
+              <div className="max-w-xs text-center md:text-left relative">
+                <div className="hidden md:block absolute -right-24 top-4 w-24 h-12">
+                  <svg viewBox="0 0 100 50" fill="none" className="text-brand-orange w-full h-full">
+                    <path d="M0 20 C 30 0, 60 40, 100 10" stroke="currentColor" strokeWidth="3" fill="none" />
+                  </svg>
+                </div>
+                <p className="text-slate-700 font-medium text-lg">
+                  Preocupações com a <span className="text-brand-orange font-expressive italic text-xl">segurança dos alunos</span> fora da escola.
+                </p>
               </div>
-              <p className="text-slate-700 font-medium text-lg">
-                Preocupações com a <span className="font-bold">segurança dos alunos</span> fora da escola.
-              </p>
-            </div>
 
-            {/* 5. Left Bottom - Tempo */}
-            <div className="md:absolute md:bottom-32 md:left-10 max-w-xs text-center md:text-right mt-8 md:mt-0">
-              <div className="hidden md:block absolute -right-20 top-0 w-20 h-12">
-                <svg viewBox="0 0 100 50" fill="none" className="text-brand-orange w-full h-full">
-                  <path d="M0 30 Q 50 50 100 10" stroke="currentColor" strokeWidth="3" fill="none" />
-                </svg>
+              {/* 5. Left Bottom - Tempo */}
+              <div className="max-w-xs text-center md:text-left relative">
+                <div className="hidden md:block absolute -right-20 top-0 w-20 h-12">
+                  <svg viewBox="0 0 100 50" fill="none" className="text-brand-orange w-full h-full">
+                    <path d="M0 30 Q 50 50 100 10" stroke="currentColor" strokeWidth="3" fill="none" />
+                  </svg>
+                </div>
+                <p className="text-slate-700 font-medium text-lg">
+                  <span className="text-brand-orange font-expressive italic text-xl">Não ter tempo</span> para organizar excursões e atividades além das demandas comuns.
+                </p>
               </div>
-              <p className="text-slate-700 font-medium text-lg">
-                <span className="font-bold">Não ter tempo</span> para organizar excursões e atividades além das demandas comuns.
-              </p>
             </div>
 
           </div>
@@ -137,7 +141,7 @@ const About: React.FC = () => {
             <div className="mb-6">
               <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 leading-tight">
                 Mais de 18 anos de paixão por <span className="text-brand-orange relative inline-block">
-                  transformar
+                  <span className="font-expressive italic">transformar</span>
                   <svg className="absolute w-full h-3 -bottom-1 left-0 text-brand-orange opacity-40" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
                   </svg>
@@ -195,10 +199,13 @@ const About: React.FC = () => {
               Está com dúvidas?
             </h2>
             <p className="text-slate-300 text-lg mb-8 max-w-lg mx-auto">
-              Experimente conversar com a <span className="text-brand-orange font-bold">Jade</span>, nossa assistente virtual especialista em turismo pedagógico!
+              Experimente conversar com a <span className="text-brand-orange font-expressive italic">Jade</span>, nossa assistente virtual especialista em turismo pedagógico!
             </p>
 
-            <button className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-orange-500/30 transition-all hover:scale-105 flex items-center gap-3 group">
+            <button
+              onClick={() => window.openJadeWidget("Olá Jade! Não encontrei o destino ideal no site e gostaria de ver mais opções de passeios para minha escola.")}
+              className="bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-orange-500/30 transition-all hover:scale-105 flex items-center gap-3 group relative z-50 pointer-events-auto cursor-pointer"
+            >
               <span>Conversar com Jade</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

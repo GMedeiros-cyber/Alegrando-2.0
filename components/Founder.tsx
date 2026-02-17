@@ -45,7 +45,7 @@ const Founder: React.FC = () => {
                         <div className="mb-6">
                             <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 leading-tight">
                                 Mais de 18 anos de paixão por <span className="text-brand-orange relative inline-block">
-                                    transformar
+                                    <span className="font-expressive italic">transformar</span>
                                     <svg className="absolute w-full h-3 -bottom-1 left-0 text-brand-orange opacity-40" viewBox="0 0 100 10" preserveAspectRatio="none">
                                         <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
                                     </svg>

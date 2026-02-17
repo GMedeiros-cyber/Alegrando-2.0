@@ -175,6 +175,7 @@ const BirthdayPage: React.FC = () => {
                                 <div>
                                     <h4 className="font-bold text-slate-800">Fácil Acesso</h4>
                                     <p className="text-slate-500 text-sm">Estacionamento amplo e localização privilegiada no shopping.</p>
+                                    <p className="text-slate-500 text-sm">Experimente conversar com a <span className="text-brand-orange font-expressive italic">Jade</span>, nossa assistente virtual especialista em turismo pedagógico!</p>
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
-    MessageCircle, Map, CheckCircle, Shield, ShieldCheck,
+    MessageCircle, Map,
     Landmark, Bus, Leaf, Tent, GraduationCap, Drama,
-    FerrisWheel, Cpu, Calculator, Rocket, Star, ArrowRight
+    FerrisWheel, Cpu, Calculator, Rocket, Star, ArrowRight,
+    Quote, Bot
 } from 'lucide-react';
 import DestinationCard from './DestinationCard';
 
@@ -20,7 +21,6 @@ import neogeoImg from '../assets/neogeo.jpg';
 import playgroundImg from '../assets/playground.jpg';
 import aquaticoImg from '../assets/aquatico.jpeg';
 
-import cadasturImg from '../assets/cadastur.png';
 import onibusImg from '../assets/onibus.jpeg';
 import camisaImg from '../assets/camisa.jpeg';
 
@@ -31,6 +31,7 @@ const naturezaImg = fazendaImg;
 const destinationsData = [
     {
         title: "História e cultura",
+        whatsappMessage: "Olá! Gostaria de solicitar orçamento para passeios de História e Cultura para minha escola.",
         subtitle: "Os mais buscados em:",
         images: [historiaImg, fazendaImg, agriculturaImg, museuImg],
         categories: [
@@ -65,6 +66,7 @@ const destinationsData = [
     },
     {
         title: "Temáticos",
+        whatsappMessage: "Olá! Gostaria de solicitar orçamento para passeios Temáticos e parques para minha escola.",
         subtitle: "Os mais buscados em:",
         images: [escaladaImg, neogeoImg, playgroundImg, aquaticoImg],
         categories: [
@@ -99,6 +101,7 @@ const destinationsData = [
     },
     {
         title: "Teatros e Natureza",
+        whatsappMessage: "Olá! Gostaria de solicitar orçamento para passeios de Teatros e Natureza para minha escola.",
         subtitle: "Cultura e Ar Livre:",
         images: [teatroImg, naturezaImg],
         categories: [
@@ -165,7 +168,7 @@ const DestinationsPage: React.FC = () => {
                         <span className="h-[1px] w-12 bg-orange-300"></span>
                     </div>
                     <h1 className="text-3xl md:text-5xl font-heading font-bold text-slate-800 mb-6 relative z-10">
-                        Destinos <span className="text-brand-orange italic font-serif">Inesquecíveis</span>
+                        Destinos <span className="text-brand-orange font-expressive italic font-medium">Inesquecíveis</span>
                     </h1>
                     <p className="text-slate-500 text-lg md:text-xl font-light leading-relaxed">
                         Explore nossa seleção de roteiros pedagógicos e de lazer, projetados para encantar e educar.
@@ -212,157 +215,96 @@ const DestinationsPage: React.FC = () => {
                                 images={dest.images}
                                 categories={dest.categories}
                                 reverse={false}
+                                whatsappMessage={dest.whatsappMessage}
                             />
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* --- 1. JORNADA 360 (Dark Full Width Section) --- */}
+            {/* --- 1. JORNADA 360 + PARCERIAS (Dark Full Width Section) --- */}
             <section className="w-full bg-slate-900 text-white py-24 relative overflow-hidden">
                 {/* Background Texture */}
                 <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-brand-orange/10 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
 
-                <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
-                    {/* Header */}
-                    <div className="inline-flex items-center gap-3 mb-8 bg-white/5 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
-                        <Rocket size={18} className="text-brand-orange" />
-                        <span className="text-sm font-bold tracking-widest uppercase text-slate-300">Metodologia Exclusiva</span>
-                    </div>
+                <div className="container mx-auto px-6 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                    <h2 className="text-4xl md:text-6xl font-bold mb-6">Jornada <span className="text-brand-orange">360°</span></h2>
-
-                    {/* Quote */}
-                    <blockquote className="text-2xl md:text-4xl font-serif italic leading-relaxed text-slate-200 max-w-4xl mx-auto mb-16">
-                        "A proposta é entregar um produto <span className="text-brand-orange font-light">planejado e completo</span>, que vai muito além do passeio."
-                    </blockquote>
-
-                    {/* Steps */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-16">
-                        {["Consultoria", "Planejamento", "Logística", "Execução"].map((step, i) => (
-                            <div key={i} className="px-6 py-3 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-colors text-white text-sm font-bold uppercase tracking-wider">
-                                {step}
+                        {/* LEFT: JORNADA 360 (Methodology) */}
+                        <div className="flex flex-col items-start">
+                            <div className="inline-flex items-center gap-3 mb-8 bg-white/5 backdrop-blur-sm px-6 py-2 rounded-full border border-white/10">
+                                <Rocket size={18} className="text-brand-orange" />
+                                <span className="text-sm font-bold tracking-widest uppercase text-slate-300">Metodologia Exclusiva</span>
                             </div>
-                        ))}
-                    </div>
 
-                    {/* Profile */}
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-brand-orange to-orange-600 shadow-2xl overflow-hidden shrink-0">
-                            <img src={camisaImg} alt="Silvana Moura" className="w-full h-full object-cover object-top rounded-full border-2 border-white/20" />
-                        </div>
-                        <div>
-                            <p className="text-xl font-bold text-white">Silvana Moura</p>
-                            <p className="text-brand-orange text-sm font-medium tracking-wide opacity-80">Fundadora e Diretora</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                            <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">Jornada <span className="text-brand-orange font-expressive italic">360°</span></h2>
 
-            {/* --- 2. FEEDBACKS (Light Full Width Section) --- */}
-            <section className="w-full bg-white py-24 border-b border-slate-100 relative">
-                <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Depoimentos</h3>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">O que dizem nossos parceiros</h2>
-                    </div>
+                            <blockquote className="text-xl md:text-2xl font-serif italic leading-relaxed text-slate-300 border-l-4 border-brand-orange pl-6 mb-12">
+                                "A proposta é entregar um produto <span className="text-white font-medium">planejado e completo</span>, que vai muito além do passeio. Cuidamos de cada detalhe, do início ao fim."
+                            </blockquote>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 max-w-5xl mx-auto">
-                        {/* Feedback 1 */}
-                        <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow duration-300">
-                            <div className="flex items-center gap-1 mb-6 text-brand-orange">
-                                {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+                            <div className="flex flex-wrap gap-3 mb-12">
+                                {["Consultoria", "Planejamento", "Logística", "Execução"].map((step, i) => (
+                                    <div key={i} className="px-5 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-white text-xs font-bold uppercase tracking-wider">
+                                        {step}
+                                    </div>
+                                ))}
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 mb-4">Mais de 15 anos de parceria</h4>
-                            <p className="text-slate-600 text-lg leading-relaxed italic mb-8">
-                                "Ao longo de todo esse tempo, a Alegrando sempre demonstrou um trabalho <strong className="text-slate-900">extremamente sério, organizado e comprometido</strong> com a segurança."
-                            </p>
-                            <div className="flex items-center gap-4 border-t border-slate-200 pt-6">
-                                <div className="w-12 h-12 bg-white rounded-full border border-slate-200 p-1 shrink-0">
-                                    <img src={autenticoImg} alt="Colégio Autêntico" className="w-full h-full object-contain" />
+
+                            <div className="flex items-center gap-5 pt-8 border-t border-white/10 w-full">
+                                <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-br from-brand-orange to-orange-600 shadow-lg overflow-hidden shrink-0">
+                                    <img src={camisaImg} alt="Silvana Moura" className="w-full h-full object-cover object-top rounded-full" />
                                 </div>
                                 <div>
-                                    <p className="text-slate-900 font-bold text-sm">Caroline Freire</p>
-                                    <p className="text-slate-500 text-xs">Colégio Autêntico</p>
+                                    <p className="text-lg font-bold text-white">Silvana Moura</p>
+                                    <p className="text-brand-orange font-expressive italic text-base font-medium tracking-wide opacity-90">Fundadora e Diretora</p>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Feedback 2 */}
-                        <div className="p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg transition-shadow duration-300">
-                            <div className="flex items-center gap-1 mb-6 text-brand-orange">
-                                {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+                        {/* RIGHT: PARCERIAS (Testimonials) */}
+                        <div className="flex flex-col gap-8 lg:pt-8">
+                            <div className="mb-4">
+                                <h3 className="text-sm font-bold text-brand-orange uppercase tracking-widest mb-2">Quem confia</h3>
+                                <h2 className="text-3xl font-heading font-bold text-white">Parcerias duradouras</h2>
                             </div>
-                            <h4 className="text-xl font-bold text-slate-900 mb-4">Parceria de mais de 10 anos</h4>
-                            <p className="text-slate-600 text-lg leading-relaxed italic mb-8">
-                                "As experiências vão muito além do passeio: são momentos de aprendizado. A Alegrando zela pela <strong className="text-slate-900">segurança em cada detalhe</strong>."
-                            </p>
-                            <div className="flex items-center gap-4 border-t border-slate-200 pt-6">
-                                <div className="w-12 h-12 bg-white rounded-full border border-slate-200 p-1 shrink-0">
-                                    <img src={viniciusImg} alt="Colégio Vinicius" className="w-full h-full object-contain" />
+
+                            {/* Review 1 */}
+                            <div className="p-8 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                                <div className="flex items-center gap-1 mb-4 text-brand-orange">
+                                    {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                                 </div>
-                                <div>
-                                    <p className="text-slate-900 font-bold text-sm">Juliana Beltran</p>
-                                    <p className="text-slate-500 text-xs">Colégio Vinicius de Moraes</p>
+                                <p className="text-slate-300 text-lg leading-relaxed italic mb-6">
+                                    "A Alegrando sempre demonstrou um trabalho extremamente sério, organizado e comprometido com a segurança."
+                                </p>
+                                <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                                    <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 p-0.5 bg-white">
+                                        <img src={autenticoImg} alt="Colégio" className="w-full h-full object-contain" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-sm">Caroline Freire</p>
+                                        <p className="text-slate-400 text-xs">Colégio Autêntico</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            {/* --- 3. SEGURANÇA E CADASTUR (Clean Section - No Box) --- */}
-            <section className="py-24 bg-slate-50 border-b border-slate-200">
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start max-w-6xl mx-auto">
-
-                        {/* Left Column: Title & Description */}
-                        <div className="lg:w-5/12 sticky top-24">
-                            <div className="w-12 h-1 bg-brand-orange mb-8"></div>
-                            <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 mb-6 leading-tight">
-                                Segurança em <br className="hidden lg:block" /> <span className="text-brand-orange">primeiro lugar</span>
-                            </h2>
-                            <p className="text-lg text-slate-600 leading-relaxed max-w-md">
-                                Para o bem mais precioso que temos: as crianças. Não abrimos mão de ônibus classe executiva com poltronas reclináveis, toalete e ar-condicionado.
-                            </p>
-                        </div>
-
-                        {/* Right Column: List & Certification */}
-                        <div className="lg:w-7/12 w-full">
-                            <ul className="space-y-6 mb-12">
-                                <li className="group flex items-start gap-6">
-                                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
-                                        <CheckCircle size={20} />
+                            {/* Review 2 */}
+                            <div className="p-8 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                                <div className="flex items-center gap-1 mb-4 text-brand-orange">
+                                    {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+                                </div>
+                                <p className="text-slate-300 text-lg leading-relaxed italic mb-6">
+                                    "As vivências vão muito além do passeio. A empresa zela pela segurança em cada detalhe do processo."
+                                </p>
+                                <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                                    <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 p-0.5 bg-white">
+                                        <img src={viniciusImg} alt="Colégio" className="w-full h-full object-contain" />
                                     </div>
                                     <div>
-                                        <h4 className="text-xl font-bold text-slate-900 mb-2">Motoristas Selecionados</h4>
-                                        <p className="text-slate-600 leading-relaxed">Profissionais experientes, treinados e com histórico verificado para garantir tranquilidade total.</p>
+                                        <p className="text-white font-bold text-sm">Juliana Beltran</p>
+                                        <p className="text-slate-400 text-xs">Colégio Vinicius de Moraes</p>
                                     </div>
-                                </li>
-                                <li className="group flex items-start gap-6">
-                                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
-                                        <ShieldCheck size={20} />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-xl font-bold text-slate-900 mb-2">Protocolos Ativos</h4>
-                                        <p className="text-slate-600 leading-relaxed">Monitoramento em tempo real e comunicação constante com a coordenação escolar.</p>
-                                    </div>
-                                </li>
-                                <li className="group flex items-start gap-6">
-                                    <div className="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center shrink-0 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
-                                        <Bus size={20} />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-xl font-bold text-slate-900 mb-2">Frota Moderna</h4>
-                                        <p className="text-slate-600 leading-relaxed">Veículos novos, vistoriados regularmente e com todos os itens de conforto e segurança.</p>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <div className="flex items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
-                                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Certificação Oficial</span>
-                                <div className="h-px bg-slate-300 w-12"></div>
-                                <img src={cadasturImg} alt="Cadastur" className="h-8 w-auto grayscale hover:grayscale-0 transition-all" />
+                                </div>
                             </div>
                         </div>
 
@@ -370,42 +312,39 @@ const DestinationsPage: React.FC = () => {
                 </div>
             </section>
 
-            {/* --- 4. CTA FINAL (Full Width Clean) --- */}
-            <section className="py-32 bg-white relative overflow-hidden">
-                <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
-
+            {/* --- 2. CTA JADE (Minimalist) --- */}
+            <section className="py-24 bg-orange-50/30 relative overflow-hidden">
                 <div className="container mx-auto px-6 text-center relative z-10">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="max-w-4xl mx-auto"
+                        className="max-w-2xl mx-auto"
                     >
-                        <h2 className="text-4xl md:text-6xl font-heading font-bold text-slate-900 mb-6">
-                            Não achou o que procurava?
+                        <div className="flex justify-center mb-6">
+                            <div className="p-4 bg-white rounded-full shadow-lg border border-slate-100 relative">
+                                <Bot size={40} className="text-brand-orange" />
+                                <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
+                            </div>
+                        </div>
+
+                        <h2 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 mb-4 animate-fade-in-up">
+                            Ainda com dúvidas?
                         </h2>
-                        <p className="text-xl text-slate-500 font-light mb-12 max-w-2xl mx-auto">
-                            Não se preocupe! Nossa equipe é especialista em criar roteiros personalizados para as necessidades da sua escola.
+                        <p className="text-xl text-slate-600 font-light mb-10 leading-relaxed">
+                            A <strong className="text-brand-orange font-bold">Jade</strong>, nossa inteligência artificial, está pronta para te ajudar a encontrar o roteiro perfeito agora mesmo.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row justify-center gap-6">
-                            <a
-                                href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Gostaria%20de%20personalizar%20um%20roteiro%20escolar."
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-orange-600 text-white text-lg font-bold py-5 px-10 rounded-full shadow-xl shadow-orange-200 hover:shadow-2xl transition-all hover:-translate-y-1"
-                            >
-                                <MessageCircle size={24} />
-                                Falar com Consultor
-                            </a>
-                            <a
-                                href="#contato"
-                                className="inline-flex items-center justify-center gap-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-lg font-bold py-5 px-10 rounded-full border border-slate-200 transition-all hover:-translate-y-1"
-                            >
-                                <Map size={24} />
-                                Roteiro Sob Medida
-                            </a>
-                        </div>
+                        <button
+                            onClick={() => window.openJadeWidget("Olá Jade! Não encontrei o destino ideal no site e gostaria de ver mais opções de passeios para minha escola.")}
+                            className="inline-flex items-center justify-center gap-3 bg-brand-orange hover:bg-orange-600 text-white text-lg font-bold py-5 px-12 rounded-full shadow-xl shadow-orange-200 hover:shadow-2xl transition-all hover:-translate-y-1 group relative z-50 pointer-events-auto cursor-pointer"
+                        >
+                            <MessageCircle size={24} className="group-hover:animate-bounce" />
+                            Conversar com a Jade
+                        </button>
+                        <p className="mt-6 text-xs text-slate-400 font-medium uppercase tracking-widest">
+                            Disponível 24h
+                        </p>
                     </motion.div>
                 </div>
             </section>

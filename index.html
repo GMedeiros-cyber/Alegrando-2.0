@@ -318,10 +318,6 @@
     </div>
 
     <div id="chat-widget-body">
-      <div class="message bot">
-        Olá! 👋 Bem-vindo à Alegrando Eventos.<br><br>
-        Sou sua assistente virtual. Como posso ajudar com seu passeio ou festa hoje?
-      </div>
     </div>
 
     <div id="chat-widget-footer">
@@ -342,9 +338,11 @@
     window.ChatWidgetConfig = {
       webhook: {
         url: 'https://n8n.alegrando.cloud/webhook/d3845beb-4c23-431b-b9db-5f799f3311e2/chat',
-        route: 'general' // Ensure this matches user explicitly provided code
+        route: 'general'
       }
     };
+
+    // --- Core Functions ---
 
     function getChatId() {
       let chatId = sessionStorage.getItem("chatId");
@@ -361,27 +359,17 @@
     const input = document.getElementById("chat-widget-input");
     const chatBody = document.getElementById("chat-widget-body");
 
-    // Ensure elements exist before adding listeners (just in case)
-    if (button && container && sendBtn && input && chatBody) {
-      button.addEventListener("click", () => {
-        container.style.display = "flex";
-        button.style.display = "none";
-      });
-    }
+    // Helper to calculate time on page
+    let timeOnPage = 0;
+    setInterval(() => { timeOnPage += 1; }, 1000);
 
-    // Defining close globally
-    window.closeChatWidget = function () {
-      if (container && button) {
-        container.style.display = "none";
-        button.style.display = "flex";
-      }
-    }
+    // --- Message Handling ---
 
     function appendMessage(text, type) {
       if (!chatBody) return;
       const msg = document.createElement("div");
       msg.classList.add("message", type);
-      msg.textContent = text;
+      msg.innerHTML = text; // Allow HTML for line breaks
       chatBody.appendChild(msg);
       chatBody.scrollTop = chatBody.scrollHeight;
     }
@@ -393,6 +381,9 @@
       appendMessage(message, "user");
       input.value = "";
       sendBtn.disabled = true;
+
+      // Mark interaction logic
+      sessionStorage.setItem("jade_interaction_started", "true");
 
       const typing = document.createElement("div");
       typing.classList.add("message", "bot");
@@ -414,7 +405,6 @@
         .then(res => res.json())
         .then(data => {
           document.getElementById("typing-indicator")?.remove();
-          // Assuming the response structure matches user's expectation 'output'
           appendMessage(data.output || "Desculpe, não entendi.", "bot");
         })
         .catch((err) => {
@@ -427,13 +417,85 @@
         });
     }
 
-    if (sendBtn) sendBtn.addEventListener("click", sendMessage);
+    // --- Trigger Logic ---
 
+    // 1. Manual Open (Bubble Click)
+    if (button && container) {
+      button.addEventListener("click", () => {
+        container.style.display = "flex";
+        button.style.display = "none";
+        // Mark as triggered so auto-trigger doesn't fire if user opened manually
+        sessionStorage.setItem("jade_auto_triggered", "true");
+        // If chat is empty on manual open, we could show a greeting, but requirements say "Auto message = ONLY on auto-trigger".
+        // We leave it empty or preserve history if elements exist.
+      });
+    }
+
+    // 2. Close Widget
+    window.closeChatWidget = function () {
+      if (container && button) {
+        container.style.display = "none";
+        button.style.display = "flex";
+      }
+    }
+
+    // 3. Programmatic Open (CTA Buttons)
+    window.openJadeWidget = function (initialMessage) {
+      if (container && button && input) {
+        container.style.display = "flex";
+        button.style.display = "none";
+        // Prevent auto-trigger since user is interacting
+        sessionStorage.setItem("jade_auto_triggered", "true");
+
+        if (initialMessage) {
+          input.value = initialMessage;
+          // Send user message automatically
+          setTimeout(() => {
+            if (typeof sendMessage === 'function') {
+              sendMessage();
+            }
+          }, 100);
+        }
+      }
+    }
+
+    // 4. Auto-Trigger (10 seconds)
+    function initAutoTrigger() {
+      // Check if already triggered in this session
+      if (sessionStorage.getItem("jade_auto_triggered") === "true") {
+        return;
+      }
+
+      setTimeout(() => {
+        // Double check flag and if chat is already open
+        if (sessionStorage.getItem("jade_auto_triggered") === "true") return;
+        if (container.style.display === "flex") return; // User opened manually already
+
+        // Trigger!
+        if (container && button) {
+          container.style.display = "flex";
+          button.style.display = "none";
+
+          // Send the specific Welcome Message
+          const welcomeMsg = "Olá! 👋 Bem-vindo à Alegrando Eventos.<br><br>Sou sua assistente virtual. Como posso ajudar com seu passeio ou festa hoje?";
+          appendMessage(welcomeMsg, "bot");
+
+          sessionStorage.setItem("jade_auto_triggered", "true");
+        }
+      }, 10000); // 10 seconds
+    }
+
+    // Initialize listeners
+    if (sendBtn) sendBtn.addEventListener("click", sendMessage);
     if (input) {
       input.addEventListener("keypress", function (e) {
         if (e.key === "Enter") sendMessage();
       });
     }
+
+    // Start Auto Trigger Timer logic on load
+    window.addEventListener('load', initAutoTrigger);
+
   </script>
 </body>
 

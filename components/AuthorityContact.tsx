@@ -54,10 +54,10 @@ const AuthorityContact: React.FC = () => {
                         {/* Right: Content */}
                         <div className="w-full lg:w-1/2 space-y-8">
                             <h2 className="text-5xl md:text-7xl font-expressive text-brand-orange italic drop-shadow-sm">
-                                é unânime
+                                É unânime
                             </h2>
                             <p className="text-xl md:text-2xl font-light text-slate-700 leading-relaxed">
-                                "Escolas que implementam os passeios extracurriculares sentem uma <strong className="font-bold text-brand-orange">melhor satisfação dos pais</strong> e um aumento nas <strong className="font-bold text-brand-orange">taxas de retenção</strong> dos alunos."
+                                "Escolas que implementam os passeios extracurriculares sentem uma <span className="text-brand-orange font-expressive italic text-2xl">melhor satisfação dos pais</span> e um aumento nas <span className="text-brand-orange font-expressive italic text-2xl">taxas de retenção</span> dos alunos."
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">

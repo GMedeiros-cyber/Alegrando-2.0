@@ -15,7 +15,6 @@ import Footer from './components/Footer';
 import PainPoints from './components/PainPoints';
 import Founder from './components/Founder';
 import JadeCTA from './components/JadeCTA';
-import ContactPage from './components/ContactPage';
 import AuthorityManifesto from './components/AuthorityManifesto';
 import BirthdayPage from './components/BirthdayPage';
 
@@ -48,7 +47,7 @@ export default function App() {
           } />
           <Route path="/destinos" element={<DestinationsPage />} />
           <Route path="/aniversarios" element={<BirthdayPage />} />
-          <Route path="/contato" element={<ContactPage />} />
+          {/* ContactPage Removed */}
           <Route path="/privacidade" element={<PrivacyPolicy />} />
           <Route path="/termos" element={<TermsOfService />} />
         </Routes>

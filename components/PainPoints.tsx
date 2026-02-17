@@ -87,7 +87,7 @@ const PainPoints: React.FC = () => {
                 <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
                     <motion.h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 leading-tight">
                         Entendemos as <span className="text-brand-orange relative inline-block mx-2">
-                            dores
+                            <span className="font-expressive italic">dores</span>
                             <svg className="absolute -top-6 -right-8 w-12 h-12 text-brand-orange opacity-80" viewBox="0 0 50 50" fill="none">
                                 <motion.path d="M25 0L28 20L48 22L28 28L30 48L22 30L0 28L20 25L25 0Z" fill="currentColor" initial={{ scale: 0 }} whileInView={{ scale: 1 }} />
                             </svg>

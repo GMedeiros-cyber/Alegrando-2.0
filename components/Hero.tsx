@@ -29,26 +29,13 @@ const Hero: React.FC = () => {
           className="max-w-4xl mx-auto"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold leading-tight mb-6 drop-shadow-lg">
-            Momentos que <span className="text-brand-orange">educam</span>,<br />
-            divertem e encantam.
-          </h1>
+            Vamos <span className="text-brand-orange font-expressive italic">transformar</span> o aprendizado em uma <span className="text-brand-orange font-expressive italic">aventura</span> inesquecível!         </h1>
 
           <p className="text-lg md:text-2xl font-light text-gray-100 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
             Transformamos conteúdo escolar em experiências vivenciais seguras, divertidas e inesquecíveis.
           </p>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <a
-              href="#destinos"
-              className="inline-block bg-brand-orange hover:bg-orange-600 text-white font-bold text-lg px-8 py-4 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(255,107,53,0.5)] hover:shadow-[0_0_30px_rgba(255,107,53,0.7)] transform hover:-translate-y-1"
-            >
-              Descubra a Experiência Alegrando
-            </a>
-          </motion.div>
+
         </motion.div>
       </div>
 
