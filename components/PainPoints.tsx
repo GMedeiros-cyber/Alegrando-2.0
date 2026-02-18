@@ -60,17 +60,18 @@ const PainPointCard: React.FC<PainPointCardProps> = ({ text, position, delay = 0
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay }}
-            className={`relative group w-full max-w-[20rem] ${isLeft ? 'text-right' : 'text-left'}`}
+            className={`relative group w-full max-w-[22rem] text-left ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
         >
             {/* O SVG fica 'ancorado' no card, mas com position absolute para sair dele */}
             {getArrow()}
 
-            <div className={`bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-slate-100 relative hover:-translate-y-1 transition-transform z-10 flex items-center ${isLeft ? 'justify-end' : 'justify-start'}`}>
-                {/* Micro-detalhe de conexão visual no card */}
-                {isLeft && <div className="absolute -right-3 top-1/2 w-6 h-6 bg-white transform -translate-y-1/2 rotate-45 border-r border-t border-slate-100 hidden md:block"></div>}
-                {!isLeft && <div className="absolute -left-3 top-1/2 w-6 h-6 bg-white transform -translate-y-1/2 rotate-45 border-l border-b border-slate-100 hidden md:block"></div>}
+            <div className={`bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-slate-100 relative hover:-translate-y-1 transition-transform z-10 flex flex-col justify-center min-h-[140px] border-l-[6px] border-l-brand-orange lg:border-l-slate-100`}>
 
-                <div className="text-slate-700 font-medium text-lg leading-relaxed">
+                {/* Desktop Decoration */}
+                {isLeft && <div className="absolute -right-3 top-1/2 w-6 h-6 bg-white transform -translate-y-1/2 rotate-45 border-r border-t border-slate-100 hidden lg:block"></div>}
+                {!isLeft && <div className="absolute -left-3 top-1/2 w-6 h-6 bg-white transform -translate-y-1/2 rotate-45 border-l border-b border-slate-100 hidden lg:block"></div>}
+
+                <div className="text-slate-700 font-medium text-lg leading-snug w-full">
                     {text}
                 </div>
             </div>
@@ -99,7 +100,7 @@ const PainPoints: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[600px]">
 
                     {/* Coluna Esquerda (2 Items) */}
-                    <div className="lg:col-span-3 flex flex-col gap-12 lg:gap-32 justify-center items-center lg:items-end order-2 lg:order-1 relative z-10">
+                    <div className="lg:col-span-3 flex flex-col gap-6 md:gap-12 lg:gap-32 justify-center items-center lg:items-end order-2 lg:order-1 relative z-10 w-full">
                         <PainPointCard
                             position="left-top"
                             delay={0.1}
@@ -125,7 +126,7 @@ const PainPoints: React.FC = () => {
                     </div>
 
                     {/* Coluna Direita (3 Items) */}
-                    <div className="lg:col-span-3 flex flex-col gap-12 justify-center items-center lg:items-start order-3 relative z-0">
+                    <div className="lg:col-span-3 flex flex-col gap-6 md:gap-12 justify-center items-center lg:items-start order-3 relative z-0 w-full">
                         <PainPointCard
                             position="right-top"
                             delay={0.2}

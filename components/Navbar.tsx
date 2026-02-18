@@ -50,13 +50,29 @@ const Navbar: React.FC = () => {
         navigate('/' + hash);
       }
     } else {
-      navigate(href);
+      if (location.pathname === href) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigate(href);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleAniversariosClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    if (location.pathname === '/aniversarios') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/aniversarios');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    navigate('/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -64,8 +80,8 @@ const Navbar: React.FC = () => {
     <>
       <nav
         className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-7xl rounded-full border border-white/20 ${isScrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-lg py-3'
-          : 'bg-white/70 backdrop-blur-sm py-4'
+          ? 'bg-white/65 backdrop-blur-lg shadow-lg py-3'
+          : 'bg-white/50 backdrop-blur-md py-4'
           }`}
       >
         <div className="px-8 flex justify-between items-center">
@@ -90,12 +106,17 @@ const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            <Link to="/aniversarios" className="text-sm font-semibold uppercase tracking-wider text-slate-600 hover:text-brand-orange transition-colors cursor-pointer">
-              Aniversários
-            </Link>
             <a
-              href="/#contato"
-              onClick={(e) => handleNavigation(e, '/#contato')}
+              href="/aniversarios"
+              onClick={handleAniversariosClick}
+              className="text-sm font-semibold uppercase tracking-wider text-slate-600 hover:text-brand-orange transition-colors cursor-pointer"
+            >
+              Aniversários
+            </a>
+            <a
+              href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-2 rounded-full font-bold text-xs bg-brand-orange text-white hover:bg-orange-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 uppercase tracking-wider"
             >
               Fale Conosco
@@ -132,12 +153,17 @@ const Navbar: React.FC = () => {
                   {link.name}
                 </a>
               ))}
-              <Link to="/aniversarios" className="text-slate-700 font-semibold text-lg hover:text-brand-orange cursor-pointer w-full text-center py-2 border-b border-slate-100 last:border-0" onClick={() => setIsMobileMenuOpen(false)}>
-                Aniversários
-              </Link>
               <a
-                href="/#contato"
-                onClick={(e) => handleNavigation(e, '/#contato')}
+                href="/aniversarios"
+                onClick={handleAniversariosClick}
+                className="text-slate-700 font-semibold text-lg hover:text-brand-orange cursor-pointer w-full text-center py-2 border-b border-slate-100 last:border-0"
+              >
+                Aniversários
+              </a>
+              <a
+                href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full bg-brand-orange text-white text-center py-3 rounded-xl font-bold uppercase tracking-wider shadow-md"
               >
                 Fale Conosco

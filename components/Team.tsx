@@ -7,45 +7,8 @@ import shopping1 from '../assets/shopping.jpeg';
 import shopping2 from '../assets/shopping2.jpg';
 import shopping3 from '../assets/shopping3.jpg';
 
-const Bonfire = ({ scale = 1, delay = 0 }: { scale?: number, delay?: number }) => (
-  <div className="relative w-32 h-32 flex items-end justify-center" style={{ transform: `scale(${scale})` }}>
-    {/* Logs - SVG */}
-    <svg className="absolute bottom-0 w-24 h-12 text-amber-800 z-10" viewBox="0 0 100 50" fill="currentColor">
-      {/* Log 1 (Left tilt) */}
-      <rect x="10" y="10" width="80" height="12" rx="6" transform="rotate(15 50 25)" />
-      {/* Log 2 (Right tilt) */}
-      <rect x="10" y="10" width="80" height="12" rx="6" transform="rotate(-15 50 25)" />
-      {/* Log 3 (Base) */}
-      <rect x="10" y="25" width="80" height="12" rx="6" />
-    </svg>
-
-    {/* Fire Animation - Using Lucide Flames */}
-    <motion.div
-      className="absolute bottom-6 z-20 text-orange-500"
-      animate={{ scale: [1, 1.1, 1], y: [0, -5, 0] }}
-      transition={{ duration: 0.8, repeat: Infinity, delay: delay }}
-    >
-      <Flame size={64} fill="currentColor" strokeWidth={0} />
-    </motion.div>
-    <motion.div
-      className="absolute bottom-6 left-6 z-20 text-orange-400 opacity-80"
-      animate={{ scale: [0.8, 1, 0.8], y: [0, -8, 0], x: [0, -2, 0] }}
-      transition={{ duration: 0.9, repeat: Infinity, delay: delay + 0.1 }}
-    >
-      <Flame size={48} fill="currentColor" strokeWidth={0} />
-    </motion.div>
-    <motion.div
-      className="absolute bottom-6 right-6 z-20 text-red-500 opacity-80"
-      animate={{ scale: [0.9, 1.1, 0.9], y: [0, -6, 0], x: [0, 2, 0] }}
-      transition={{ duration: 0.7, repeat: Infinity, delay: delay + 0.2 }}
-    >
-      <Flame size={48} fill="currentColor" strokeWidth={0} />
-    </motion.div>
-
-    {/* Glow */}
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-20 bg-orange-500/40 blur-[40px] rounded-full z-0" />
-  </div>
-);
+// Bonfire component removed as requested
+const Bonfire = () => null;
 
 const Team: React.FC = () => {
   return (
@@ -85,12 +48,7 @@ const Team: React.FC = () => {
         {/* Collage Grid - Restoration of Open Layout */}
         <div className="relative max-w-7xl mx-auto min-h-[900px] hidden md:block">
 
-          {/* Bonfire 1 - Left Side */}
-          <div className="absolute top-48 left-20 z-10 pointer-events-none">
-            <Bonfire scale={0.9} delay={0} />
-          </div>
-
-          {/* Bonfire 2 - Right Side (Background) - Removed as requested */}
+          {/* Bonfire removed */}
 
           {/* Equipe 1 */}
           <motion.div
@@ -168,12 +126,7 @@ const Team: React.FC = () => {
 
         {/* Mobile Layout (Stacked) */}
         <div className="md:hidden flex flex-col gap-10 pb-12 relative z-10">
-          <div className="flex justify-center mb-4">
-            <Bonfire scale={1.2} />
-          </div>
-          <div className="flex justify-center mb-4">
-            <Bonfire scale={1.2} delay={0.5} />
-          </div>
+          {/* Bonfire removed */}
           <motion.div className="bg-white p-4 shadow-lg rotate-[-2deg]" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}>
             <img src={equipe1} alt="Equipe" className="w-full h-80 object-cover" />
           </motion.div>

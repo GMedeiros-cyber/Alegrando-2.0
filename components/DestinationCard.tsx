@@ -49,15 +49,15 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                         className="w-full h-full object-cover"
                     />
                 </AnimatePresence>
-                {/* Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
+                {/* Gradient Overlay for Text Readability - Enhanced for Mobile */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-100 md:from-slate-900 md:via-slate-900/40 md:opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
 
             {/* Content Container */}
-            <div className="absolute inset-0 z-10 p-8 md:p-12 flex flex-col justify-end">
+            <div className="absolute inset-0 z-10 p-6 md:p-12 flex flex-col justify-end">
 
                 {/* Top Section: Indicators */}
-                <div className="absolute top-8 right-8 flex gap-2">
+                <div className="absolute top-6 right-6 flex gap-2">
                     {images.map((_, idx) => (
                         <div
                             key={idx}
@@ -67,24 +67,24 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                     ))}
                 </div>
 
-                <div className="relative z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <div className="relative z-20 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
                     {subtitle && (
-                        <h4 className="text-orange-300 font-medium tracking-widest uppercase mb-3 text-sm md:text-base">
+                        <h4 className="text-orange-300 font-medium tracking-widest uppercase mb-2 text-xs md:text-base break-words">
                             {subtitle}
                         </h4>
                     )}
 
-                    <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-8 shadow-black drop-shadow-lg">
+                    <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4 md:mb-8 shadow-black drop-shadow-lg leading-tight break-words">
                         {title}
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 text-slate-200">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-8 text-slate-200">
                         {categories.map((cat, idx) => (
-                            <div key={idx} className="border-l border-white/20 pl-4">
-                                <h3 className="text-lg font-bold text-white mb-2">{cat.title}</h3>
-                                <ul className="space-y-1 text-sm md:text-base font-light opacity-90">
+                            <div key={idx} className="border-l border-white/20 pl-3 md:pl-4">
+                                <h3 className="text-base md:text-lg font-bold text-white mb-1 md:mb-2 leading-tight">{cat.title}</h3>
+                                <ul className="space-y-0.5 md:space-y-1 text-xs md:text-sm font-light opacity-90">
                                     {cat.items.map((item, itemIdx) => (
-                                        <li key={itemIdx}>{item}</li>
+                                        <li key={itemIdx} className="line-clamp-1">{item}</li>
                                     ))}
                                 </ul>
                             </div>
@@ -95,10 +95,10 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                         href={`https://wa.me/5511916032904?text=${encodeURIComponent(whatsappMessage || '')}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white/10 hover:bg-white text-white hover:text-slate-900 backdrop-blur-md border border-white/30 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider flex items-center gap-3 transition-all duration-300 group/btn w-fit"
+                        className="bg-white/10 hover:bg-white text-white hover:text-slate-900 backdrop-blur-md border border-white/30 px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-xs md:text-sm uppercase tracking-wider flex items-center gap-2 md:gap-3 transition-all duration-300 group/btn w-fit"
                     >
                         Solicitar Orçamento
-                        <ArrowUpRight className="w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                        <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                     </a>
                 </div>
             </div>
