@@ -1,0 +1,66 @@
+[SALESÓPOLIS] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[PARANAPIACABA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[ZOOLÓGICO DE SÃO PAULO] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[NEO GEO RECEPTIVO (ESCOLAS PÚBLICAS)] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[SHOW DA FÍSICA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[PLANETÁRIO IBIRAPUERA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[PARQUE DA MONICA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[SABINA PARQUE ESCOLA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[PET ZOO] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[MUSEU DA IMAGINAÇÃO] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[JARDIM BOTÂNICO] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[CIDADE DO LIVRO] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[ALDEIA NAKANA – POVOS ORIGINÁRIOS] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[ALDEIA NAKANA – FOLCLORE] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[A CIA DOS BICHOS] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[NEO GEO (PARA ESCOLAS PÚBLICAS)] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[NEO GEO (PARA ESCOLAS PARTICULARES)] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[MUSEU DA LINGUA PORTUGUESA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[s  NEO GEO RECEPTIVO (ESCOLAS PARTICULARES)] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[CATAVENTO CULTURAL] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[ANIMALIA] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+
+[WET’N WILD – PARQUE AQUÁTICO] Webhook failure: request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br
+Output: {"error":"request to https://n8n.webhook.agenciacubo.com.br/webhook/jade-chat-v2 failed, reason: getaddrinfo ENOTFOUND n8n.webhook.agenciacubo.com.br"}
+

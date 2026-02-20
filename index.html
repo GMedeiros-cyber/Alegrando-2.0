@@ -178,7 +178,8 @@
       color: #1a1a1a;
       align-self: flex-start;
       border-bottom-left-radius: 4px;
-      border: 1px solid #e5e5e5;
+      border: 1px solid #e5e7eb;
+      /* Light gray border */
     }
 
     .error {
@@ -289,7 +290,160 @@
         transform: translateY(0) scale(1);
       }
     }
+
+    /* WhatsApp CTA Button */
+    .whatsapp-cta-button {
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .whatsapp-cta-button:hover {
+      background-color: #128C7E;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Markdown Styling */
+    .message strong {
+      color: #FF6B35;
+      font-weight: 700;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .option-btn {
+      background: white;
+      border: 2px solid #e2e8f0;
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #1a1a1a;
+      transition: all 0.2s;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .option-btn:hover {
+      border-color: #FF6B35;
+      background: #fff7ed;
+      color: #FF6B35;
+    }
+
+    .option-btn.selected {
+      background: #FF6B35;
+      color: white;
+      border-color: #FF6B35;
+    }
+
+    /* Form Styles */
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #FF6B35;
+      box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1);
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: -6px;
+      margin-left: 2px;
+    }
+
+    .action-btn {
+      background: #FF6B35;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      color: #64748b;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .input-highlight {
+      background: linear-gradient(to top, #fff7ed, #ffffff);
+      border: 2px solid #FF6B35;
+      box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .input-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+    }
+
+    .input-hint {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 14px;
+      color: #9ca3af;
+      pointer-events: none;
+    }
   </style>
+
+  <!-- Supabase CDN -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
   <button id="chat-widget-button">
     <!-- Using the Logo from assets -->
@@ -322,8 +476,13 @@
 
     <div id="chat-widget-footer">
       <div class="input-group">
-        <input type="text" id="chat-widget-input" placeholder="Digite sua mensagem...">
-        <button id="chat-widget-send">
+        <div class="input-wrapper">
+          <input type="text" id="chat-widget-input" placeholder="Selecione uma opção acima..." disabled>
+          <div id="chat-widget-hint" class="input-hint" style="display: none;">
+            Pode escrever sua dúvida aqui!
+          </div>
+        </div>
+        <button id="chat-widget-send" disabled>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -335,15 +494,45 @@
   </div>
 
   <script>
+    // --- Configuration ---
     window.ChatWidgetConfig = {
       webhook: {
         url: 'https://n8n.alegrando.cloud/webhook/d3845beb-4c23-431b-b9db-5f799f3311e2/chat',
         route: 'general'
-      }
+      },
+      supabaseUrl: 'https://mtzlpogvcyhhjaagmlxn.supabase.co',
+      supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10emxwb2d2Y3loaGphYWdtbHhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzNjEwODAsImV4cCI6MjA4NjkzNzA4MH0.J5C0gveHh3zFABsBbN7teYVYxWlWcApTElCGmsj_cLA'
     };
 
-    // --- Core Functions ---
+    // Initialize Supabase
+    const { createClient } = supabase;
+    const _supabase = createClient(window.ChatWidgetConfig.supabaseUrl, window.ChatWidgetConfig.supabaseKey);
 
+    // --- State Management ---
+    let state = {
+      currentStep: 'start',
+      tipoOrganizacao: null,
+      tipoPasseio: null,
+      categoria: null,
+      destino: null,
+      nome: null,
+      cargo: null,
+      group: null,
+      qtd: null,
+      data: null,
+      offset: 0,
+      searchMode: false,
+      finalizado: false
+    };
+
+    // --- DOM Elements ---
+    const button = document.getElementById("chat-widget-button");
+    const container = document.getElementById("chat-widget-container");
+    const sendBtn = document.getElementById("chat-widget-send");
+    const input = document.getElementById("chat-widget-input");
+    const chatBody = document.getElementById("chat-widget-body");
+
+    // --- Helper Functions ---
     function getChatId() {
       let chatId = sessionStorage.getItem("chatId");
       if (!chatId) {
@@ -353,28 +542,613 @@
       return chatId;
     }
 
-    const button = document.getElementById("chat-widget-button");
-    const container = document.getElementById("chat-widget-container");
-    const sendBtn = document.getElementById("chat-widget-send");
-    const input = document.getElementById("chat-widget-input");
-    const chatBody = document.getElementById("chat-widget-body");
-
-    // Helper to calculate time on page
-    let timeOnPage = 0;
-    setInterval(() => { timeOnPage += 1; }, 1000);
-
-    // --- Message Handling ---
-
-    function appendMessage(text, type) {
-      if (!chatBody) return;
-      const msg = document.createElement("div");
-      msg.classList.add("message", type);
-      msg.innerHTML = text; // Allow HTML for line breaks
-      chatBody.appendChild(msg);
+    function scrollToBottom() {
       chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    function sendMessage() {
+    function appendMessage(text, type, isHtml = false) {
+      const msg = document.createElement("div");
+      msg.classList.add("message", type);
+      if (isHtml || type === 'bot') {
+        // Apply parsers for bot messages
+        let content = text;
+        if (type === 'bot') {
+          content = parseMarkdown(content);
+          content = parseWhatsAppLinks(content);
+        }
+        msg.innerHTML = content;
+      } else {
+        msg.textContent = text;
+      }
+      chatBody.appendChild(msg);
+      scrollToBottom();
+    }
+
+    function parseMarkdown(text) {
+      if (!text) return text;
+      let parsed = text;
+      parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      parsed = parsed.replace(/\n/g, '<br>');
+      return parsed;
+    }
+
+    function parseWhatsAppLinks(text) {
+      if (!text) return text;
+      const whatsappRegex = /(https:\/\/wa\.me\/5511916032904[^\s<]*)/g;
+      return text.replace(whatsappRegex, (url) => {
+        return `
+          <a href="${url}" target="_blank" class="whatsapp-cta-button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            Finalizar Orçamento no WhatsApp
+          </a>
+        `;
+      });
+    }
+
+    // --- Flow Controllers ---
+
+    function goBackTo(step) {
+      state.currentStep = step;
+      chatBody.innerHTML = '';
+      renderStep(step);
+    }
+
+    function restartFlow() {
+      state = {
+        currentStep: 'start',
+        tipoOrganizacao: null,
+        tipoPasseio: null,
+        categoria: null,
+        destino: null,
+        nome: null,
+        cargo: null,
+        group: null,
+        grupo: null,
+        qtd: null,
+        data: null,
+        offset: 0,
+        searchMode: false,
+        finalizado: false
+      };
+
+      chatBody.innerHTML = '';
+      renderStep('start');
+    }
+
+    function transitionTo(step) {
+      state.currentStep = step;
+      renderStep(step);
+    }
+
+    async function renderStep(step) {
+      console.log("Rendering step:", step);
+      // Mode duvida_input implies we need input.
+      // Other steps like 'duvidas', 'encerrado' should NOT allow input unless specifically handled.
+      // User says: IA responde 1 vez. Encerrado. Sem chat contínuo.
+      // So 'duvidas' step is actually legacy or for single-shot now?
+      // "Fluxo controlado de Dúvidas (modo single-shot)" -> "Usuário clica em 'Tenho uma dúvida' -> transitionTo('duvida_input')"
+      // So only 'duvida_input' and 'duvidas' (maybe) and 'searchMode' allow input.
+
+      const isInputEnabled = step === 'duvida_input' || state.searchMode || step === 'duvidas'; // Keep 'duvidas' for legacy safety or remove if full migration
+
+      // However, user said: "Se state.currentStep !== 'duvida_input' -> bloquear envio manual"
+      // Wait, searchMode also needs input.
+
+      const enableInput = (step === 'duvida_input' || state.searchMode);
+
+      // Toggle Input State
+      const hint = document.getElementById("chat-widget-hint");
+
+      if (enableInput) {
+        input.disabled = false;
+        sendBtn.disabled = false;
+
+        if (state.searchMode) {
+          input.placeholder = "Digite o nome do destino...";
+          document.querySelector(".input-group").classList.remove("input-highlight");
+          if (hint) hint.style.display = "none";
+        } else if (step === 'duvida_input') {
+          // Hint Mode
+          input.placeholder = "";
+          document.querySelector(".input-group").classList.add("input-highlight");
+          if (hint) hint.style.display = "block";
+        } else {
+          input.placeholder = "Digite sua dúvida...";
+          document.querySelector(".input-group").classList.remove("input-highlight");
+          if (hint) hint.style.display = "none";
+        }
+
+        input.focus();
+      } else {
+        input.disabled = true;
+        sendBtn.disabled = true;
+        input.placeholder = "Selecione uma opção acima...";
+        document.querySelector(".input-group").classList.remove("input-highlight");
+        if (hint) hint.style.display = "none";
+      }
+
+      // Step Logic
+      switch (step) {
+        case 'start':
+          chatBody.innerHTML = ''; // Start fresh
+
+          appendMessage("Olá! 👋 Bem-vindo à Alegrando Eventos.<br><br>Eu sou a Jade. Para começarmos, você está organizando o passeio como:", "bot", true);
+
+          createOptions([
+            { label: "Escola", value: "escola" },
+            { label: "Cooperativa", value: "cooperativa" }
+          ], (value) => {
+            state.tipoOrganizacao = value;
+            appendMessage(`Organizando como: ${value === 'escola' ? 'Escola' : 'Cooperativa'}`, "user");
+            transitionTo('tipoPasseio');
+          });
+
+          // Botão Tenho uma dúvida
+          const container = document.createElement("div");
+          container.className = "extra-actions-container";
+          container.style.display = "flex";
+          container.style.marginTop = "10px";
+
+          const duvidaBtn = document.createElement("button");
+          duvidaBtn.className = "secondary-btn";
+          duvidaBtn.innerText = "Tenho uma dúvida";
+          duvidaBtn.onclick = () => {
+            container.remove();
+            transitionTo('duvida_input');
+          };
+          container.appendChild(duvidaBtn);
+          chatBody.appendChild(container);
+          break;
+
+        case 'tipoPasseio':
+          setTimeout(() => {
+            appendMessage("Ótimo! E qual é o tipo de passeio que você busca?", "bot");
+            createOptions([
+              { label: "Pedagógico", value: "pedagogico" },
+              { label: "Lazer / Diversão", value: "lazer" }
+            ], (value) => {
+              state.tipoPasseio = value;
+              appendMessage(`Tipo de passeio: ${value === 'pedagogico' ? 'Pedagógico' : 'Lazer'}`, "user");
+              state.offset = 0; // Reset offset
+              transitionTo('categoria');
+            });
+          }, 500);
+          break;
+
+        case 'categoria':
+          appendMessage("Qual a categoria de passeio que você prefere?", "bot");
+
+          _supabase.from('documents')
+            .select('categoria')
+            .eq('tipo_passeio', state.tipoPasseio)
+            .then(({ data, error }) => {
+              if (error || !data || data.length === 0) {
+                console.error("Erro ao buscar categorias:", error);
+                appendMessage("Não encontrei categorias específicas. Visualizando todos...", "bot");
+                transitionTo('destino');
+                return;
+              }
+
+              const uniqueCats = [...new Set(data.map(d => d.categoria).filter(c => c))];
+              const catOptions = uniqueCats.map(c => ({
+                label: c.charAt(0).toUpperCase() + c.slice(1).replace(/_/g, ' '),
+                value: c
+              }));
+
+              if (catOptions.length === 0) {
+                transitionTo('destino');
+                return;
+              }
+
+              createOptions(catOptions, (value) => {
+                state.categoria = value;
+                appendMessage(`Categoria: ${value.charAt(0).toUpperCase() + value.slice(1).replace(/_/g, ' ')}`, "user");
+                state.offset = 0;
+                transitionTo('destino');
+              });
+
+              // Add "Outro tipo de passeio" button
+              const container = document.createElement("div");
+              container.className = "extra-actions-container";
+              container.style.display = "flex";
+              container.style.flexDirection = "column";
+              container.style.marginTop = "10px";
+
+              const backTypeBtn = document.createElement("button");
+              backTypeBtn.className = "secondary-btn";
+              backTypeBtn.innerText = "🔙 Outro tipo de passeio";
+              backTypeBtn.onclick = () => {
+                goBackTo('tipoPasseio');
+              };
+              container.appendChild(backTypeBtn);
+              chatBody.appendChild(container);
+              scrollToBottom();
+            });
+          break;
+
+        case 'destino':
+          if (state.offset === 0) {
+            appendMessage("Buscando as melhores opções para você...", "bot");
+          } else {
+            appendMessage("Carregando mais opções...", "bot");
+          }
+
+          try {
+            const limit = 6;
+            let query = _supabase
+              .from('documents')
+              .select('id, content, tipo_passeio, categoria, destaque')
+              .eq('tipo_passeio', state.tipoPasseio)
+              .order('destaque', { ascending: false })
+              .range(state.offset, state.offset + limit - 1);
+
+            if (state.categoria) {
+              query = query.eq('categoria', state.categoria);
+            }
+
+            const { data, error } = await query;
+
+            if (error) throw error;
+
+            if (!data || data.length === 0) {
+              if (state.offset === 0) {
+                appendMessage("Não encontrei opções nesta categoria. Quer ver outras categorias ou falar com a Jade?", "bot");
+
+                // Fallback buttons
+                const container = document.createElement("div");
+                container.className = "extra-actions-container";
+                container.style.display = "flex";
+                container.style.flexDirection = "column";
+                container.style.gap = "8px";
+
+                const outrasCatsBtn = document.createElement("button");
+                outrasCatsBtn.className = "secondary-btn";
+                outrasCatsBtn.innerHTML = "🔙 Ver outras categorias";
+                outrasCatsBtn.onclick = () => {
+                  container.remove();
+                  goBackTo('categoria');
+                };
+                container.appendChild(outrasCatsBtn);
+
+                const duvidaBtn = document.createElement("button");
+                duvidaBtn.className = "secondary-btn";
+                duvidaBtn.innerText = "Tenho uma dúvida";
+                duvidaBtn.onclick = () => {
+                  container.remove();
+                  transitionTo('duvida_input');
+                };
+                container.appendChild(duvidaBtn);
+                chatBody.appendChild(container);
+                scrollToBottom();
+
+              } else {
+                appendMessage("Essas são todas as opções que encontrei por enquanto.", "bot");
+                addSearchButtons(false);
+              }
+              return;
+            }
+
+            if (state.offset === 0) {
+              appendMessage("Aqui estão algumas opções incríveis:", "bot");
+            }
+
+            const uniqueTitles = new Set();
+            const destinationOptions = [];
+
+            data.forEach(d => {
+              const content = d.content || "";
+              const firstLine = content.split('\n')[0] || "";
+              let title = firstLine.replace(/^#\s*/, '').replace('Passeio', '').trim();
+              title = title.replace(/\(\d+\)$/, '').trim();
+
+              if (title && title.length > 2 && !uniqueTitles.has(title)) {
+                uniqueTitles.add(title);
+                destinationOptions.push({ label: title, value: title });
+              }
+            });
+
+            if (destinationOptions.length === 0 && state.offset === 0) {
+              // Should ideally not happen if data exists, but as fallback
+              appendMessage("Encontrei registros mas sem títulos claros. Pode descrever o que busca?", "bot");
+              transitionTo('duvidas');
+              return;
+            }
+
+            createOptions(destinationOptions, (value) => {
+              state.destino = value;
+              appendMessage(`Tenho interesse em: ${value}`, "user");
+              const extraBtns = chatBody.querySelectorAll('.extra-actions-container');
+              extraBtns.forEach(b => b.remove());
+              transitionTo('dados');
+            }, false);
+
+            const hasMore = data.length === limit;
+            addSearchButtons(hasMore);
+
+          } catch (err) {
+            console.error("Erro Supabase:", err);
+            appendMessage("Tive um problema para carregar os destinos. Pode me dizer qual você procura?", "bot");
+            transitionTo('duvidas');
+          }
+          break;
+
+        case 'dados':
+          renderForm();
+          break;
+
+        case 'confirmacao':
+          setTimeout(() => {
+            const baseUrl = "https://wa.me/5511916032904";
+            const grupo = state.tipoOrganizacao === 'escola' ? `Escola ${state.grupo || ''}` : `Cooperativa ${state.grupo || ''}`;
+            const msg = `Olá! Falei com a Jade. Gostaria de cotar o roteiro *${state.destino}* para *${grupo}* com *${state.qtd}* alunos. Data prevista: *${state.data}*. Responsável: ${state.nome} (${state.cargo || 'Responsável'}).`;
+
+            const encodedMsg = encodeURIComponent(msg);
+            const fullUrl = `${baseUrl}?text=${encodedMsg}`;
+
+            appendMessage(`Clique abaixo para finalizar no WhatsApp:`, "bot");
+            appendMessage(fullUrl, "bot");
+
+            state.finalizado = true;
+            transitionTo('duvida_encerrada');
+          }, 800);
+          break;
+
+        case 'duvida_input':
+          // Enable input for user question handled by renderStep input logic
+          break;
+
+        case 'duvida_encerrada':
+          renderDecisionMenu();
+          break;
+
+        case 'duvidas':
+          // Legacy or specific handling
+          addMontarRoteiroButton();
+          break;
+
+        case 'encerrado':
+          break;
+      }
+    }
+
+    // --- UI Component Generators ---
+
+    function createOptions(options, callback, shouldScroll = true) {
+      const container = document.createElement("div");
+      container.className = "options-grid";
+
+      options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = opt.label;
+        btn.onclick = () => {
+          // Disable all siblings
+          Array.from(container.children).forEach(c => {
+            c.disabled = true;
+            c.style.opacity = "0.5";
+          });
+          btn.classList.add("selected");
+          btn.style.opacity = "1";
+          callback(opt.value);
+        };
+        container.appendChild(btn);
+      });
+
+      chatBody.appendChild(container);
+      if (shouldScroll) scrollToBottom();
+    }
+
+    function addSearchButtons(hasMore) {
+      const container = document.createElement("div");
+      container.className = "extra-actions-container";
+      container.style.display = "flex";
+      container.style.flexDirection = "column";
+      container.style.gap = "8px";
+      container.style.marginTop = "10px";
+
+      if (hasMore) {
+        const loadMoreBtn = document.createElement("button");
+        loadMoreBtn.className = "secondary-btn";
+        loadMoreBtn.innerText = "➕ Mais opções";
+        loadMoreBtn.onclick = () => {
+          state.offset += 6;
+          container.remove();
+          transitionTo('destino');
+        };
+        container.appendChild(loadMoreBtn);
+      }
+
+      const backBtn = document.createElement("button");
+      backBtn.className = "secondary-btn";
+      backBtn.innerText = "🔙 Quero outro destino";
+      backBtn.onclick = () => {
+        goBackTo('categoria');
+      };
+      container.appendChild(backBtn);
+
+      chatBody.appendChild(container);
+      scrollToBottom();
+    }
+
+    function renderDecisionMenu() {
+      const container = document.createElement("div");
+      container.className = "extra-actions-container";
+      container.style.display = "flex";
+      container.style.flexDirection = "column";
+      container.style.gap = "8px";
+      container.style.marginTop = "10px";
+
+      if (state.finalizado) {
+        // Botão Recomeçar (Post-Confirmation)
+        const restartBtn = document.createElement("button");
+        restartBtn.className = "secondary-btn";
+        restartBtn.innerHTML = "↺ Recomeçar";
+        restartBtn.onclick = () => {
+          container.remove();
+          restartFlow();
+        };
+        container.appendChild(restartBtn);
+      } else {
+        // Botão Montar Roteiro (Post-Doubt)
+        const montarBtn = document.createElement("button");
+        montarBtn.className = "secondary-btn";
+        montarBtn.innerHTML = "🧭 Montar Roteiro";
+        montarBtn.onclick = () => {
+          container.remove();
+          transitionTo('start');
+        };
+        container.appendChild(montarBtn);
+      }
+
+      // Botão Tenho outra dúvida
+      const duvidaBtn = document.createElement("button");
+      duvidaBtn.className = "secondary-btn";
+      duvidaBtn.innerText = "Tenho outra dúvida";
+      duvidaBtn.onclick = () => {
+        container.remove();
+        transitionTo('duvida_input');
+      };
+      container.appendChild(duvidaBtn);
+
+      chatBody.appendChild(container);
+      scrollToBottom();
+    }
+
+    function renderForm() {
+      appendMessage("Para agilizar seu orçamento, preciso de alguns dados:", "bot");
+
+      const formDiv = document.createElement("div");
+      formDiv.className = "form-container";
+
+      // Nome
+      formDiv.innerHTML += `
+         <div>
+           <label class="form-label">Seu Nome</label>
+           <input type="text" class="form-input" id="input_nome" placeholder="Nome completo">
+         </div>
+       `;
+
+      // Cargo (apenas se escola)
+      if (state.tipoOrganizacao === 'escola') {
+        formDiv.innerHTML += `
+           <div>
+             <label class="form-label">Cargo</label>
+             <select class="form-input" id="input_cargo">
+               <option value="">Selecione...</option>
+               <option value="Diretor">Diretor</option>
+               <option value="Coordenador">Coordenador</option>
+               <option value="Professor">Professor</option>
+               <option value="Outro">Outro</option>
+             </select>
+           </div>
+           <div>
+              <label class="form-label">Nome da Escola</label>
+              <input type="text" class="form-input" id="input_grupo" placeholder="Ex: Escola Viver">
+           </div>
+         `;
+      } else {
+        formDiv.innerHTML += `
+           <div>
+              <label class="form-label">Nome da Cooperativa</label>
+              <input type="text" class="form-input" id="input_grupo" placeholder="Ex: Cooperativa ABC">
+           </div>
+         `;
+      }
+
+      // Qtd e Data
+      formDiv.innerHTML += `
+         <div>
+            <label class="form-label">Quantidade de Alunos (Aprox.)</label>
+            <input type="number" class="form-input" id="input_qtd" min="1" step="1" required placeholder="Ex: 40">
+         </div>
+         <div>
+            <label class="form-label">Data Prevista</label>
+            <input type="date" class="form-input" id="input_data" min="${new Date().toISOString().split("T")[0]}">
+         </div>
+       `;
+
+      const submitBtn = document.createElement("button");
+      submitBtn.className = "action-btn";
+      submitBtn.textContent = "Continuar";
+
+      submitBtn.onclick = () => {
+        const nome = document.getElementById("input_nome").value;
+        const qtd = document.getElementById("input_qtd").value;
+        const data = document.getElementById("input_data").value;
+        const grupo = document.getElementById("input_grupo").value;
+        const cargo = document.getElementById("input_cargo")?.value;
+
+        if (!nome || !qtd || !data || !grupo) {
+          alert("Por favor, preencha todos os campos.");
+          return;
+        }
+
+        const qtdInt = parseInt(qtd);
+        if (!qtdInt || qtdInt < 1) {
+          alert("A quantidade de alunos deve ser maior que 0.");
+          return;
+        }
+
+        const selectedDate = new Date(data);
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        if (selectedDate < now) {
+          alert("A data do passeio deve ser hoje ou futura.");
+          return;
+        }
+
+        state.nome = nome;
+        state.qtd = qtd;
+        state.data = data;
+        state.grupo = grupo;
+        if (cargo) state.cargo = cargo;
+
+        // Disable form
+        const inputs = formDiv.querySelectorAll("input, select");
+        inputs.forEach(i => i.disabled = true);
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Dados Enviados";
+
+        transitionTo('confirmacao');
+      };
+
+      formDiv.appendChild(submitBtn);
+      chatBody.appendChild(formDiv);
+      scrollToBottom();
+    }
+
+    function addMontarRoteiroButton() {
+      // Remove existing if any to avoid duplicates
+      const existing = document.getElementById("montar-roteiro-btn");
+      if (existing) existing.remove();
+
+      const btn = document.createElement("button");
+      btn.id = "montar-roteiro-btn";
+      btn.className = "secondary-btn";
+      btn.innerHTML = "🧭 Montar Roteiro";
+      btn.style.marginTop = "8px";
+      btn.onclick = () => {
+        // Simply transition to start, let the flow reset naturally if needed
+        // The user said: "Não resetar state manualmente. Deixar o fluxo reiniciar naturalmente."
+        // transitionTo('start') clears chatBody, so it effectively restarts UI.
+        // If we need to clear data, we might need a dedicated reset, but user said "Não resetar state manualmente".
+        // However, 'start' step usually clears chatBody.
+        transitionTo('start');
+      };
+      chatBody.appendChild(btn);
+      scrollToBottom();
+    }
+
+    // --- Message Sending Override (For Bot / Doubts) ---
+    async function sendMessage() {
+      // Safety Check
+      if (state.currentStep !== 'duvida_input' && !state.searchMode && state.currentStep !== 'duvidas') {
+        console.warn("Blocked message send in step:", state.currentStep);
+        return;
+      }
+
       const message = input.value.trim();
       if (!message) return;
 
@@ -382,56 +1156,132 @@
       input.value = "";
       sendBtn.disabled = true;
 
-      // Mark interaction logic
+      // Interaction Tracking
       sessionStorage.setItem("jade_interaction_started", "true");
 
+      // Typing Indicator
       const typing = document.createElement("div");
       typing.classList.add("message", "bot");
       typing.textContent = "Digitando...";
       typing.id = "typing-indicator";
       chatBody.appendChild(typing);
-      chatBody.scrollTop = chatBody.scrollHeight;
+      scrollToBottom();
+
+      // Payload Construction
+      let payload = {
+        chatId: getChatId(),
+        message: message,
+        route: window.ChatWidgetConfig.webhook.route,
+        contexto: { ...state } // Send current state content
+      };
+
+      // Handle Search Mode Logic specific payload
+      if (state.searchMode) {
+        payload.tipo = "verificar_destino";
+        payload.texto = message;
+      }
 
       fetch(window.ChatWidgetConfig.webhook.url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chatId: getChatId(),
-          message: message,
-          route: window.ChatWidgetConfig.webhook.route
-        }),
+        body: JSON.stringify(payload),
         signal: AbortSignal.timeout(10000)
       })
         .then(res => res.json())
         .then(data => {
           document.getElementById("typing-indicator")?.remove();
-          appendMessage(data.output || "Desculpe, não entendi.", "bot");
+
+          // Handle Search Mode Response
+          if (state.searchMode) {
+            if (data.encontrado && data.nome) {
+              state.searchMode = false;
+              state.destino = data.nome;
+              appendMessage(`Encontrei! O destino é: <strong>${data.nome}</strong>`, "bot");
+              transitionTo('dados');
+            } else {
+              appendMessage(data.output || "Não encontrei esse destino exato. Pode tentar outro nome ou verificar a lista?", "bot");
+              // Keep search mode active
+              input.disabled = false;
+              sendBtn.disabled = false;
+              input.focus();
+            }
+          } else {
+            // Normal Doubt Response
+            // Ensure visual standardization applied via class and parseMarkdown
+            appendMessage(data.output || "Desculpe, não entendi.", "bot");
+            document.querySelector(".input-group").classList.remove("input-highlight");
+            transitionTo('duvida_encerrada');
+          }
         })
         .catch((err) => {
           document.getElementById("typing-indicator")?.remove();
           console.error(err);
           appendMessage("Erro de conexão. Tente novamente.", "error");
-        })
-        .finally(() => {
+          // Re-enable to allow retry on error
           sendBtn.disabled = false;
+          input.disabled = false;
         });
     }
 
-    // --- Trigger Logic ---
+    // --- Event Listeners ---
+    if (sendBtn) sendBtn.addEventListener("click", sendMessage);
+    if (input) {
+      input.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") sendMessage();
+      });
 
-    // 1. Manual Open (Bubble Click)
+      // Hint Logic
+      const hint = document.getElementById("chat-widget-hint");
+      input.addEventListener("focus", () => {
+        if (hint) hint.style.display = "none";
+      });
+      input.addEventListener("blur", () => {
+        // Show again if empty and in duvida_input
+        if (hint && !input.value && state.currentStep === 'duvida_input' && !state.searchMode) {
+          hint.style.display = "block";
+        }
+      });
+      input.addEventListener("input", () => {
+        if (hint) hint.style.display = "none";
+      });
+    }
+
+    // --- Triggers ---
+
+    // 1. Manual Open
     if (button && container) {
       button.addEventListener("click", () => {
         container.style.display = "flex";
         button.style.display = "none";
-        // Mark as triggered so auto-trigger doesn't fire if user opened manually
         sessionStorage.setItem("jade_auto_triggered", "true");
-        // If chat is empty on manual open, we could show a greeting, but requirements say "Auto message = ONLY on auto-trigger".
-        // We leave it empty or preserve history if elements exist.
+        // Start flow if empty
+        if (state.currentStep === 'start' && chatBody.children.length === 0) {
+          transitionTo('start');
+        }
       });
     }
 
-    // 2. Close Widget
+    // 2. Open Public Method
+    window.openJadeWidget = function (initialMessage) {
+      if (container && button && input) {
+        container.style.display = "flex";
+        button.style.display = "none";
+        sessionStorage.setItem("jade_auto_triggered", "true");
+
+        if (initialMessage) {
+          // If passed a message, treat as doubt immediately
+          transitionTo('duvidas');
+          input.value = initialMessage;
+          setTimeout(sendMessage, 500);
+        } else {
+          if (state.currentStep === 'start' && chatBody.children.length === 0) {
+            transitionTo('start');
+          }
+        }
+      }
+    }
+
+    // 3. Close
     window.closeChatWidget = function () {
       if (container && button) {
         container.style.display = "none";
@@ -439,64 +1289,24 @@
       }
     }
 
-    // 3. Programmatic Open (CTA Buttons)
-    window.openJadeWidget = function (initialMessage) {
-      if (container && button && input) {
-        container.style.display = "flex";
-        button.style.display = "none";
-        // Prevent auto-trigger since user is interacting
-        sessionStorage.setItem("jade_auto_triggered", "true");
-
-        if (initialMessage) {
-          input.value = initialMessage;
-          // Send user message automatically
-          setTimeout(() => {
-            if (typeof sendMessage === 'function') {
-              sendMessage();
-            }
-          }, 100);
-        }
-      }
-    }
-
-    // 4. Auto-Trigger (10 seconds)
+    // 4. Auto Trigger
     function initAutoTrigger() {
-      // Check if already triggered in this session
-      if (sessionStorage.getItem("jade_auto_triggered") === "true") {
-        return;
-      }
+      if (sessionStorage.getItem("jade_auto_triggered") === "true") return;
 
       setTimeout(() => {
-        // Double check flag and if chat is already open
         if (sessionStorage.getItem("jade_auto_triggered") === "true") return;
-        if (container.style.display === "flex") return; // User opened manually already
+        if (container.style.display === "flex") return;
 
-        // Trigger!
         if (container && button) {
           container.style.display = "flex";
           button.style.display = "none";
-
-          // Send the specific Welcome Message
-          const welcomeMsg = "Olá! 👋 Bem-vindo à Alegrando Eventos.<br><br>Sou sua assistente virtual. Como posso ajudar com seu passeio ou festa hoje?";
-          appendMessage(welcomeMsg, "bot");
-
           sessionStorage.setItem("jade_auto_triggered", "true");
+          transitionTo('start');
         }
-      }, 10000); // 10 seconds
+      }, 10000);
     }
 
-    // Initialize listeners
-    if (sendBtn) sendBtn.addEventListener("click", sendMessage);
-    if (input) {
-      input.addEventListener("keypress", function (e) {
-        if (e.key === "Enter") sendMessage();
-      });
-    }
-
-    // Start Auto Trigger Timer logic on load
     window.addEventListener('load', initAutoTrigger);
 
   </script>
 </body>
-
-</html>

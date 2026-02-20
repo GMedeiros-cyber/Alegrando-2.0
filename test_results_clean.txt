@@ -1,0 +1,72 @@
+🔍 Iniciando teste de categorias e destinos Supabase...
+
+--- TIPO DE PASSEIO: PEDAGOGICO ---
+✅ Categorias encontradas (8): zoologico, museu, ciencia, astronomia, natureza, educativo, museu_interativo, cultura
+  📂 Categoria: "zoologico"
+  📊 Total de destinos: 4
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] ZOOLÓGICO DE SÃO PAULO (ID: 119)
+    2. [ ] PET ZOO (ID: 102)
+    3. [ ] ANIMALIA (ID: 113)
+    4. [ ] A CIA DOS BICHOS (ID: 116)
+  📂 Categoria: "museu"
+  📊 Total de destinos: 4
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] PARANAPIACABA (ID: 104)
+    2. [ ] SALESÓPOLIS (ID: 99)
+    3. [ ] MUSEU DA LINGUA PORTUGUESA (ID: 108)
+    4. [ ] MUSEU DA IMAGINAÇÃO (ID: 109)
+  📂 Categoria: "ciencia"
+  📊 Total de destinos: 1
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] SHOW DA FÍSICA (ID: 98)
+  📂 Categoria: "astronomia"
+  📊 Total de destinos: 2
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] PLANETÁRIO IBIRAPUERA (ID: 101)
+    2. [ ] SABINA PARQUE ESCOLA (ID: 100)
+  📂 Categoria: "natureza"
+  📊 Total de destinos: 1
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] JARDIM BOTÂNICO (ID: 110)
+  📂 Categoria: "educativo"
+  📊 Total de destinos: 1
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] CIDADE DO LIVRO (ID: 111)
+  📂 Categoria: "museu_interativo"
+  📊 Total de destinos: 1
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] CATAVENTO CULTURAL (ID: 112)
+  📂 Categoria: "cultura"
+  📊 Total de destinos: 2
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] ALDEIA NAKANA – POVOS ORIGINÁRIOS (ID: 114)
+    2. [ ] ALDEIA NAKANA – FOLCLORE (ID: 115)
+--- TIPO DE PASSEIO: LAZER ---
+✅ Categorias encontradas (3): parque_indoor, parque_tematico, parque_aquatico
+  📂 Categoria: "parque_indoor"
+  📊 Total de destinos: 4
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] NEO GEO RECEPTIVO (ESCOLAS PÚBLICAS) (ID: 105)
+    2. [ ] NEO GEO (PARA ESCOLAS PÚBLICAS) (ID: 106)
+    3. [ ] NEO GEO (PARA ESCOLAS PARTICULARES) (ID: 107)
+    4. [ ] s  NEO GEO RECEPTIVO (ESCOLAS PARTICULARES) (ID: 117)
+  📂 Categoria: "parque_tematico"
+  📊 Total de destinos: 1
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] PARQUE DA MONICA (ID: 103)
+  📂 Categoria: "parque_aquatico"
+  📊 Total de destinos: 1
+  🌟 Destaques: 0
+  📝 Exemplo de títulos:
+    1. [ ] WET’N WILD – PARQUE AQUÁTICO (ID: 118)
