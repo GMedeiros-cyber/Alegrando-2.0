@@ -23,7 +23,7 @@ const features = [
 const Features: React.FC = () => {
   return (
     <section className="py-24 bg-white relative">
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {features.map((feature, index) => (
             <motion.div

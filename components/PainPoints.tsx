@@ -82,7 +82,7 @@ const PainPointCard: React.FC<PainPointCardProps> = ({ text, position, delay = 0
 const PainPoints: React.FC = () => {
     return (
         <section className="py-24 bg-slate-50 relative overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-6 relative z-10 max-w-7xl">
 
                 {/* Header */}
                 <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">

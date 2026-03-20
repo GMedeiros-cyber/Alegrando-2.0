@@ -43,6 +43,7 @@ export default function App() {
               <Founder />
               <Team />
               <AuthorityManifesto />
+              <CTA />
             </>
           } />
           <Route path="/destinos" element={<DestinationsPage />} />

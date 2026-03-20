@@ -181,7 +181,7 @@ const BirthdayPage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <a href="https://wa.me/5511976520957?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20festas%20no%20Parque%20Shopping%20Barueri"
+                            <a href="https://wa.me/5511976520957?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Parque%20Shopping%20Barueri"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-orange transition-colors shadow-lg hover:shadow-orange-200"
                             >
@@ -255,7 +255,7 @@ const BirthdayPage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <a href="https://wa.me/5511988962790?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20festas%20no%20Morumbi%20Town"
+                            <a href="https://wa.me/5511988962790?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Morumbi%20Town"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-orange transition-colors shadow-lg hover:shadow-orange-200"
                             >
@@ -328,7 +328,7 @@ const BirthdayPage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <a href="https://wa.me/5511994457767?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20festas%20no%20Shopping%20Internacional"
+                            <a href="https://wa.me/5511994457767?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Shopping%20Internacional%20de%20Guarulhos"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-orange transition-colors shadow-lg hover:shadow-orange-200"
                             >
@@ -346,17 +346,39 @@ const BirthdayPage: React.FC = () => {
             </div>
 
             {/* Final CTA Section */}
-            <div className="bg-brand-orange py-20 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div className="relative py-28 overflow-hidden">
+                {/* Animated Gradient Background — mesmo do hero */}
+                <style>
+                    {`
+                    @keyframes gradient-cta {
+                        0%, 100% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                    }
+                    .animate-gradient-cta {
+                        background: linear-gradient(-45deg, #FF6B35, #e85d2e, #1e293b, #0F172A);
+                        background-size: 300% 300%;
+                        animation: gradient-cta 15s ease infinite;
+                    }
+                    `}
+                </style>
+                <div className="absolute inset-0 z-0 animate-gradient-cta">
+                    <div className="absolute inset-0 bg-black/20" />
+                </div>
+
                 <div className="container mx-auto px-6 text-center relative z-10">
-                    <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-8">
-                        Garanta sua data agora
-                    </h2>
-                    <p className="text-white/90 text-xl max-w-2xl mx-auto mb-10">
+                    <div className="flex flex-col items-center justify-center mb-10 leading-none space-y-2 md:space-y-4">
+                        <span className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white drop-shadow-xl">
+                            Garanta sua data
+                        </span>
+                        <span className="text-4xl md:text-6xl lg:text-7xl font-expressive text-brand-orange italic drop-shadow-2xl">
+                            agora
+                        </span>
+                    </div>
+                    <p className="text-lg md:text-xl text-slate-100 font-light max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-md">
                         Não deixe para a última hora. As agendas das nossas unidades são concorridas. Entre em contato e reserve o dia perfeito.
                     </p>
                     <a
-                        href="https://wa.me/5511916032904"
+                        href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20uma%20festa%20de%20anivers%C3%A1rio%20no%20Neo%20Geo."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-block bg-white text-brand-orange px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300"

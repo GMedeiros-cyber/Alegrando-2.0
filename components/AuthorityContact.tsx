@@ -22,7 +22,7 @@ const AuthorityContact: React.FC = () => {
         e.preventDefault();
         const text = `Olá! Me chamo *${formData.name}*.\n\n*Email:* ${formData.email}\n*Mensagem:* ${formData.message}`;
         const encodedText = encodeURIComponent(text);
-        const whatsappUrl = `https://wa.me/5511916032904?text=${encodedText}`;
+        const whatsappUrl = `https://wa.me/5511940807393?text=${encodedText}`;
         window.open(whatsappUrl, '_blank');
     };
 
@@ -53,9 +53,15 @@ const AuthorityContact: React.FC = () => {
 
                         {/* Right: Content */}
                         <div className="w-full lg:w-1/2 space-y-8">
-                            <h2 className="text-5xl md:text-7xl font-expressive text-brand-orange italic drop-shadow-sm">
-                                É unânime
-                            </h2>
+                            <div className="mb-4">
+                                <h2 className="text-5xl md:text-7xl font-expressive text-brand-orange italic drop-shadow-sm relative inline-block">
+                                    É unânime
+                                    {/* Decorativo sublinhado "torto" */}
+                                    <svg className="absolute w-full h-4 -bottom-1 left-0 text-brand-orange/40" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                        <path d="M0 5 Q 50 15 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
+                                    </svg>
+                                </h2>
+                            </div>
                             <p className="text-xl md:text-2xl font-light text-slate-700 leading-relaxed">
                                 "Escolas que implementam os passeios extracurriculares sentem uma <span className="text-brand-orange font-expressive italic text-2xl">melhor satisfação dos pais</span> e um aumento nas <span className="text-brand-orange font-expressive italic text-2xl">taxas de retenção</span> dos alunos."
                             </p>
@@ -195,7 +201,7 @@ const AuthorityContact: React.FC = () => {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-slate-900 mb-1">WhatsApp</h4>
-                                        <a href="https://wa.me/5511916032904" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-green-600 transition-colors">(11) 91603-2904</a>
+                                        <a href="https://wa.me/5511940807393" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-green-600 transition-colors">(11) 94080-7393</a>
                                     </div>
                                 </div>
                             </div>

@@ -6,7 +6,7 @@ import cadasturImg from '../assets/cadastur.png';
 const AuthorityManifesto: React.FC = () => {
     return (
         <section className="py-24 bg-white border-t border-slate-100">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-6 max-w-7xl">
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
 
@@ -37,11 +37,11 @@ const AuthorityManifesto: React.FC = () => {
                             </li>
                             <li className="flex items-center gap-3 text-slate-700 p-4 rounded-xl bg-slate-50 border border-slate-100 shadow-sm">
                                 <Bus size={20} className="text-green-500 shrink-0" />
-                                <span className="font-medium text-sm">Frota Executiva Nova</span>
+                                <span className="font-medium text-sm">Frota Executiva</span>
                             </li>
                             <li className="flex items-center gap-3 text-slate-700 p-4 rounded-xl bg-slate-50 border border-slate-100 shadow-sm">
                                 <Shield size={20} className="text-green-500 shrink-0" />
-                                <span className="font-medium text-sm">Protocolos de Emergência</span>
+                                <span className="font-medium text-sm">Seguro Viagem</span>
                             </li>
                         </ul>
 
@@ -59,9 +59,15 @@ const AuthorityManifesto: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
-                            <h2 className="text-5xl md:text-6xl font-expressive text-brand-orange italic drop-shadow-sm mb-8">
-                                É unânime
-                            </h2>
+                            <div className="mb-8">
+                                <h2 className="text-5xl md:text-6xl font-expressive text-brand-orange italic drop-shadow-sm relative inline-block">
+                                    É unânime
+                                    {/* Decorativo sublinhado "torto" */}
+                                    <svg className="absolute w-full h-4 -bottom-1 left-0 text-brand-orange/40" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                        <path d="M0 5 Q 50 15 100 5" stroke="currentColor" strokeWidth="3" fill="none" />
+                                    </svg>
+                                </h2>
+                            </div>
                             <p className="text-xl md:text-2xl font-light text-slate-700 leading-relaxed mb-12">
                                 "Escolas que implementam os passeios extracurriculares sentem uma <span className="font-expressive text-brand-orange italic text-2xl md:text-3xl">melhor satisfação dos pais</span> e um aumento nas <span className="font-expressive text-brand-orange italic text-2xl md:text-3xl">taxas de retenção</span> dos alunos."
                             </p>

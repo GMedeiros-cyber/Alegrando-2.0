@@ -2,10 +2,12 @@ import React from 'react';
 import { Facebook, Instagram, Mail, MessageCircle } from 'lucide-react';
 import logo from '../assets/alegrando.png';
 
+const GOOGLE_MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua+Antonieta+Aguirre+de+Moraes+Barros+59+Sala+06+Vila+Augusta+Guarulhos+SP';
+
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-900 text-slate-400 py-16 border-t border-slate-900">
-      <div className="container mx-auto px-6">
+    <footer className="bg-slate-800 text-slate-400 py-16 border-t border-slate-700">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
 
           {/* Column 1: Brand */}
@@ -13,9 +15,9 @@ const Footer: React.FC = () => {
             <img
               src={logo}
               alt="Alegrando Eventos"
-              className="h-16 w-auto max-w-[180px] object-contain"
+              className="h-16 w-auto max-w-[180px] object-contain brightness-110"
             />
-            <p className="text-sm leading-relaxed max-w-xs">
+            <p className="text-sm leading-relaxed max-w-xs text-slate-400">
               Transformando viagens escolares em jornadas de aprendizado e alegria desde 2007.
             </p>
           </div>
@@ -24,12 +26,19 @@ const Footer: React.FC = () => {
           <div className="flex flex-col gap-4">
             <h3 className="text-white font-bold text-lg mb-2">Contato</h3>
             <div className="space-y-3 text-sm">
-              <p>Rua Antonieta Aguirre de Moraes Barros, 59 - Sala 06</p>
-              <p>Vila Augusta - Guarulhos/SP</p>
-              <div className="flex items-center gap-2 pt-2">
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block hover:text-brand-orange transition-colors"
+              >
+                <p>Rua Antonieta Aguirre de Moraes Barros, 59 - Sala 06</p>
+                <p>Vila Augusta - Guarulhos/SP</p>
+              </a>
+              <a href="https://mail.google.com/mail/?view=cm&to=contato@alegrando.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 pt-2 hover:text-white transition-colors">
                 <Mail size={16} className="text-brand-orange" />
-                <a href="mailto:contato@alegrando.com.br" className="hover:text-white transition-colors">contato@alegrando.com.br</a>
-              </div>
+                contato@alegrando.com.br
+              </a>
             </div>
           </div>
 
@@ -41,7 +50,7 @@ const Footer: React.FC = () => {
                 href="https://www.instagram.com/alegrando.eventos"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-slate-900 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
+                className="bg-slate-700 text-slate-300 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
                 title="Instagram"
               >
                 <Instagram size={20} className="group-hover:scale-110 transition-transform" />
@@ -50,23 +59,16 @@ const Footer: React.FC = () => {
                 href="https://www.facebook.com/photo/?fbid=546620127500824&set=a.546620107500826"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-slate-900 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
+                className="bg-slate-700 text-slate-300 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
                 title="Facebook"
               >
                 <Facebook size={20} className="group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="mailto:contato@alegrando.com.br"
-                className="bg-slate-900 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
-                title="E-mail"
-              >
-                <Mail size={20} className="group-hover:scale-110 transition-transform" />
-              </a>
-              <a
-                href="https://wa.me/5511916032904"
+                href="https://wa.me/5511940807393"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-slate-900 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
+                className="bg-slate-700 text-slate-300 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
                 title="WhatsApp"
               >
                 <MessageCircle size={20} className="group-hover:scale-110 transition-transform" />
@@ -85,10 +87,10 @@ const Footer: React.FC = () => {
 
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs gap-4 text-center md:text-left">
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+        <div className="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs gap-4 text-center md:text-left">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 text-slate-400">
             <p>© {new Date().getFullYear()} Alegrando Eventos. Todos os direitos reservados.</p>
-            <span className="hidden md:inline text-slate-700">|</span>
+            <span className="hidden md:inline text-slate-600">|</span>
             <p className="font-mono text-slate-500">CNPJ: 18.462.884/0001-61</p>
           </div>
 
@@ -96,7 +98,7 @@ const Footer: React.FC = () => {
             href="https://wa.me/5511951553538"
             target="_blank"
             rel="noopener noreferrer"
-            className="opacity-50 hover:opacity-100 transition-opacity cursor-pointer hover:text-brand-orange"
+            className="text-slate-500 opacity-50 hover:opacity-100 transition-opacity cursor-pointer hover:text-brand-orange"
           >
             Desenvolvido por Tribus Labs
           </a>

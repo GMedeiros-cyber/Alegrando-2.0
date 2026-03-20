@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
   }, [location]);
 
   const navLinks = [
-    { name: 'Sobre', href: '/#sobre' },
+    { name: 'Sobre', href: '/' },
     { name: 'Destinos', href: '/destinos' },
   ];
 
@@ -48,13 +48,14 @@ const Navbar: React.FC = () => {
         }
       } else {
         navigate('/' + hash);
+        window.scrollTo(0, 0);
       }
     } else {
       if (location.pathname === href) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         navigate(href);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo(0, 0);
       }
     }
   };
@@ -66,7 +67,7 @@ const Navbar: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       navigate('/aniversarios');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
   };
 
@@ -79,9 +80,9 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-7xl rounded-full border border-white/20 ${isScrolled
-          ? 'bg-white/65 backdrop-blur-lg shadow-lg py-3'
-          : 'bg-white/50 backdrop-blur-md py-4'
+        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-7xl rounded-full border ${isScrolled
+          ? 'bg-white/80 backdrop-blur-xl shadow-md py-3 border-slate-900/25'
+          : 'bg-white/50 backdrop-blur-md py-4 border-slate-900/15'
           }`}
       >
         <div className="px-8 flex justify-between items-center">
@@ -114,7 +115,7 @@ const Navbar: React.FC = () => {
               Aniversários
             </a>
             <a
-              href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
+              href="https://wa.me/5511940807393?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 rounded-full font-bold text-xs bg-brand-orange text-white hover:bg-orange-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 uppercase tracking-wider"
