@@ -17,7 +17,7 @@ const Founder: React.FC = () => {
                     >
                         <div className="relative w-full max-w-sm mx-auto">
                             {/* Image Frame Effect (Orange Wrapper) */}
-                            <div className="absolute -inset-4 rounded-[2rem] border border-brand-orange transform -rotate-2 scale-105 pointer-events-none z-0" />
+                            <div className="absolute -inset-2 md:-inset-4 rounded-[2rem] border border-brand-orange transform -rotate-1 md:-rotate-2 scale-100 md:scale-105 pointer-events-none z-0" />
 
                             <div className="relative rounded-[1.5rem] overflow-hidden shadow-2xl w-full aspect-[3/4] z-10 bg-slate-900">
                                 <img

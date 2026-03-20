@@ -125,7 +125,7 @@ const BirthdayPage: React.FC = () => {
             <div className="container mx-auto px-6 py-20 space-y-24 md:space-y-32">
 
                 {/* Bloco 1: Parque Shopping Barueri */}
-                <div className="flex flex-col md:flex-row gap-12 items-center">
+                <div className="flex flex-col md:flex-row gap-12 items-center overflow-hidden">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -197,7 +197,7 @@ const BirthdayPage: React.FC = () => {
                 </div>
 
                 {/* Bloco 2: Morumbi Town Shopping (Inverted Layout) */}
-                <div className="flex flex-col md:flex-row-reverse gap-12 items-center">
+                <div className="flex flex-col md:flex-row-reverse gap-12 items-center overflow-hidden">
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -271,7 +271,7 @@ const BirthdayPage: React.FC = () => {
                 </div>
 
                 {/* Bloco 3: Shopping Internacional de Guarulhos */}
-                <div className="flex flex-col md:flex-row gap-12 items-center">
+                <div className="flex flex-col md:flex-row gap-12 items-center overflow-hidden">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}

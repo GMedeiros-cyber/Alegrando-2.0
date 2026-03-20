@@ -6,7 +6,6 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import TrustedSchools from './components/TrustedSchools';
 import DestinationsPage from './components/DestinationsPage';
-import Gallery from './components/Gallery';
 import Team from './components/Team';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
@@ -14,13 +13,15 @@ import Footer from './components/Footer';
 // New Components split from About
 import PainPoints from './components/PainPoints';
 import Founder from './components/Founder';
-import JadeCTA from './components/JadeCTA';
 import AuthorityManifesto from './components/AuthorityManifesto';
 import BirthdayPage from './components/BirthdayPage';
 
 // Legal Pages
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
+
+// Global Widget
+import JadeChatWidget from './components/JadeChatWidget';
 
 export default function App() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
         </Routes>
       </div>
       <Footer />
+      <JadeChatWidget />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
 // Componente para o Card de Dor
@@ -79,7 +79,36 @@ const PainPointCard: React.FC<PainPointCardProps> = ({ text, position, delay = 0
     );
 };
 
+const painPoints = [
+    <>Preocupações com a <span className="font-bold text-brand-orange">segurança dos alunos</span> fora da escola.</>,
+    <><span className="font-bold text-brand-orange">Não ter tempo</span> para organizar excursões e atividades.</>,
+    <>Sentem falta de complemento educativo com a <span className="font-bold text-brand-orange">teoria em sala.</span></>,
+    <>Possuem grande desafio em <span className="font-bold text-brand-orange">engajar</span> os alunos.</>,
+    <>Necessitam de uma didática inovadora com foco em <span className="font-bold text-brand-orange">retenção.</span></>,
+];
+
+const PAIN_IMAGE = "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop";
+
 const PainPoints: React.FC = () => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleScroll = useCallback(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const scrollLeft = el.scrollLeft;
+        const cardWidth = el.scrollWidth / painPoints.length;
+        const index = Math.round(scrollLeft / cardWidth);
+        setActiveIndex(Math.min(index, painPoints.length - 1));
+    }, []);
+
+    const scrollTo = useCallback((index: number) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const cardWidth = el.scrollWidth / painPoints.length;
+        el.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
+    }, []);
+
     return (
         <section className="py-24 bg-slate-50 relative overflow-hidden">
             <div className="container mx-auto px-6 relative z-10 max-w-7xl">
@@ -96,20 +125,20 @@ const PainPoints: React.FC = () => {
                     </motion.h2>
                 </div>
 
-                {/* Layout Grid Robusto */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[600px]">
+                {/* Desktop Layout (lg+) — unchanged */}
+                <div className="hidden lg:grid lg:grid-cols-12 gap-8 items-center lg:min-h-[600px]">
 
                     {/* Coluna Esquerda (2 Items) */}
                     <div className="lg:col-span-3 flex flex-col gap-6 md:gap-12 lg:gap-32 justify-center items-center lg:items-end order-2 lg:order-1 relative z-10 w-full">
                         <PainPointCard
                             position="left-top"
                             delay={0.1}
-                            text={<>Preocupações com a <span className="font-bold text-brand-orange">segurança dos alunos</span> fora da escola.</>}
+                            text={painPoints[0]}
                         />
                         <PainPointCard
                             position="left-bottom"
                             delay={0.3}
-                            text={<><span className="font-bold text-brand-orange">Não ter tempo</span> para organizar excursões e atividades.</>}
+                            text={painPoints[1]}
                         />
                     </div>
 
@@ -117,7 +146,7 @@ const PainPoints: React.FC = () => {
                     <div className="lg:col-span-6 flex justify-center order-1 lg:order-2 relative z-20">
                         <div className="relative w-full max-w-2xl aspect-video">
                             <img
-                                src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop"
+                                src={PAIN_IMAGE}
                                 alt="Professora"
                                 className="w-full h-full object-cover rounded-3xl shadow-2xl border-4 border-white relative z-20"
                             />
@@ -130,21 +159,80 @@ const PainPoints: React.FC = () => {
                         <PainPointCard
                             position="right-top"
                             delay={0.2}
-                            text={<>Sentem falta de complemento educativo com a <span className="font-bold text-brand-orange">teoria em sala.</span></>}
+                            text={painPoints[2]}
                         />
                         <PainPointCard
                             position="right-middle"
                             delay={0.4}
-                            text={<>Possuem grande desafio em <span className="font-bold text-brand-orange">engajar</span> os alunos.</>}
+                            text={painPoints[3]}
                         />
                         <PainPointCard
                             position="right-bottom"
                             delay={0.6}
-                            text={<>Necessitam de uma didática inovadora com foco em <span className="font-bold text-brand-orange">retenção.</span></>}
+                            text={painPoints[4]}
                         />
                     </div>
 
                 </div>
+
+                {/* Mobile Layout (below lg) — carousel */}
+                <div className="lg:hidden">
+                    {/* Compact Image */}
+                    <div className="h-48 rounded-2xl overflow-hidden mb-8">
+                        <img
+                            src={PAIN_IMAGE}
+                            alt="Professora"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+
+                    {/* Carousel */}
+                    <div
+                        ref={scrollRef}
+                        onScroll={handleScroll}
+                        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"
+                        style={{ WebkitOverflowScrolling: 'touch' }}
+                    >
+                        {painPoints.map((text, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="snap-center shrink-0 w-[85vw] max-w-[320px]"
+                            >
+                                <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-slate-100 border-l-[6px] border-l-brand-orange min-h-[140px] flex flex-col justify-center">
+                                    <div className="text-slate-700 font-medium text-lg leading-snug">
+                                        {text}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Dot Indicators */}
+                    <div className="flex justify-center gap-2 mt-4">
+                        {painPoints.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => scrollTo(i)}
+                                className={`rounded-full transition-all duration-300 ${
+                                    activeIndex === i
+                                        ? 'w-6 h-2 bg-brand-orange'
+                                        : 'w-2 h-2 bg-slate-300'
+                                }`}
+                                aria-label={`Ir para card ${i + 1}`}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Swipe Hint */}
+                    <p className="text-center text-sm text-slate-400 mt-3">
+                        Deslize para ver mais →
+                    </p>
+                </div>
+
             </div>
         </section>
     );
