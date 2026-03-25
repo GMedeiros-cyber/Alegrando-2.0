@@ -128,19 +128,19 @@ const Team: React.FC = () => {
         <div className="md:hidden flex flex-col gap-10 pb-12 relative z-10">
           {/* Bonfire removed */}
           <motion.div className="bg-white p-4 shadow-lg rotate-[-2deg]" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}>
-            <img src={equipe1} alt="Equipe" className="w-full h-80 object-cover" />
+            <img src={equipe1} alt="Equipe" className="w-full h-auto" />
           </motion.div>
           <motion.div className="bg-white p-4 shadow-lg rotate-[2deg]" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}>
-            <img src={equipe2} alt="Equipe" className="w-full h-80 object-cover" />
+            <img src={equipe2} alt="Equipe" className="w-full h-auto" />
           </motion.div>
           <motion.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping1} alt="Shopping" className="w-full h-80 object-cover" />
+            <img src={shopping1} alt="Shopping" className="w-full h-auto" />
           </motion.div>
           <motion.div className="bg-white p-4 shadow-lg rotate-[-1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping2} alt="Shopping" className="w-full h-80 object-cover" />
+            <img src={shopping2} alt="Shopping" className="w-full h-auto" />
           </motion.div>
           <motion.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping3} alt="Shopping" className="w-full h-80 object-cover" />
+            <img src={shopping3} alt="Shopping" className="w-full h-auto" />
           </motion.div>
         </div>
 

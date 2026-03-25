@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
               Aniversários
             </a>
             <a
-              href="https://wa.me/5511940807393?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
+              href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 rounded-full font-bold text-xs bg-brand-orange text-white hover:bg-orange-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 uppercase tracking-wider"

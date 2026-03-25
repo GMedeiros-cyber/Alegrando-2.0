@@ -181,7 +181,7 @@ const BirthdayPage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <a href="https://wa.me/5511976520957?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Parque%20Shopping%20Barueri"
+                            <a href="https://wa.me/5511978976354?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Parque%20Shopping%20Barueri"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-orange transition-colors shadow-lg hover:shadow-orange-200"
                             >
@@ -255,7 +255,7 @@ const BirthdayPage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <a href="https://wa.me/5511988962790?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Morumbi%20Town"
+                            <a href="https://wa.me/5511978976354?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Morumbi%20Town"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-orange transition-colors shadow-lg hover:shadow-orange-200"
                             >
@@ -328,7 +328,7 @@ const BirthdayPage: React.FC = () => {
                         </div>
 
                         <div className="pt-6">
-                            <a href="https://wa.me/5511994457767?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Shopping%20Internacional%20de%20Guarulhos"
+                            <a href="https://wa.me/5511978976354?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20festas%20do%20Neo%20geo%20no%20Shopping%20Internacional%20de%20Guarulhos"
                                 target="_blank" rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-orange transition-colors shadow-lg hover:shadow-orange-200"
                             >
@@ -378,7 +378,7 @@ const BirthdayPage: React.FC = () => {
                         Não deixe para a última hora. As agendas das nossas unidades são concorridas. Entre em contato e reserve o dia perfeito.
                     </p>
                     <a
-                        href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20uma%20festa%20de%20anivers%C3%A1rio%20no%20Neo%20Geo."
+                        href="https://wa.me/5511978976354?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20uma%20festa%20de%20anivers%C3%A1rio%20no%20Neo%20Geo."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-block bg-white text-brand-orange px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300"

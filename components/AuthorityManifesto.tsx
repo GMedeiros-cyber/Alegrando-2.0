@@ -47,7 +47,7 @@ const AuthorityManifesto: React.FC = () => {
 
                         <div className="flex items-center gap-6 pt-6 border-t border-slate-100 opacity-80 hover:opacity-100 transition-opacity">
                             <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Autorizado por</span>
-                            <img src={cadasturImg} alt="Cadastur" className="h-10 w-auto grayscale hovered:grayscale-0 transition-all" />
+                            <img src={cadasturImg} alt="Cadastur" className="h-10 w-auto grayscale hover:grayscale-0 transition-all" />
                         </div>
                     </motion.div>
 

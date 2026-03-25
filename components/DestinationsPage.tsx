@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import {
-    MessageCircle, Map,
+    MessageCircle,
     Landmark, Bus, Leaf, Tent, GraduationCap, Drama,
-    FerrisWheel, Cpu, Calculator, Rocket, Star, ArrowRight,
-    Quote, Bot, ChevronLeft, ChevronRight
+    FerrisWheel, Cpu, Rocket, Star
 } from 'lucide-react';
 import DestinationCard from './DestinationCard';
+import jadeLogoUrl from '../assets/logo.png';
 
 // Import assets
 import historiaImg from '../assets/historia.jpeg';
@@ -258,11 +258,10 @@ const DestinationsPage: React.FC = () => {
                         <button
                             key={idx}
                             onClick={() => { setActiveSlide(idx); scrollToSlide(idx); }}
-                            className={`rounded-full transition-all duration-500 cursor-pointer ${
-                                idx === activeSlide
+                            className={`rounded-full transition-all duration-500 cursor-pointer ${idx === activeSlide
                                     ? 'w-14 h-4 bg-brand-orange shadow-md shadow-orange-200'
                                     : 'w-4 h-4 bg-slate-300 hover:bg-slate-400'
-                            }`}
+                                }`}
                             aria-label={`Ir para destino ${idx + 1}`}
                         />
                     ))}
@@ -321,7 +320,7 @@ const DestinationsPage: React.FC = () => {
                                     </div>
                                     <div>
                                         <p className="text-2xl font-bold text-slate-900">Silvana Moura</p>
-                                        <p className="text-brand-orange font-expressive italic text-lg font-medium tracking-wide">Fundadora e Diretora</p>
+                                        <p className="text-brand-orange font-expressive italic text-lg font-medium tracking-wide">Fundadora</p>
                                         <p className="text-slate-400 text-sm mt-2">+ de 15 anos transformando passeios escolares em experiências inesquecíveis</p>
                                     </div>
                                 </div>
@@ -448,8 +447,8 @@ const DestinationsPage: React.FC = () => {
                         className="max-w-2xl mx-auto"
                     >
                         <div className="flex justify-center mb-6">
-                            <div className="p-4 bg-white rounded-full shadow-lg border border-slate-100 relative">
-                                <Bot size={40} className="text-brand-orange" />
+                            <div className="p-3 bg-white rounded-full shadow-lg border border-slate-100 relative">
+                                <img src={jadeLogoUrl} alt="Jade" className="w-14 h-14 object-contain" />
                                 <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
                             </div>
                         </div>
@@ -461,7 +460,7 @@ const DestinationsPage: React.FC = () => {
                             A <strong className="text-brand-orange font-bold">Jade</strong>, nossa inteligência artificial, está pronta para te ajudar a encontrar o roteiro perfeito agora mesmo.
                         </p>
                         <p className="text-base text-slate-500 mb-10">
-                            Clique no botão abaixo e depois em <strong className="text-slate-700">"Tenho outra dúvida"</strong> para iniciar sua conversa.
+                            Clique no botão abaixo para <strong className="text-slate-700">montar seu roteiro</strong> de passeio passo a passo, ou selecione <strong className="text-slate-700">"Tenho uma dúvida"</strong> para conversar diretamente com a Jade.
                         </p>
 
                         <button

@@ -12,13 +12,14 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ─── CSS (injected on mount) ─────────────────────────────────────────────────
 const WIDGET_CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 /* Container */
 #chat-widget-container {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 380px;
-  height: 600px;
+  bottom: 96px;
+  right: 24px;
+  width: 350px;
+  height: 520px;
   background: #ffffff;
   border-radius: 24px;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 107, 53, 0.05);
@@ -62,9 +63,13 @@ const WIDGET_CSS = `
 #chat-widget-send:disabled { background: #cbd5e1; box-shadow: none; transform: none; cursor: not-allowed; }
 #chat-widget-button { position: fixed; bottom: 24px; right: 24px; height: 64px; border-radius: 32px; background: #ffffff; border: 2px solid #FF6B35; cursor: pointer; box-shadow: 0 10px 25px -5px rgba(255,107,53,0.4); display: flex; align-items: center; gap: 12px; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); z-index: 10000; padding: 0 20px 0 8px; }
 #chat-widget-button:hover { transform: scale(1.05) translateY(-4px); box-shadow: 0 15px 30px -5px rgba(255,107,53,0.5); background: #fff7ed; }
+#chat-widget-button.open { width: 56px; height: 56px; border-radius: 50%; padding: 0; justify-content: center; gap: 0; }
+#chat-widget-button.open .chat-button-text { display: none; }
+#chat-widget-button.open .chat-button-icon-wrapper { box-shadow: none; background: transparent; width: 40px; height: 40px; }
 .chat-button-icon-wrapper { width: 48px; height: 48px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 .chat-button-icon { width: 36px; height: 36px; object-fit: contain; }
-.chat-button-text { color: #FF6B35; font-weight: 700; font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; white-space: nowrap; padding-top: 2px; }
+.chat-button-text { color: #FF6B35; font-family: 'Pacifico', cursive; font-style: normal; font-weight: 400; font-size: 19px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+.chat-button-jade { font-family: 'Pacifico', cursive; font-style: normal; font-weight: 400; font-size: 19px; color: #FF6B35; line-height: 1; }
 @media (max-width: 640px) {
   #chat-widget-container { width: 100vw; height: 100vh; height: 100dvh; bottom: 0; right: 0; border-radius: 0; box-shadow: none; border: none; }
   #chat-widget-button { bottom: 16px; right: 16px; padding: 0; width: 56px; height: 56px; justify-content: center; }
@@ -105,7 +110,7 @@ const WIDGET_CSS = `
 `;
 
 // ─── Types ───────────────────────────────────────────────────────────────────
-type ChatStep = 'start' | 'tipoPasseio' | 'categoria' | 'destino' | 'dados' | 'confirmacao' | 'duvida_input' | 'duvida_encerrada' | 'duvidas' | 'encerrado';
+type ChatStep = 'start' | 'tipoPasseio' | 'categoria' | 'destino' | 'dados' | 'confirmacao' | 'duvida_input' | 'duvida_encerrada' | 'duvidas' | 'encerrado' | 'festa_opcao' | 'festa_pacote' | 'festa_dados' | 'festa_confirmacao';
 
 interface FlowState {
   currentStep: ChatStep;
@@ -121,6 +126,12 @@ interface FlowState {
   offset: number;
   searchMode: boolean;
   finalizado: boolean;
+  festaOpcao: string | null;
+  nomeResponsavel: string | null;
+  telefone: string | null;
+  nomeCrianca: string | null;
+  dataNascimento: string | null;
+  nomeEscolaInstituicao: string | null;
 }
 
 type ChatItem =
@@ -131,7 +142,8 @@ type ChatItem =
   | { kind: 'actions'; id: string; buttons: { label: string; isHtml?: boolean; onClick: () => void }[] }
   | { kind: 'form'; id: string; tipoOrganizacao: string; onSubmit: (d: { nome: string; cargo?: string; grupo: string; qtd: string; data: string }) => void }
   | { kind: 'typing'; id: string }
-  | { kind: 'standalone-btn'; id: string; label: string; isHtml?: boolean; onClick: () => void };
+  | { kind: 'standalone-btn'; id: string; label: string; isHtml?: boolean; onClick: () => void }
+  | { kind: 'festa_form'; id: string; onSubmit: (d: { nomeResponsavel: string; telefone: string; nomeCrianca: string; dataNascimento: string }) => void };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 let _uid = 0;
@@ -158,7 +170,7 @@ const WHATSAPP_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="curr
 
 function parseWhatsAppLinks(text: string) {
   if (!text) return text;
-  const whatsappRegex = /(https:\/\/wa\.me\/5511916032904[^\s<]*)/g;
+  const whatsappRegex = /(https:\/\/wa\.me\/\d+[^\s<]*)/g;
   return text.replace(whatsappRegex, (url) => {
     return `<a href="${url}" target="_blank" class="jade-whatsapp-cta-button">${WHATSAPP_SVG} Finalizar Orçamento no WhatsApp</a>`;
   });
@@ -182,6 +194,12 @@ const INITIAL_FLOW: FlowState = {
   offset: 0,
   searchMode: false,
   finalizado: false,
+  festaOpcao: null,
+  nomeResponsavel: null,
+  telefone: null,
+  nomeCrianca: null,
+  dataNascimento: null,
+  nomeEscolaInstituicao: null,
 };
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -269,8 +287,6 @@ function ChatForm({ tipoOrganizacao, onSubmit, submitted }: {
     onSubmit({ nome, cargo: cargo || undefined, grupo, qtd, data });
   };
 
-  const today = new Date().toISOString().split('T')[0];
-
   return (
     <div className="jade-form-container">
       <div>
@@ -290,7 +306,7 @@ function ChatForm({ tipoOrganizacao, onSubmit, submitted }: {
             </select>
           </div>
           <div>
-            <label className="jade-form-label">Nome da Escola</label>
+            <label className="jade-form-label">Nome da Escola/Instituição</label>
             <input type="text" className="jade-form-input" placeholder="Ex: Escola Viver" value={grupo} onChange={e => setGrupo(e.target.value)} disabled={submitted} />
           </div>
         </>
@@ -307,7 +323,141 @@ function ChatForm({ tipoOrganizacao, onSubmit, submitted }: {
       </div>
       <div>
         <label className="jade-form-label">Data Prevista</label>
-        <input type="date" className="jade-form-input" min={today} value={data} onChange={e => setData(e.target.value)} disabled={submitted} />
+        <DatePicker value={data} onChange={setData} disabled={submitted} futureOnly={true} />
+      </div>
+      <button className="jade-action-btn" disabled={submitted} onClick={handleSubmit}>
+        {submitted ? 'Dados Enviados' : 'Continuar'}
+      </button>
+    </div>
+  );
+}
+
+function DatePicker({ value, onChange, disabled, futureOnly = false }: {
+  value: string;
+  onChange: (date: string) => void;
+  disabled: boolean;
+  futureOnly?: boolean;
+}) {
+  const today = new Date();
+  const defaultYear = futureOnly ? today.getFullYear() : today.getFullYear() - 7;
+  const [open, setOpen] = useState(false);
+  const [viewYear, setViewYear] = useState(() => value ? parseInt(value.split('-')[0]) : defaultYear);
+  const [viewMonth, setViewMonth] = useState(() => value ? parseInt(value.split('-')[1]) - 1 : today.getMonth());
+  const pickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handle = (e: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handle);
+    return () => document.removeEventListener('mousedown', handle);
+  }, [open]);
+
+  const displayValue = value ? value.split('-').reverse().join('/') : '';
+  const MONTH_FULL = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const DAYS = ['D','S','T','Q','Q','S','S'];
+  const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < firstDay; i++) cells.push(null);
+  for (let i = 1; i <= daysInMonth; i++) cells.push(i);
+
+  const prevMonth = () => viewMonth === 0 ? (setViewYear(y => y - 1), setViewMonth(11)) : setViewMonth(m => m - 1);
+  const nextMonth = () => viewMonth === 11 ? (setViewYear(y => y + 1), setViewMonth(0)) : setViewMonth(m => m + 1);
+  const selectDay = (day: number) => {
+    const m = String(viewMonth + 1).padStart(2, '0');
+    const d = String(day).padStart(2, '0');
+    onChange(`${viewYear}-${m}-${d}`);
+    setOpen(false);
+  };
+  const btnBase: React.CSSProperties = { border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8 };
+
+  return (
+    <div ref={pickerRef} style={{ position: 'relative' }}>
+      <button type="button" disabled={disabled} onClick={() => !disabled && setOpen(o => !o)}
+        style={{ width: '100%', padding: '10px 14px', border: `1px solid ${open ? '#FF6B35' : '#e2e8f0'}`, borderRadius: 10, fontSize: 14, background: open ? '#fff' : '#f8fafc', color: value ? '#0F172A' : '#94a3b8', cursor: disabled ? 'default' : 'pointer', display: 'flex', alignItems: 'center', gap: 8, textAlign: 'left', boxShadow: open ? '0 0 0 3px rgba(255,107,53,0.1)' : 'none', transition: 'all 0.2s', boxSizing: 'border-box' }}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.4, flexShrink: 0 }}>
+          <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        {displayValue || 'Selecione a data'}
+      </button>
+      {open && (
+        <div style={{ position: 'absolute', bottom: 'calc(100% + 8px)', left: 0, right: 0, background: '#fff', borderRadius: 16, boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #f1f5f9', padding: 16, zIndex: 200 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <button type="button" onClick={prevMonth} style={{ ...btnBase, padding: '4px 10px', color: '#64748b', fontSize: 20 }}>‹</button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontWeight: 600, fontSize: 14, color: '#334155' }}>{MONTH_FULL[viewMonth]}</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <button type="button" onClick={() => setViewYear(y => y + 1)} style={{ ...btnBase, padding: '0 6px', color: '#94a3b8', fontSize: 10, lineHeight: 1.2 }}>▲</button>
+                <span style={{ fontWeight: 700, fontSize: 15, color: '#FF6B35', lineHeight: 1.4 }}>{viewYear}</span>
+                <button type="button" onClick={() => setViewYear(y => y - 1)} style={{ ...btnBase, padding: '0 6px', color: '#94a3b8', fontSize: 10, lineHeight: 1.2 }}>▼</button>
+              </div>
+            </div>
+            <button type="button" onClick={nextMonth} style={{ ...btnBase, padding: '4px 10px', color: '#64748b', fontSize: 20 }}>›</button>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2, marginBottom: 4 }}>
+            {DAYS.map((d, i) => <div key={i} style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#94a3b8', padding: '2px 0' }}>{d}</div>)}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 2 }}>
+            {cells.map((day, i) => {
+              if (!day) return <div key={i} />;
+              const dateStr = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+              const isSel = value === dateStr;
+              const todayStr = today.toISOString().split('T')[0];
+              const isPast = futureOnly && dateStr < todayStr;
+              return (
+                <button key={i} type="button" onClick={() => !isPast && selectDay(day)} disabled={isPast}
+                  style={{ border: 'none', borderRadius: 8, padding: '6px 0', cursor: isPast ? 'default' : 'pointer', fontSize: 13, fontWeight: isSel ? 700 : 400, background: isSel ? '#FF6B35' : 'transparent', color: isSel ? '#fff' : isPast ? '#cbd5e1' : '#334155', transition: 'background 0.1s' }}>
+                  {day}
+                </button>
+              );
+            })}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #f1f5f9', marginTop: 10, paddingTop: 10 }}>
+            <button type="button" onClick={() => { onChange(''); setOpen(false); }} style={{ ...btnBase, padding: '4px 8px', fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>Limpar</button>
+            <button type="button" onClick={() => { setViewYear(today.getFullYear()); setViewMonth(today.getMonth()); }} style={{ ...btnBase, padding: '4px 8px', fontSize: 12, color: '#FF6B35', fontWeight: 600 }}>Hoje</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FestaForm({ onSubmit, submitted }: {
+  onSubmit: (d: { nomeResponsavel: string; telefone: string; nomeCrianca: string; dataNascimento: string }) => void;
+  submitted: boolean;
+}) {
+  const [nomeResponsavel, setNomeResponsavel] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [nomeCrianca, setNomeCrianca] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+
+  const handleSubmit = () => {
+    if (!nomeResponsavel || !telefone || !nomeCrianca || !dataNascimento) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+    onSubmit({ nomeResponsavel, telefone, nomeCrianca, dataNascimento });
+  };
+
+  return (
+    <div className="jade-form-container">
+      <div>
+        <label className="jade-form-label">Nome do Responsável</label>
+        <input type="text" className="jade-form-input" placeholder="Nome completo" value={nomeResponsavel} onChange={e => setNomeResponsavel(e.target.value)} disabled={submitted} />
+      </div>
+      <div>
+        <label className="jade-form-label">Telefone de Contato</label>
+        <input type="tel" className="jade-form-input" placeholder="(11) 99999-9999" value={telefone} onChange={e => setTelefone(e.target.value)} disabled={submitted} />
+      </div>
+      <div>
+        <label className="jade-form-label">Nome da Criança</label>
+        <input type="text" className="jade-form-input" placeholder="Nome da criança" value={nomeCrianca} onChange={e => setNomeCrianca(e.target.value)} disabled={submitted} />
+      </div>
+      <div>
+        <label className="jade-form-label">Data de Nascimento da Criança</label>
+        <DatePicker value={dataNascimento} onChange={setDataNascimento} disabled={submitted} />
       </div>
       <button className="jade-action-btn" disabled={submitted} onClick={handleSubmit}>
         {submitted ? 'Dados Enviados' : 'Continuar'}
@@ -428,20 +578,32 @@ export default function JadeChatWidget() {
         const gridId = uid();
         newItems.push({
           kind: 'options', id: gridId,
-          options: [{ label: 'Escola', value: 'escola' }, { label: 'Transportador / Cooperativa', value: 'cooperativa' }],
+          options: [
+            { label: 'Escola/Instituição', value: 'escola' },
+            { label: 'Transportador / Cooperativa', value: 'cooperativa' },
+            { label: 'Festas Neo Geo', value: 'festa' },
+          ],
           selectedValue: null,
           onSelect: (value: string) => {
             setItems(prev => prev.map(it => it.id === gridId ? { ...it, selectedValue: value } as ChatItem : it));
-            setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Organizando como: ${value === 'escola' ? 'Escola' : 'Transportador / Cooperativa'}` }]);
-            setFlow(prev => ({ ...prev, tipoOrganizacao: value }));
-            // Use setTimeout to ensure flow state is updated
-            setTimeout(() => executeStep('tipoPasseio', 'append'), 0);
+
+            if (value === 'festa') {
+              setItems(prev => [...prev, { kind: 'user', id: uid(), text: 'Festas Neo Geo' }]);
+              setFlow(prev => ({ ...prev, tipoOrganizacao: value }));
+              setTimeout(() => executeStep('festa_opcao', 'append'), 0);
+            } else {
+              const label = value === 'escola' ? 'Escola/Instituição' : 'Transportador / Cooperativa';
+              setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Organizando como: ${label}` }]);
+              setFlow(prev => ({ ...prev, tipoOrganizacao: value }));
+              setTimeout(() => executeStep('tipoPasseio', 'append'), 0);
+            }
           },
         });
         newItems.push({
           kind: 'actions', id: uid(),
           buttons: [
             { label: 'Tenho uma dúvida', onClick: () => executeStep('duvida_input', 'append') },
+            { label: '🎉 Dúvidas sobre Festas Neo Geo', onClick: () => window.open('https://wa.me/5511978976354?text=Ol%C3%A1!%20Gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20as%20festas%20de%20anivers%C3%A1rio%20nas%20unidades%20Neo%20Geo.', '_blank') },
             { label: '↺ Recomeçar Opções', isHtml: true, onClick: () => doRestart() },
           ],
         });
@@ -655,7 +817,7 @@ export default function JadeChatWidget() {
               data: formData.data,
             }));
             // Mark form as submitted by replacing it
-            setItems(prev => prev.map(it => it.id === formId ? { ...it, onSubmit: () => {} } as ChatItem : it));
+            setItems(prev => prev.map(it => it.id === formId ? { ...it, onSubmit: () => { } } as ChatItem : it));
             setTimeout(() => executeStep('confirmacao', 'append'), 0);
           },
         });
@@ -668,7 +830,7 @@ export default function JadeChatWidget() {
           const f = flowRef.current;
           const baseUrl = 'https://wa.me/5511916032904';
           const grupoLabel = f.tipoOrganizacao === 'escola'
-            ? `Escola ${f.grupo || ''}`
+            ? `Escola/Instituição ${f.grupo || ''}`
             : `Transportador / Cooperativa ${f.grupo || ''}`;
           const msg = `Olá! Falei com a Jade. Gostaria de cotar o roteiro *${f.destino}* para *${grupoLabel}* com *${f.qtd}* alunos. Data prevista: *${f.data}*. Responsável: ${f.nome} (${f.cargo || 'Responsável'}).`;
           const fullUrl = `${baseUrl}?text=${encodeURIComponent(msg)}`;
@@ -677,6 +839,154 @@ export default function JadeChatWidget() {
             ...prev,
             { kind: 'bot', id: uid(), html: parseBotContent('Clique abaixo para finalizar no WhatsApp:') },
             { kind: 'bot', id: uid(), html: parseBotContent(fullUrl) },
+          ]);
+          setFlow(prev => ({ ...prev, finalizado: true }));
+          setTimeout(() => executeStep('duvida_encerrada', 'append'), 0);
+        }, 800);
+        timersRef.current.push(t);
+        return;
+      }
+
+      case 'festa_opcao': {
+        newItems.push({
+          kind: 'bot', id: uid(), html: parseBotContent(
+            '🎉 Bem-vindo ao melhor ambiente preparado para sua celebração e diversão! Escolha a unidade desejada:'
+          )
+        });
+
+        const gridId = uid();
+        newItems.push({
+          kind: 'options', id: gridId,
+          options: [
+            { label: 'Parque Shopping Barueri', value: 'barueri' },
+            { label: 'Morumbi Town Shopping', value: 'morumbi' },
+            { label: 'Shopping Internacional Guarulhos', value: 'guarulhos' },
+          ],
+          selectedValue: null,
+          onSelect: (value: string) => {
+            setItems(prev => prev.map(it => it.id === gridId ? { ...it, selectedValue: value } as ChatItem : it));
+            const labels: Record<string, string> = {
+              barueri: 'Parque Shopping Barueri',
+              morumbi: 'Morumbi Town Shopping',
+              guarulhos: 'Shopping Internacional Guarulhos',
+            };
+            setItems(prev => [...prev, { kind: 'user', id: uid(), text: labels[value] }]);
+            setFlow(prev => ({ ...prev, festaOpcao: value }));
+            setTimeout(() => executeStep('festa_pacote', 'append'), 0);
+          },
+        });
+
+        newItems.push({
+          kind: 'actions', id: uid(),
+          buttons: [
+            { label: 'Tenho uma dúvida', onClick: () => executeStep('duvida_input', 'append') },
+            { label: '↺ Recomeçar', isHtml: true, onClick: () => doRestart() },
+          ],
+        });
+        break;
+      }
+
+      case 'festa_pacote': {
+        newItems.push({
+          kind: 'bot', id: uid(), html: parseBotContent(
+            'Ótimo! Agora escolha o pacote:\n\n' +
+            '**Opção 1 — Cartão + Salão**\n' +
+            'Acesso livre às atrações do Neo Geo + salão exclusivo. Mín. 20 cartões.\n\n' +
+            '**Opção 2 — Menu Encanto**\n' +
+            'Opção 1 + buffet completo: bolo, docinhos, salgadinhos e bebidas. Parceria Cristalino Bistrô. Mín. 30 convidados.\n\n' +
+            '**Opção 3 — Menu Diversão**\n' +
+            'Como o Menu Encanto, mas com variedade premium de sabores e bebidas. Mín. 30 convidados.'
+          )
+        });
+
+        const pacoteGridId = uid();
+        newItems.push({
+          kind: 'options', id: pacoteGridId,
+          options: [
+            { label: 'Cartão + Salão', value: 'opcao1' },
+            { label: 'Cartão + Salão + Buffet Menu Encanto', value: 'opcao2' },
+            { label: 'Cartão + Salão + Buffet Menu Diversão', value: 'opcao3' },
+          ],
+          selectedValue: null,
+          onSelect: (value: string) => {
+            setItems(prev => prev.map(it => it.id === pacoteGridId ? { ...it, selectedValue: value } as ChatItem : it));
+            const labels: Record<string, string> = {
+              opcao1: 'Cartão + Salão',
+              opcao2: 'Buffet Menu Encanto',
+              opcao3: 'Buffet Menu Diversão',
+            };
+            setItems(prev => [...prev, { kind: 'user', id: uid(), text: labels[value] }]);
+            setFlow(prev => ({ ...prev, festaOpcao: `${prev.festaOpcao} | ${labels[value]}` }));
+            setTimeout(() => executeStep('festa_dados', 'append'), 0);
+          },
+        });
+
+        newItems.push({
+          kind: 'actions', id: uid(),
+          buttons: [
+            { label: 'Tenho uma dúvida', onClick: () => executeStep('duvida_input', 'append') },
+            { label: '↺ Recomeçar', isHtml: true, onClick: () => doRestart() },
+          ],
+        });
+        break;
+      }
+
+      case 'festa_dados': {
+        const formId = uid();
+        newItems.push({ kind: 'bot', id: uid(), html: parseBotContent('Para preparar o orçamento da festa, preciso de alguns dados:') });
+        newItems.push({
+          kind: 'festa_form', id: formId,
+          onSubmit: (formData) => {
+            setFlow(prev => ({
+              ...prev,
+              nomeResponsavel: formData.nomeResponsavel,
+              telefone: formData.telefone,
+              nomeCrianca: formData.nomeCrianca,
+              dataNascimento: formData.dataNascimento,
+            }));
+            setItems(prev => prev.map(it => it.id === formId ? { ...it, onSubmit: () => { } } as ChatItem : it));
+            setTimeout(() => executeStep('festa_confirmacao', 'append'), 0);
+          },
+        });
+        break;
+      }
+
+      case 'festa_confirmacao': {
+        setFlow(prev => ({ ...prev, currentStep: step }));
+        const t = window.setTimeout(async () => {
+          const f = flowRef.current;
+
+          const baseUrl = 'https://wa.me/5511978976354';
+
+          const msg = `Olá! Falei com a Jade no site. Gostaria de cotar uma *festa de aniversário*.\n\n` +
+            `*Unidade/Pacote:* ${f.festaOpcao}\n` +
+            `*Responsável:* ${f.nomeResponsavel}\n` +
+            `*Telefone:* ${f.telefone}\n` +
+            `*Criança:* ${f.nomeCrianca}\n` +
+            `*Nascimento:* ${f.dataNascimento}`;
+
+          // Salvar lead no n8n → Google Sheets
+          try {
+            await fetch('https://n8n.alegrando.cloud/webhook/festa-lead', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                nomeResponsavel: f.nomeResponsavel,
+                telefone: f.telefone,
+                nomeCrianca: f.nomeCrianca,
+                dataNascimento: f.dataNascimento,
+                pacote: f.festaOpcao,
+                dataHora: new Date().toISOString(),
+              }),
+            });
+          } catch (_) { /* silencioso — não bloqueia o fluxo */ }
+
+          const fullUrl = `${baseUrl}?text=${encodeURIComponent(msg)}`;
+
+          setItems(prev => [
+            ...prev,
+            { kind: 'bot', id: uid(), html: parseBotContent('Clique abaixo para finalizar no WhatsApp:') },
+            { kind: 'bot', id: uid(), html: `<a href="${fullUrl}" target="_blank" class="jade-whatsapp-cta-button">${WHATSAPP_SVG} Finalizar Orçamento de Festa no WhatsApp</a>` },
           ]);
           setFlow(prev => ({ ...prev, finalizado: true }));
           setTimeout(() => executeStep('duvida_encerrada', 'append'), 0);
@@ -700,6 +1010,7 @@ export default function JadeChatWidget() {
         }
         btns.push({ label: 'Tenho outra dúvida', onClick: () => executeStep('duvida_input', 'append') });
         newItems.push({ kind: 'actions', id: uid(), buttons: btns });
+
         break;
       }
 
@@ -977,6 +1288,22 @@ export default function JadeChatWidget() {
           />
         );
       }
+      case 'festa_form': {
+        const isSubmitted: boolean = submittedFormsRef.current.has(item.id);
+        const festaFormOnSubmit = item.onSubmit;
+        return (
+          <React.Fragment key={item.id}>
+            <FestaForm
+              submitted={isSubmitted}
+              onSubmit={(data) => {
+                submittedFormsRef.current.add(item.id);
+                festaFormOnSubmit(data);
+                setItems(prev => [...prev]);
+              }}
+            />
+          </React.Fragment>
+        );
+      }
       case 'typing':
         return <TypingIndicator key={item.id} />;
       case 'standalone-btn':
@@ -995,14 +1322,12 @@ export default function JadeChatWidget() {
   return (
     <>
       {/* FAB Button */}
-      {!isOpen && (
-        <button id="chat-widget-button" onClick={handleOpen}>
-          <div className="chat-button-icon-wrapper">
-            <img src={logoUrl} alt="Chat" className="chat-button-icon" />
-          </div>
-          <span className="chat-button-text">Falar com a Jade</span>
-        </button>
-      )}
+      <button id="chat-widget-button" className={isOpen ? 'open' : ''} onClick={isOpen ? () => setIsOpen(false) : handleOpen}>
+        <div className="chat-button-icon-wrapper">
+          <img src={logoUrl} alt="Chat" className="chat-button-icon" />
+        </div>
+        {!isOpen && <span className="chat-button-text">Falar com a <span className="chat-button-jade">Jade</span></span>}
+      </button>
 
       {/* Chat Container */}
       {isOpen && (

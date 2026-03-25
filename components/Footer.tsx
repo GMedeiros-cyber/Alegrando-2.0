@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
                 <Facebook size={20} className="group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="https://wa.me/5511940807393"
+                href="https://wa.me/5511916032904"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-slate-700 text-slate-300 p-3 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 group"
@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
           </div>
 
           <a
-            href="https://wa.me/5511951553538"
+            href="https://wa.me/5511940807393"
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-500 opacity-50 hover:opacity-100 transition-opacity cursor-pointer hover:text-brand-orange"
