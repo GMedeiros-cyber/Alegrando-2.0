@@ -87,7 +87,8 @@ const painPoints = [
     <>Necessitam de uma didática inovadora com foco em <span className="font-bold text-brand-orange">retenção.</span></>,
 ];
 
-const PAIN_IMAGE = "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop";
+import painImage from '../assets/pain-points.jpg';
+const PAIN_IMAGE = painImage;
 
 const PainPoints: React.FC = () => {
     const scrollRef = useRef<HTMLDivElement>(null);

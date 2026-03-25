@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
           </div>
 
           <a
-            href="https://wa.me/5511940807393"
+            href="https://wa.me/5511951553538"
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-500 opacity-50 hover:opacity-100 transition-opacity cursor-pointer hover:text-brand-orange"

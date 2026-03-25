@@ -44,7 +44,7 @@ const PrivacyPolicy: React.FC = () => {
                             <li>Fornecer estimativas preliminares de orçamento.</li>
                         </ul>
                         <p className="mt-4">
-                            Durante essa interação, você poderá compartilhar dados como nome, cargo, nome da instituição, quantidade de alunos e data prevista. Esses dados são tratados <strong>exclusivamente para a finalidade de atendimento comercial</strong>.
+                            Durante essa interação, você poderá compartilhar dados como nome, cargo, nome da instituição, quantidade de alunos e data prevista. Para festas de aniversário, podem ser coletados adicionalmente: nome do responsável, telefone de contato, nome da criança, data de nascimento da criança e nome da escola ou instituição. Esses dados são tratados <strong>exclusivamente para a finalidade de atendimento comercial</strong>.
                         </p>
                     </section>
 
@@ -59,7 +59,8 @@ const PrivacyPolicy: React.FC = () => {
                             <li>Atendimento comercial e montagem de roteiros personalizados;</li>
                             <li>Elaboração e envio de propostas de orçamento;</li>
                             <li>Comunicação relativa aos serviços contratados ou em negociação;</li>
-                            <li>Cumprimento de obrigações legais e regulatórias.</li>
+                            <li>Cumprimento de obrigações legais e regulatórias;</li>
+                            <li>Armazenamento em planilhas internas para acompanhamento comercial e follow-up pela equipe de atendimento (tanto para passeios quanto para festas).</li>
                         </ul>
                         <div className="bg-orange-50 border-l-4 border-brand-orange p-4 rounded-r-xl mt-6">
                             <p className="text-slate-700 font-medium">
@@ -115,7 +116,7 @@ const PrivacyPolicy: React.FC = () => {
 
                     <div className="border-t border-slate-100 pt-8 mt-8">
                         <p className="text-sm text-slate-500">
-                            Última atualização: 19 de março de 2026
+                            Última atualização: 25 de março de 2026
                         </p>
                         <p className="text-sm text-slate-400 mt-1">
                             Alegrando Eventos — CNPJ: 18.462.884/0001-61

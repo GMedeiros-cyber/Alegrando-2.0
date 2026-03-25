@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import logoUrl from '../assets/logo.png';
 
-// ─── Configuration (production values) ───────────────────────────────────────
-const WEBHOOK_URL = 'https://n8n.alegrando.cloud/webhook/d3845beb-4c23-431b-b9db-5f799f3311e2/chat';
+// ─── Configuration ───────────────────────────────────────────────────────────
+const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL;
 const WEBHOOK_ROUTE = 'general';
-const SUPABASE_URL = 'https://mtzlpogvcyhhjaagmlxn.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10emxwb2d2Y3loaGphYWdtbHhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzNjEwODAsImV4cCI6MjA4NjkzNzA4MH0.J5C0gveHh3zFABsBbN7teYVYxWlWcApTElCGmsj_cLA';
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+const WEBHOOK_FESTA_LEAD = import.meta.env.VITE_WEBHOOK_FESTA_LEAD;
 
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -176,8 +177,19 @@ function parseWhatsAppLinks(text: string) {
   });
 }
 
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/on\w+\s*=\s*["'][^"']*["']/gi, '')
+    .replace(/on\w+\s*=\s*[^\s>]*/gi, '')
+    .replace(/<iframe\b[^>]*>/gi, '')
+    .replace(/<object\b[^>]*>/gi, '')
+    .replace(/<embed\b[^>]*>/gi, '')
+    .replace(/javascript:/gi, '');
+}
+
 function parseBotContent(text: string) {
-  return parseWhatsAppLinks(parseMarkdown(text));
+  return sanitizeHtml(parseWhatsAppLinks(parseMarkdown(text)));
 }
 
 const INITIAL_FLOW: FlowState = {
@@ -967,7 +979,7 @@ export default function JadeChatWidget() {
 
           // Salvar lead no n8n → Google Sheets
           try {
-            await fetch('https://n8n.alegrando.cloud/webhook/festa-lead', {
+            await fetch(WEBHOOK_FESTA_LEAD, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -1069,6 +1081,10 @@ export default function JadeChatWidget() {
     setTimeout(() => executeStep(step, 'replace'), 0);
   }, [executeStep]);
 
+  // ─── Rate limiting ─────────────────────────────────────────────────────
+  const lastSendRef = useRef(0);
+  const SEND_COOLDOWN = 3000;
+
   // ─── Send message (for duvida_input / search / duvidas) ──────────────────
 
   const sendMessage = useCallback(async (overrideMessage?: string) => {
@@ -1081,6 +1097,37 @@ export default function JadeChatWidget() {
 
     const message = overrideMessage || inputValue.trim();
     if (!message) return;
+
+    // Rate limiting
+    const now = Date.now();
+    if (now - lastSendRef.current < SEND_COOLDOWN) return;
+    lastSendRef.current = now;
+
+    // Message length limit
+    if (message.length > 500) {
+      addBotMsg('Sua mensagem é muito longa. Pode resumir sua dúvida em poucas palavras?');
+      setInputEnabled(true);
+      return;
+    }
+
+    // Frontend guardrails — block prompt injection attempts
+    const BLOCKED_PATTERNS = [
+      /ignore\s+(your|suas?|as)\s+(instru|regras?|rules)/i,
+      /system\s*prompt/i,
+      /atue?\s+como/i,
+      /finja\s+que/i,
+      /pretend\s+(you|to\s+be)/i,
+      /jailbreak/i,
+      /DAN\s+mode/i,
+      /ignore\s+previous/i,
+      /override/i,
+      /reveal\s+(your|the)\s+(prompt|instructions)/i,
+    ];
+    if (BLOCKED_PATTERNS.some(p => p.test(message))) {
+      addBotMsg('Sou a Jade, assistente da Alegrando Eventos! Posso te ajudar com informações sobre nossos passeios pedagógicos ou festas de aniversário.');
+      setTimeout(() => executeStep('duvida_encerrada', 'append'), 0);
+      return;
+    }
 
     addUserMsg(message);
     setInputValue('');
@@ -1096,7 +1143,13 @@ export default function JadeChatWidget() {
       chatId: getChatId(),
       message,
       route: WEBHOOK_ROUTE,
-      contexto: { ...f },
+      contexto: {
+        currentStep: f.currentStep,
+        tipoOrganizacao: f.tipoOrganizacao,
+        tipoPasseio: f.tipoPasseio,
+        categoria: f.categoria,
+        destino: f.destino,
+      },
     };
     if (f.searchMode) {
       payload.tipo = 'verificar_destino';
@@ -1269,23 +1322,24 @@ export default function JadeChatWidget() {
       case 'error':
         return <div key={item.id} className="jade-message error" dangerouslySetInnerHTML={{ __html: item.html }} />;
       case 'options':
-        return <OptionsGrid key={item.id} options={item.options} selectedValue={item.selectedValue} onSelect={item.onSelect} />;
+        return <React.Fragment key={item.id}><OptionsGrid options={item.options} selectedValue={item.selectedValue} onSelect={item.onSelect} /></React.Fragment>;
       case 'actions':
-        return <ExtraActions key={item.id} buttons={item.buttons} />;
+        return <React.Fragment key={item.id}><ExtraActions buttons={item.buttons} /></React.Fragment>;
       case 'form': {
         const isSubmitted = submittedFormsRef.current.has(item.id);
         return (
-          <ChatForm
-            key={item.id}
-            tipoOrganizacao={item.tipoOrganizacao}
-            submitted={isSubmitted}
-            onSubmit={(data) => {
-              submittedFormsRef.current.add(item.id);
-              item.onSubmit(data);
-              // Force re-render by updating items
-              setItems(prev => [...prev]);
-            }}
-          />
+          <React.Fragment key={item.id}>
+            <ChatForm
+              tipoOrganizacao={item.tipoOrganizacao}
+              submitted={isSubmitted}
+              onSubmit={(data) => {
+                submittedFormsRef.current.add(item.id);
+                item.onSubmit(data);
+                // Force re-render by updating items
+                setItems(prev => [...prev]);
+              }}
+            />
+          </React.Fragment>
         );
       }
       case 'festa_form': {
