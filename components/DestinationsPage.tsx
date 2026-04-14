@@ -109,9 +109,9 @@ const destinationsData = [
             {
                 title: "Teatros:",
                 items: [
-                    "Teatro Infantil (Cigarra e Formiga)",
-                    "Teatro Juvenil (Dom Casmurro)",
-                    "Teatro Musical (O Mágico de Oz)",
+                    "Teatro Infantil",
+                    "Teatro Juvenil",
+                    "Teatro Musical",
                     "Teatro de Bonecos"
                 ]
             },

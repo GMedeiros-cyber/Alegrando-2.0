@@ -51,7 +51,7 @@ const WIDGET_CSS = `
 #chat-widget-body::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.1); border-radius: 4px; }
 .jade-message { padding: 14px 18px; border-radius: 16px; font-size: 15px; line-height: 1.5; max-width: 85%; word-wrap: break-word; position: relative; }
 .jade-message.user { background: #FF6B35; color: white; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 12px rgba(255,107,53,0.2); }
-.jade-message.bot { background: #FF9B73; color: white; align-self: flex-start; border-bottom-left-radius: 4px; border: none; box-shadow: 0 4px 12px rgba(255,107,53,0.2); }
+.jade-message.bot { background: #B8D4E3; color: #1e293b; align-self: flex-start; border-bottom-left-radius: 4px; border: none; box-shadow: 0 4px 12px rgba(148,196,220,0.25); }
 .jade-message.error { background: #fef2f2; color: #ef4444; border: 1px solid #fecaca; font-size: 13px; align-self: center; }
 #chat-widget-footer { padding: 16px 20px; background: #ffffff; border-top: 1px solid rgba(0,0,0,0.05); z-index: 10; }
 .jade-input-group { display: flex; gap: 10px; background: #f1f5f9; padding: 6px; border-radius: 16px; border: 1px solid transparent; transition: all 0.2s ease; }
@@ -83,7 +83,8 @@ const WIDGET_CSS = `
 @keyframes slideIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .jade-whatsapp-cta-button { background-color: #25D366; color: white; text-decoration: none; padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(37,211,102,0.2); transition: all 0.2s ease; margin-top: 10px; margin-bottom: 4px; border: none; cursor: pointer; }
 .jade-whatsapp-cta-button:hover { background-color: #128C7E; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,211,102,0.3); }
-.jade-message strong { color: #FF6B35; font-weight: 700; }
+.jade-message.bot strong { color: #0F172A; font-weight: 700; }
+.jade-message.user strong { color: #ffffff; font-weight: 700; }
 .jade-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .jade-option-btn { background: #ffffff; border: 1px solid rgba(0,0,0,0.06); padding: 14px 12px; border-radius: 12px; cursor: pointer; font-weight: 600; color: #334155; transition: all 0.2s ease; text-align: center; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
 .jade-option-btn:hover:not(:disabled) { border-color: #FF6B35; background: #fff7ed; color: #FF6B35; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,107,53,0.1); }
@@ -103,20 +104,19 @@ const WIDGET_CSS = `
 .jade-typing-logo-wrapper { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.08); animation: levitate 2s ease-in-out infinite; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.04); }
 .jade-typing-logo { width: 20px; height: 20px; object-fit: contain; }
 @keyframes levitate { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-.jade-typing-bubble { background: #FF9B73; border: none; box-shadow: 0 4px 12px rgba(255,107,53,0.2); padding: 10px 14px; border-radius: 16px; border-bottom-left-radius: 4px; display: flex; gap: 4px; align-items: center; height: 36px; }
-.jade-typing-dot { width: 6px; height: 6px; background: #ffffff; border-radius: 50%; animation: typingBounce 1.4s infinite ease-in-out both; }
+.jade-typing-bubble { background: #B8D4E3; border: none; box-shadow: 0 4px 12px rgba(148,196,220,0.25); padding: 10px 14px; border-radius: 16px; border-bottom-left-radius: 4px; display: flex; gap: 4px; align-items: center; height: 36px; }
+.jade-typing-dot { width: 6px; height: 6px; background: #64748b; border-radius: 50%; animation: typingBounce 1.4s infinite ease-in-out both; }
 .jade-typing-dot:nth-child(1) { animation-delay: -0.32s; }
 .jade-typing-dot:nth-child(2) { animation-delay: -0.16s; }
 @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 `;
 
 // ─── Types ───────────────────────────────────────────────────────────────────
-type ChatStep = 'start' | 'tipoPasseio' | 'categoria' | 'destino' | 'dados' | 'confirmacao' | 'duvida_input' | 'duvida_encerrada' | 'duvidas' | 'encerrado' | 'festa_opcao' | 'festa_pacote' | 'festa_dados' | 'festa_confirmacao';
+type ChatStep = 'start' | 'categoria' | 'cooperativa_destinos' | 'destino' | 'dados' | 'confirmacao' | 'duvida_input' | 'duvida_encerrada' | 'duvidas' | 'encerrado' | 'festa_opcao' | 'festa_pacote' | 'festa_dados' | 'festa_confirmacao';
 
 interface FlowState {
   currentStep: ChatStep;
   tipoOrganizacao: string | null;
-  tipoPasseio: string | null;
   categoria: string | null;
   destino: string | null;
   nome: string | null;
@@ -192,10 +192,16 @@ function parseBotContent(text: string) {
   return sanitizeHtml(parseWhatsAppLinks(parseMarkdown(text)));
 }
 
+function formatDateBR(dateStr: string): string {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return dateStr;
+}
+
 const INITIAL_FLOW: FlowState = {
   currentStep: 'start',
   tipoOrganizacao: null,
-  tipoPasseio: null,
   categoria: null,
   destino: null,
   nome: null,
@@ -221,15 +227,25 @@ function OptionsGrid({ options, selectedValue, onSelect }: {
   selectedValue: string | null;
   onSelect: (v: string) => void;
 }) {
+  const [localSelected, setLocalSelected] = useState<string | null>(selectedValue);
+
+  useEffect(() => { setLocalSelected(selectedValue); }, [selectedValue]);
+
+  const handleClick = (value: string) => {
+    if (localSelected !== null) return;
+    setLocalSelected(value);
+    onSelect(value);
+  };
+
   return (
     <div className="jade-options-grid">
       {options.map((opt) => (
         <button
           key={opt.value}
-          className={`jade-option-btn${selectedValue === opt.value ? ' selected' : ''}`}
-          disabled={selectedValue !== null}
-          style={selectedValue !== null && selectedValue !== opt.value ? { opacity: 0.5 } : undefined}
-          onClick={() => selectedValue === null && onSelect(opt.value)}
+          className={`jade-option-btn${localSelected === opt.value ? ' selected' : ''}`}
+          disabled={localSelected !== null}
+          style={localSelected !== null && localSelected !== opt.value ? { opacity: 0.5 } : undefined}
+          onClick={() => handleClick(opt.value)}
         >
           {opt.label}
         </button>
@@ -278,22 +294,24 @@ function ChatForm({ tipoOrganizacao, onSubmit, submitted }: {
   const [grupo, setGrupo] = useState('');
   const [qtd, setQtd] = useState('');
   const [data, setData] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = () => {
+    setError('');
     if (!nome || !qtd || !data || !grupo) {
-      alert('Por favor, preencha todos os campos.');
+      setError('Por favor, preencha todos os campos.');
       return;
     }
     const qtdInt = parseInt(qtd);
     if (!qtdInt || qtdInt < 1) {
-      alert('A quantidade de alunos deve ser maior que 0.');
+      setError('A quantidade de alunos deve ser maior que 0.');
       return;
     }
     const selectedDate = new Date(data);
     const now = new Date();
     now.setHours(0, 0, 0, 0);
     if (selectedDate < now) {
-      alert('A data do passeio deve ser hoje ou futura.');
+      setError('A data do passeio deve ser hoje ou futura.');
       return;
     }
     onSubmit({ nome, cargo: cargo || undefined, grupo, qtd, data });
@@ -337,6 +355,11 @@ function ChatForm({ tipoOrganizacao, onSubmit, submitted }: {
         <label className="jade-form-label">Data Prevista</label>
         <DatePicker value={data} onChange={setData} disabled={submitted} futureOnly={true} />
       </div>
+      {error && (
+        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', color: '#dc2626', padding: '10px 14px', borderRadius: 10, fontSize: 13, fontWeight: 500, textAlign: 'center', marginTop: 4 }}>
+          {error}
+        </div>
+      )}
       <button className="jade-action-btn" disabled={submitted} onClick={handleSubmit}>
         {submitted ? 'Dados Enviados' : 'Continuar'}
       </button>
@@ -444,10 +467,12 @@ function FestaForm({ onSubmit, submitted }: {
   const [telefone, setTelefone] = useState('');
   const [nomeCrianca, setNomeCrianca] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = () => {
+    setError('');
     if (!nomeResponsavel || !telefone || !nomeCrianca || !dataNascimento) {
-      alert('Por favor, preencha todos os campos.');
+      setError('Por favor, preencha todos os campos.');
       return;
     }
     onSubmit({ nomeResponsavel, telefone, nomeCrianca, dataNascimento });
@@ -471,6 +496,11 @@ function FestaForm({ onSubmit, submitted }: {
         <label className="jade-form-label">Data de Nascimento da Criança</label>
         <DatePicker value={dataNascimento} onChange={setDataNascimento} disabled={submitted} />
       </div>
+      {error && (
+        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', color: '#dc2626', padding: '10px 14px', borderRadius: 10, fontSize: 13, fontWeight: 500, textAlign: 'center', marginTop: 4 }}>
+          {error}
+        </div>
+      )}
       <button className="jade-action-btn" disabled={submitted} onClick={handleSubmit}>
         {submitted ? 'Dados Enviados' : 'Continuar'}
       </button>
@@ -603,11 +633,14 @@ export default function JadeChatWidget() {
               setItems(prev => [...prev, { kind: 'user', id: uid(), text: 'Festas Neo Geo' }]);
               setFlow(prev => ({ ...prev, tipoOrganizacao: value }));
               setTimeout(() => executeStep('festa_opcao', 'append'), 0);
-            } else {
-              const label = value === 'escola' ? 'Escola/Instituição' : 'Transportador / Cooperativa';
-              setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Organizando como: ${label}` }]);
+            } else if (value === 'escola') {
+              setItems(prev => [...prev, { kind: 'user', id: uid(), text: 'Organizando como: Escola/Instituição' }]);
               setFlow(prev => ({ ...prev, tipoOrganizacao: value }));
-              setTimeout(() => executeStep('tipoPasseio', 'append'), 0);
+              setTimeout(() => executeStep('categoria', 'append'), 0);
+            } else {
+              setItems(prev => [...prev, { kind: 'user', id: uid(), text: 'Organizando como: Transportador / Cooperativa' }]);
+              setFlow(prev => ({ ...prev, tipoOrganizacao: value }));
+              setTimeout(() => executeStep('cooperativa_destinos', 'append'), 0);
             }
           },
         });
@@ -622,89 +655,40 @@ export default function JadeChatWidget() {
         break;
       }
 
-      case 'tipoPasseio': {
-        setFlow(prev => ({ ...prev, currentStep: step }));
-        // 500ms delay like original
-        const t = window.setTimeout(() => {
-          const gridId = uid();
-          setItems(prev => [
-            ...prev,
-            { kind: 'bot', id: uid(), html: parseBotContent('Ótimo! E qual é o tipo de passeio que você busca?') },
-            {
-              kind: 'options', id: gridId,
-              options: [{ label: 'Pedagógico', value: 'pedagogico' }, { label: 'Lazer / Diversão', value: 'lazer' }],
-              selectedValue: null,
-              onSelect: (value: string) => {
-                setItems(prev => prev.map(it => it.id === gridId ? { ...it, selectedValue: value } as ChatItem : it));
-                setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Tipo de passeio: ${value === 'pedagogico' ? 'Pedagógico' : 'Lazer'}` }]);
-                setFlow(prev => ({ ...prev, tipoPasseio: value, offset: 0 }));
-                setTimeout(() => executeStep('categoria', 'append'), 0);
-              },
-            },
-          ]);
-        }, 500);
-        timersRef.current.push(t);
-        return; // Don't set items below, handled by timer
-      }
-
       case 'categoria': {
         newItems.push({ kind: 'bot', id: uid(), html: parseBotContent('Qual a categoria de passeio que você prefere?') });
 
-        // Fetch categories from supabase
-        setFlow(prev => ({ ...prev, currentStep: step }));
-        if (mode === 'replace') { setItems(newItems); } else { setItems(prev => [...prev, ...newItems]); }
+        const catOptions = [
+          { label: 'Estudos do Meio', value: 'estudos_do_meio' },
+          { label: 'História e Cultura', value: 'historia_e_cultura' },
+          { label: 'Institutos de Pesquisa', value: 'institutos_de_pesquisa' },
+          { label: 'Museus', value: 'museus' },
+          { label: 'Natureza', value: 'natureza' },
+          { label: 'Teatros', value: 'teatros' },
+          { label: 'Temáticos', value: 'tematicos' },
+        ];
 
-        try {
-          const { data: catData, error } = await supabaseClient
-            .from('documents')
-            .select('categoria')
-            .eq('tipo_passeio', flowRef.current.tipoPasseio);
+        const gridId = uid();
+        newItems.push({
+          kind: 'options', id: gridId,
+          options: catOptions,
+          selectedValue: null,
+          onSelect: (value: string) => {
+            setItems(prev => prev.map(it => it.id === gridId ? { ...it, selectedValue: value } as ChatItem : it));
+            setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Categoria: ${catOptions.find(c => c.value === value)?.label || value}` }]);
+            setFlow(prev => ({ ...prev, categoria: value, offset: 0 }));
+            setTimeout(() => executeStep('destino', 'append'), 0);
+          },
+        });
 
-          if (error || !catData || catData.length === 0) {
-            console.error('Erro ao buscar categorias:', error);
-            addBotMsg('Não encontrei categorias específicas. Visualizando todos...');
-            executeStep('destino', 'append');
-            return;
-          }
-
-          const uniqueCats = [...new Set(catData.map((d: any) => d.categoria).filter((c: any) => c))];
-          const catOptions = uniqueCats.map(c => ({
-            label: c.charAt(0).toUpperCase() + c.slice(1).replace(/_/g, ' '),
-            value: c,
-          }));
-
-          if (catOptions.length === 0) {
-            executeStep('destino', 'append');
-            return;
-          }
-
-          const gridId = uid();
-          setItems(prev => [
-            ...prev,
-            {
-              kind: 'options', id: gridId,
-              options: catOptions,
-              selectedValue: null,
-              onSelect: (value: string) => {
-                setItems(prev => prev.map(it => it.id === gridId ? { ...it, selectedValue: value } as ChatItem : it));
-                setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Categoria: ${value.charAt(0).toUpperCase() + value.slice(1).replace(/_/g, ' ')}` }]);
-                setFlow(prev => ({ ...prev, categoria: value, offset: 0 }));
-                setTimeout(() => executeStep('destino', 'append'), 0);
-              },
-            },
-            {
-              kind: 'actions', id: uid(),
-              buttons: [
-                { label: '🔙 Outro tipo de passeio', onClick: () => doGoBackTo('tipoPasseio') },
-                { label: '↺ Recomeçar', isHtml: true, onClick: () => doRestart() },
-              ],
-            },
-          ]);
-        } catch (err) {
-          console.error('Erro categorias:', err);
-          executeStep('destino', 'append');
-        }
-        return; // Already handled items
+        newItems.push({
+          kind: 'actions', id: uid(),
+          buttons: [
+            { label: 'Tenho uma dúvida', onClick: () => executeStep('duvida_input', 'append') },
+            { label: '↺ Recomeçar', isHtml: true, onClick: () => doRestart() },
+          ],
+        });
+        break;
       }
 
       case 'destino': {
@@ -724,8 +708,7 @@ export default function JadeChatWidget() {
           const limit = 6;
           let query = supabaseClient
             .from('documents')
-            .select('id, content, tipo_passeio, categoria, destaque')
-            .eq('tipo_passeio', currentFlow.tipoPasseio)
+            .select('id, content, categoria, destaque')
             .order('destaque', { ascending: false })
             .range(offset, offset + limit - 1);
 
@@ -812,6 +795,39 @@ export default function JadeChatWidget() {
         return; // Already handled
       }
 
+      case 'cooperativa_destinos': {
+        newItems.push({ kind: 'bot', id: uid(), html: parseBotContent('Estes são os destinos disponíveis para Transportadores e Cooperativas:') });
+
+        const destinos = [
+          { label: 'Aquário de São Paulo', value: 'Aquário de São Paulo' },
+          { label: 'Park Neo Geo', value: 'Park Neo Geo' },
+          { label: 'Sitiolândia', value: 'Sitiolândia' },
+          { label: 'Zoológico de São Paulo', value: 'Zoológico de São Paulo' },
+        ];
+
+        const coopGridId = uid();
+        newItems.push({
+          kind: 'options', id: coopGridId,
+          options: destinos,
+          selectedValue: null,
+          onSelect: (value: string) => {
+            setItems(prev => prev.map(it => it.id === coopGridId ? { ...it, selectedValue: value } as ChatItem : it));
+            setItems(prev => [...prev, { kind: 'user', id: uid(), text: `Tenho interesse em: ${value}` }]);
+            setFlow(prev => ({ ...prev, destino: value }));
+            setTimeout(() => executeStep('dados', 'append'), 0);
+          },
+        });
+
+        newItems.push({
+          kind: 'actions', id: uid(),
+          buttons: [
+            { label: 'Tenho uma dúvida', onClick: () => executeStep('duvida_input', 'append') },
+            { label: '↺ Recomeçar', isHtml: true, onClick: () => doRestart() },
+          ],
+        });
+        break;
+      }
+
       case 'dados': {
         const currentFlow = flowRef.current;
         const formId = uid();
@@ -844,7 +860,7 @@ export default function JadeChatWidget() {
           const grupoLabel = f.tipoOrganizacao === 'escola'
             ? `Escola/Instituição ${f.grupo || ''}`
             : `Transportador / Cooperativa ${f.grupo || ''}`;
-          const msg = `Olá! Falei com a Jade. Gostaria de cotar o roteiro *${f.destino}* para *${grupoLabel}* com *${f.qtd}* alunos. Data prevista: *${f.data}*. Responsável: ${f.nome} (${f.cargo || 'Responsável'}).`;
+          const msg = `Olá! Falei com a Jade. Gostaria de cotar o roteiro *${f.destino}* para *${grupoLabel}* com *${f.qtd}* alunos. Data prevista: *${formatDateBR(f.data || '')}*. Responsável: ${f.nome} (${f.cargo || 'Responsável'}).`;
           const fullUrl = `${baseUrl}?text=${encodeURIComponent(msg)}`;
 
           setItems(prev => [
@@ -975,7 +991,7 @@ export default function JadeChatWidget() {
             `*Responsável:* ${f.nomeResponsavel}\n` +
             `*Telefone:* ${f.telefone}\n` +
             `*Criança:* ${f.nomeCrianca}\n` +
-            `*Nascimento:* ${f.dataNascimento}`;
+            `*Nascimento:* ${formatDateBR(f.dataNascimento || '')}`;
 
           // Salvar lead no n8n → Google Sheets
           try {
@@ -986,7 +1002,7 @@ export default function JadeChatWidget() {
                 nomeResponsavel: f.nomeResponsavel,
                 telefone: f.telefone,
                 nomeCrianca: f.nomeCrianca,
-                dataNascimento: f.dataNascimento,
+                dataNascimento: formatDateBR(f.dataNascimento || ''),
                 pacote: f.festaOpcao,
                 dataHora: new Date().toISOString(),
               }),
@@ -1013,16 +1029,10 @@ export default function JadeChatWidget() {
       }
 
       case 'duvida_encerrada': {
-        const f = flowRef.current;
         const btns: { label: string; isHtml?: boolean; onClick: () => void }[] = [];
-        if (f.finalizado) {
-          btns.push({ label: '↺ Recomeçar', isHtml: true, onClick: () => doRestart() });
-        } else {
-          btns.push({ label: '🧭 Montar Roteiro', onClick: () => executeStep('start', 'replace') });
-        }
+        btns.push({ label: '🧭 Montar Roteiro', onClick: () => doRestart() });
         btns.push({ label: 'Tenho outra dúvida', onClick: () => executeStep('duvida_input', 'append') });
         newItems.push({ kind: 'actions', id: uid(), buttons: btns });
-
         break;
       }
 
@@ -1068,11 +1078,16 @@ export default function JadeChatWidget() {
   }
 
   const doRestart = useCallback(() => {
+    timersRef.current.forEach(t => clearTimeout(t));
+    timersRef.current = [];
     setFlow({ ...INITIAL_FLOW });
     setItems([]);
     setInputValue('');
-    // Use setTimeout to ensure flow state is fresh
-    setTimeout(() => executeStep('start', 'replace'), 0);
+    setInputEnabled(false);
+    setInputHighlight(false);
+    setShowHint(false);
+    submittedFormsRef.current.clear();
+    setTimeout(() => executeStep('start', 'replace'), 50);
   }, [executeStep]);
 
   const doGoBackTo = useCallback((step: ChatStep) => {
@@ -1146,7 +1161,6 @@ export default function JadeChatWidget() {
       contexto: {
         currentStep: f.currentStep,
         tipoOrganizacao: f.tipoOrganizacao,
-        tipoPasseio: f.tipoPasseio,
         categoria: f.categoria,
         destino: f.destino,
       },

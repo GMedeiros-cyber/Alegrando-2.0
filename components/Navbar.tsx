@@ -97,20 +97,22 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.href;
+              return (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavigation(e, link.href)}
-                className="text-sm font-semibold uppercase tracking-wider text-slate-600 hover:text-brand-orange transition-colors cursor-pointer"
+                className={`text-sm font-semibold uppercase tracking-wider transition-colors cursor-pointer ${isActive ? 'text-brand-orange' : 'text-slate-600 hover:text-brand-orange'}`}
               >
                 {link.name}
               </a>
-            ))}
+            )})}
             <a
               href="/aniversarios"
               onClick={handleAniversariosClick}
-              className="text-sm font-semibold uppercase tracking-wider text-slate-600 hover:text-brand-orange transition-colors cursor-pointer"
+              className={`text-sm font-semibold uppercase tracking-wider transition-colors cursor-pointer ${location.pathname === '/aniversarios' ? 'text-brand-orange' : 'text-slate-600 hover:text-brand-orange'}`}
             >
               Aniversários
             </a>
@@ -132,47 +134,50 @@ const Navbar: React.FC = () => {
             {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
-      </nav>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/95 backdrop-blur-xl shadow-lg overflow-hidden border-t fixed top-[72px] left-0 right-0 z-40"
-          >
-            <div className="flex flex-col p-6 gap-6 items-center">
-              {navLinks.map((link) => (
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="md:hidden absolute top-[calc(100%+12px)] left-0 right-0 bg-white/95 backdrop-blur-xl shadow-2xl shadow-slate-900/10 rounded-3xl overflow-hidden border border-slate-100 z-40"
+            >
+              <div className="flex flex-col p-4 gap-2 items-center">
+                {navLinks.map((link) => {
+                  const isActive = location.pathname === link.href;
+                  return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavigation(e, link.href)}
+                    className={`font-semibold text-lg cursor-pointer w-full text-center py-3 rounded-xl transition-all ${isActive ? 'text-brand-orange bg-orange-50/50' : 'text-slate-700 hover:text-brand-orange hover:bg-slate-50'}`}
+                  >
+                    {link.name}
+                  </a>
+                )})}
                 <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavigation(e, link.href)}
-                  className="text-slate-700 font-semibold text-lg hover:text-brand-orange cursor-pointer w-full text-center py-2 border-b border-slate-100 last:border-0"
+                  href="/aniversarios"
+                  onClick={handleAniversariosClick}
+                  className={`font-semibold text-lg cursor-pointer w-full text-center py-3 rounded-xl transition-all mb-2 ${location.pathname === '/aniversarios' ? 'text-brand-orange bg-orange-50/50' : 'text-slate-700 hover:text-brand-orange hover:bg-slate-50'}`}
                 >
-                  {link.name}
+                  Aniversários
                 </a>
-              ))}
-              <a
-                href="/aniversarios"
-                onClick={handleAniversariosClick}
-                className="text-slate-700 font-semibold text-lg hover:text-brand-orange cursor-pointer w-full text-center py-2 border-b border-slate-100 last:border-0"
-              >
-                Aniversários
-              </a>
-              <a
-                href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-brand-orange text-white text-center py-3 rounded-xl font-bold uppercase tracking-wider shadow-md"
-              >
-                Fale Conosco
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <a
+                  href="https://wa.me/5511916032904?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Alegrando%20e%20gostaria%20de%20conversar%20sobre%20um%20passeio%20para%20minha%20escola."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-brand-orange text-white text-center py-3 rounded-xl font-bold uppercase tracking-wider shadow-md active:bg-orange-600 transition-colors"
+                >
+                  Fale Conosco
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
     </>
   );
 };

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 // Force reload comment
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -23,9 +23,18 @@ import TermsOfService from './components/TermsOfService';
 // Global Widget
 import JadeChatWidget from './components/JadeChatWidget';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 export default function App() {
   return (
     <div className="font-sans text-slate-800 antialiased bg-slate-50 selection:bg-brand-orange selection:text-white overflow-x-hidden flex flex-col min-h-screen">
+      <ScrollToTop />
       <Navbar />
       <div className="flex-grow">
         <Routes>
