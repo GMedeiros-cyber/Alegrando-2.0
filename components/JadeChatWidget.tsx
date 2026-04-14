@@ -185,7 +185,10 @@ function sanitizeHtml(html: string): string {
     .replace(/<iframe\b[^>]*>/gi, '')
     .replace(/<object\b[^>]*>/gi, '')
     .replace(/<embed\b[^>]*>/gi, '')
-    .replace(/javascript:/gi, '');
+    .replace(/javascript\s*:/gi, '')
+    .replace(/data\s*:\s*text\/html/gi, '')
+    .replace(/<svg\b[^>]*onload[^>]*>/gi, '')
+    .replace(/href\s*=\s*["']\s*javascript/gi, 'href="');
 }
 
 function parseBotContent(text: string) {
@@ -527,6 +530,7 @@ export default function JadeChatWidget() {
   const itemsRef = useRef<ChatItem[]>(items);
   const isOpenRef = useRef(false);
   const timersRef = useRef<number[]>([]);
+  const handleSendRef = useRef<((msg?: string) => void) | null>(null);
 
   // Keep refs in sync
   useEffect(() => { flowRef.current = flow; }, [flow]);
@@ -1052,6 +1056,13 @@ export default function JadeChatWidget() {
     setFlow(prev => ({ ...prev, currentStep: step }));
 
     if (newItems.length > 0) {
+      const botMessages = newItems.filter(i => i.kind === 'bot' || i.kind === 'options');
+      if (botMessages.length > 0) {
+        const typingId = uid();
+        setItems(prev => [...prev, { kind: 'typing', id: typingId }]);
+        await new Promise(res => setTimeout(res, 500));
+        setItems(prev => prev.filter(i => i.id !== typingId));
+      }
       if (mode === 'replace') {
         setItems(newItems);
       } else {
@@ -1214,51 +1225,11 @@ export default function JadeChatWidget() {
       sessionStorage.setItem('jade_auto_triggered', 'true');
 
       if (initialMessage) {
-        // Transition to duvidas and send message
         executeStep('duvidas', 'append');
         setTimeout(() => {
-          // Set input and send
           setInputValue(initialMessage);
-          // Need a small delay for state to settle
-          setTimeout(() => {
-            // Manually send since inputValue may not be settled
-            const f = flowRef.current;
-            const typingId = uid();
-
-            setItems(prev => [...prev, { kind: 'user', id: uid(), text: initialMessage }]);
-            setItems(prev => [...prev, { kind: 'typing', id: typingId }]);
-            sessionStorage.setItem('jade_interaction_started', 'true');
-
-            const payload: any = {
-              chatId: getChatId(),
-              message: initialMessage,
-              route: WEBHOOK_ROUTE,
-              contexto: { ...f },
-            };
-
-            fetch(WEBHOOK_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
-              signal: AbortSignal.timeout(15000),
-            }).then(async (res) => {
-              setItems(prev => prev.filter(it => it.id !== typingId));
-              if (!res.ok) throw new Error(`HTTP ${res.status}`);
-              const data = await res.json();
-              setItems(prev => [...prev, { kind: 'bot', id: uid(), html: parseBotContent(data.output || 'Desculpe, não entendi.') }]);
-              setInputHighlight(false);
-              executeStep('duvida_encerrada', 'append');
-            }).catch((err) => {
-              setItems(prev => prev.filter(it => it.id !== typingId));
-              console.error('Erro:', err);
-              setItems(prev => [...prev, {
-                kind: 'bot', id: uid(),
-                html: 'Estamos com problemas técnicos no momento. Por favor, <a href="https://wa.me/5511916032904" target="_blank" class="jade-whatsapp-cta-button" style="display:inline-flex; margin-top:8px;">fale conosco pelo WhatsApp</a>',
-              }]);
-              setInputEnabled(true);
-            });
-          }, 100);
-        }, 500);
+          setTimeout(() => handleSendRef.current?.(), 50);
+        }, 300);
       } else {
         if (flowRef.current.currentStep === 'start' && itemsRef.current.length === 0) {
           executeStep('start', 'replace');
@@ -1304,6 +1275,13 @@ export default function JadeChatWidget() {
   }, [executeStep]);
 
   const handleSend = useCallback(() => { sendMessage(); }, [sendMessage]);
+
+  useEffect(() => {
+    handleSendRef.current = (msg?: string) => {
+      if (msg) setInputValue(msg);
+      handleSend();
+    };
+  }, [handleSend]);
 
   const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter') sendMessage();
