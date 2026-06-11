@@ -1,12 +1,20 @@
 import path from 'path';
 import { defineConfig, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import { imagetools } from 'vite-imagetools';
 
-// Inlina o CSS (pequeno, ~7KB gzip) no <head> do index.html e remove o arquivo
-// separado — elimina 1 requisição render-blocking, melhorando o FCP.
-function inlineCss(): Plugin {
+// No build: (1) inlina o CSS purgado (~7KB gzip) no <head> e remove o <link>
+// render-blocking; (2) injeta <link rel=preload> para os 2 woff2 críticos do
+// above-the-fold (H1 do Hero: Montserrat 700 + Playfair itálico), casando com o
+// nome hasheado gerado pelo Vite.
+const CRITICAL_FONTS = [
+  'montserrat-latin-700-normal',
+  'playfair-display-latin-400-italic',
+];
+
+function optimizeHtml(): Plugin {
   return {
-    name: 'inline-css',
+    name: 'optimize-html',
     apply: 'build',
     enforce: 'post',
     generateBundle(_options, bundle) {
@@ -15,6 +23,8 @@ function inlineCss(): Plugin {
       );
       if (!html || typeof html.source !== 'string') return;
       let src = html.source;
+
+      // (1) inline do CSS
       for (const asset of Object.values(bundle)) {
         if (asset.type === 'asset' && asset.fileName.endsWith('.css')) {
           const base = asset.fileName.split('/').pop();
@@ -23,6 +33,14 @@ function inlineCss(): Plugin {
           delete bundle[asset.fileName];
         }
       }
+
+      // (2) preload das fontes críticas
+      const preloads = Object.values(bundle)
+        .filter((a) => a.fileName.endsWith('.woff2') && CRITICAL_FONTS.some((f) => a.fileName.includes(f)))
+        .map((a) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="/${a.fileName}">`)
+        .join('\n  ');
+      if (preloads) src = src.replace('</head>', `  ${preloads}\n</head>`);
+
       html.source = src;
     },
   };
@@ -33,7 +51,7 @@ export default defineConfig({
     port: 3000,
     host: '0.0.0.0',
   },
-  plugins: [react(), inlineCss()],
+  plugins: [react(), imagetools(), optimizeHtml()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),

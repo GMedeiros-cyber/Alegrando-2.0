@@ -1,13 +1,14 @@
 import React from 'react';
 import { m } from 'framer-motion';
 import { MapPin, CheckCircle, Car, Users, Star, ArrowRight, Sparkles, Ticket, Armchair, Wand2 } from 'lucide-react';
+import Picture from './Picture';
 
 // Import assets
 import neogeoHeroImg from '../assets/neogeo.webp';
 
-import barueriImg from '../assets/barueri.webp';
-import morumbiImg from '../assets/morumbi.webp';
-import internacionalImg from '../assets/internacional.webp';
+import barueriImg from '../assets/barueri.webp?w=480;800;1280&format=avif;webp&as=picture';
+import morumbiImg from '../assets/morumbi.webp?w=480;800;1280&format=avif;webp&as=picture';
+import internacionalImg from '../assets/internacional.webp?w=480;800;1280&format=avif;webp&as=picture';
 
 const BirthdayPage: React.FC = () => {
     return (
@@ -134,7 +135,7 @@ const BirthdayPage: React.FC = () => {
                     >
                         <div className="absolute -inset-4 bg-brand-orange/10 rounded-[3rem] -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-                            <img src={barueriImg} alt="Parque Shopping Barueri" width={1280} height={960} loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            <Picture source={barueriImg} alt="Parque Shopping Barueri" width={1280} height={960} sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <span className="inline-block px-4 py-1 bg-brand-orange text-white text-xs font-bold rounded-full mb-2">Novo Salão</span>
                                 <h3 className="text-white text-2xl font-bold">Parque Shopping Barueri</h3>
@@ -206,7 +207,7 @@ const BirthdayPage: React.FC = () => {
                     >
                         <div className="absolute -inset-4 bg-blue-100 rounded-[3rem] rotate-2 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-                            <img src={morumbiImg} alt="Morumbi Town Shopping" width={800} height={600} loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            <Picture source={morumbiImg} alt="Morumbi Town Shopping" width={800} height={600} sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <div className="flex gap-2 mb-2">
                                     <span className="inline-block px-4 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full">Salão Premium</span>
@@ -280,7 +281,7 @@ const BirthdayPage: React.FC = () => {
                     >
                         <div className="absolute -inset-4 bg-green-100 rounded-[3rem] -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-                            <img src={internacionalImg} alt="Shopping Internacional de Guarulhos" width={800} height={600} loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            <Picture source={internacionalImg} alt="Shopping Internacional de Guarulhos" width={800} height={600} sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <div className="flex gap-2 mb-2">
                                     <span className="inline-block px-4 py-1 bg-brand-orange text-white text-xs font-bold rounded-full">Neofestas 1, 2 e 3</span>

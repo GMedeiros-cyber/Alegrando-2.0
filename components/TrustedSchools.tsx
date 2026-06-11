@@ -1,11 +1,12 @@
 import React from 'react';
 
-// Import logos
-import adventista from '../assets/adventista.webp';
-import autentico from '../assets/autentico.webp';
-import externato from '../assets/externato.webp';
-import winner from '../assets/winner.webp';
-import vinicius from '../assets/vinicius.webp';
+import Picture from './Picture';
+// Import logos (AVIF + WebP responsivo)
+import adventista from '../assets/adventista.webp?w=192;384&format=avif;webp&as=picture';
+import autentico from '../assets/autentico.webp?w=192;384&format=avif;webp&as=picture';
+import externato from '../assets/externato.webp?w=192;384&format=avif;webp&as=picture';
+import winner from '../assets/winner.webp?w=192;384&format=avif;webp&as=picture';
+import vinicius from '../assets/vinicius.webp?w=192;384&format=avif;webp&as=picture';
 
 const schools = [
     { name: 'Colégio Adventista', logo: adventista, w: 420, h: 274 },
@@ -38,13 +39,12 @@ const TrustedSchools: React.FC = () => {
                                 key={`${school.name}-${index}`}
                                 className="flex-shrink-0 w-32 md:w-48 grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100"
                             >
-                                <img
-                                    src={school.logo}
+                                <Picture
+                                    source={school.logo}
                                     alt={`Logo ${school.name}`}
                                     width={school.w}
                                     height={school.h}
-                                    loading="lazy"
-                                    decoding="async"
+                                    sizes="(max-width: 768px) 128px, 192px"
                                     className="w-full h-auto object-contain max-h-24"
                                 />
                             </div>

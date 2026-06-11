@@ -18,7 +18,7 @@ const getSupabaseClient = () => {
 
 // ─── CSS (injected on mount) ─────────────────────────────────────────────────
 const WIDGET_CSS = `
-/* Pacifico carregada via <link> no index.html (evita @import render-blocking) */
+/* Pacifico self-hosted via @fontsource (importada em index.tsx) */
 /* Container */
 #chat-widget-container {
   position: fixed;

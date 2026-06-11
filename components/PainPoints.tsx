@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { m } from 'framer-motion';
+import Picture from './Picture';
 
 // Componente para o Card de Dor
 interface PainPointCardProps {
@@ -87,7 +88,7 @@ const painPoints = [
     <>Necessitam de uma didática inovadora com foco em <span className="font-bold text-brand-orange">retenção.</span></>,
 ];
 
-import painImage from '../assets/painpoints.webp';
+import painImage from '../assets/painpoints.webp?w=480;800;1280&format=avif;webp&as=picture';
 const PAIN_IMAGE = painImage;
 
 const PainPoints: React.FC = () => {
@@ -146,13 +147,12 @@ const PainPoints: React.FC = () => {
                     {/* Coluna Central (Imagem) */}
                     <div className="lg:col-span-6 flex justify-center order-1 lg:order-2 relative z-20">
                         <div className="relative w-full max-w-2xl aspect-video">
-                            <img
-                                src={PAIN_IMAGE}
+                            <Picture
+                                source={PAIN_IMAGE}
                                 alt="Professora"
                                 width={800}
                                 height={533}
-                                loading="lazy"
-                                decoding="async"
+                                sizes="(max-width: 1024px) 90vw, 672px"
                                 className="w-full h-full object-cover rounded-3xl shadow-2xl border-4 border-white relative z-20"
                             />
                             <div className="absolute -inset-3 border-4 border-brand-orange/30 rounded-[2rem] transform rotate-1 z-0 pointer-events-none"></div>
@@ -184,13 +184,12 @@ const PainPoints: React.FC = () => {
                 <div className="lg:hidden">
                     {/* Compact Image */}
                     <div className="h-48 rounded-2xl overflow-hidden mb-8">
-                        <img
-                            src={PAIN_IMAGE}
+                        <Picture
+                            source={PAIN_IMAGE}
                             alt="Professora"
                             width={800}
                             height={533}
-                            loading="lazy"
-                            decoding="async"
+                            sizes="100vw"
                             className="w-full h-full object-cover"
                         />
                     </div>

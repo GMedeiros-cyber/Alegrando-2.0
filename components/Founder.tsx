@@ -1,6 +1,7 @@
 import React from 'react';
 import { m } from 'framer-motion';
-import silvanaImage from '../assets/silvana.webp';
+import Picture from './Picture';
+import silvanaImage from '../assets/silvana.webp?w=480;800;1280&format=avif;webp&as=picture';
 
 const Founder: React.FC = () => {
     return (
@@ -20,13 +21,12 @@ const Founder: React.FC = () => {
                             <div className="absolute -inset-2 md:-inset-4 rounded-[2rem] border border-brand-orange transform -rotate-1 md:-rotate-2 scale-100 md:scale-105 pointer-events-none z-0" />
 
                             <div className="relative rounded-[1.5rem] overflow-hidden shadow-2xl w-full aspect-[3/4] z-10 bg-slate-900">
-                                <img
-                                    src={silvanaImage}
+                                <Picture
+                                    source={silvanaImage}
                                     alt="Silvana Moura - Fundadora"
                                     width={853}
                                     height={1280}
-                                    loading="lazy"
-                                    decoding="async"
+                                    sizes="(max-width: 1024px) 90vw, 450px"
                                     className="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
                                 />
                                 {/* Floating Badge */}

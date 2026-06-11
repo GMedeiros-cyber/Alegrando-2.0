@@ -3,7 +3,8 @@ import { Menu, X } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
-import logo from '../assets/alegrando.webp';
+import Picture from './Picture';
+import logo from '../assets/alegrando.webp?w=240;480&format=avif;webp&as=picture';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,14 +89,14 @@ const Navbar: React.FC = () => {
         <div className="px-8 flex justify-between items-center">
           {/* Logo Area */}
           <a href="/" onClick={handleLogoClick} className="flex items-center gap-2 group">
-            <img
-              src={logo}
+            <Picture
+              source={logo}
               alt="Alegrando Eventos"
               width={480}
               height={188}
               loading="eager"
               fetchPriority="high"
-              decoding="async"
+              sizes="122px"
               className="h-12 w-auto transition-all duration-300"
             />
           </a>

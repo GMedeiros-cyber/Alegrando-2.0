@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Mail, MessageCircle } from 'lucide-react';
-import logo from '../assets/alegrando.webp';
+import Picture from './Picture';
+import logo from '../assets/alegrando.webp?w=240;480&format=avif;webp&as=picture';
 
 const GOOGLE_MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua+Antonieta+Aguirre+de+Moraes+Barros+59+Sala+06+Vila+Augusta+Guarulhos+SP';
 
@@ -12,13 +13,12 @@ const Footer: React.FC = () => {
 
           {/* Column 1: Brand */}
           <div className="flex flex-col gap-6">
-            <img
-              src={logo}
+            <Picture
+              source={logo}
               alt="Alegrando Eventos"
               width={480}
               height={188}
-              loading="lazy"
-              decoding="async"
+              sizes="180px"
               className="h-16 w-auto max-w-[180px] object-contain brightness-110"
             />
             <p className="text-sm leading-relaxed max-w-xs text-slate-400">

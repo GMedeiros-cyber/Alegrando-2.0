@@ -1,11 +1,12 @@
 import React from 'react';
 import { m } from 'framer-motion';
 import { Flame } from 'lucide-react';
-import equipe1 from '../assets/equipe.webp';
-import equipe2 from '../assets/equipe2.webp';
-import shopping1 from '../assets/shopping.webp';
-import shopping2 from '../assets/shopping2.webp';
-import shopping3 from '../assets/shopping3.webp';
+import Picture from './Picture';
+import equipe1 from '../assets/equipe.webp?w=480;800;1280&format=avif;webp&as=picture';
+import equipe2 from '../assets/equipe2.webp?w=480;800;1280&format=avif;webp&as=picture';
+import shopping1 from '../assets/shopping.webp?w=480;800;1280&format=avif;webp&as=picture';
+import shopping2 from '../assets/shopping2.webp?w=480;800;1280&format=avif;webp&as=picture';
+import shopping3 from '../assets/shopping3.webp?w=480;800;1280&format=avif;webp&as=picture';
 
 // Bonfire component removed as requested
 const Bonfire = () => null;
@@ -58,7 +59,7 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={equipe1} alt="Equipe Alegrando" width={738} height={748} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <Picture source={equipe1} alt="Equipe Alegrando" width={738} height={748} sizes="320px" className="w-full h-full object-cover" />
             </div>
             {/* Tape Effect */}
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-28 h-8 bg-orange-200/80 rotate-2"></div>
@@ -73,7 +74,7 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={equipe2} alt="Equipe em ação" width={1080} height={1440} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <Picture source={equipe2} alt="Equipe em ação" width={1080} height={1440} sizes="320px" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-4 right-10 w-24 h-8 bg-blue-200/80 -rotate-3"></div>
           </m.div>
@@ -87,7 +88,7 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={shopping1} alt="Passeio no Shopping" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <Picture source={shopping1} alt="Passeio no Shopping" width={960} height={1280} sizes="320px" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-3 left-10 w-24 h-6 bg-green-200/80 rotate-1"></div>
           </m.div>
@@ -101,7 +102,7 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={shopping2} alt="Alegria e Diversão" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <Picture source={shopping2} alt="Alegria e Diversão" width={960} height={1280} sizes="320px" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-yellow-300 rounded-full flex items-center justify-center shadow-lg transform rotate-12 z-20">
               <span className="font-bold text-sm text-slate-900 uppercase text-center transform -rotate-12">100%<br />Diversão</span>
@@ -117,7 +118,7 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={shopping3} alt="Passeio Shopping" width={1200} height={1600} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+              <Picture source={shopping3} alt="Passeio Shopping" width={1200} height={1600} sizes="320px" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-3 right-8 w-28 h-6 bg-purple-200/80 -rotate-2"></div>
           </m.div>
@@ -128,19 +129,19 @@ const Team: React.FC = () => {
         <div className="md:hidden flex flex-col gap-10 pb-12 relative z-10">
           {/* Bonfire removed */}
           <m.div className="bg-white p-4 shadow-lg rotate-[-2deg]" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}>
-            <img src={equipe1} alt="Equipe" width={738} height={748} loading="lazy" decoding="async" className="w-full h-auto" />
+            <Picture source={equipe1} alt="Equipe" width={738} height={748} sizes="100vw" className="w-full h-auto" />
           </m.div>
           <m.div className="bg-white p-4 shadow-lg rotate-[2deg]" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}>
-            <img src={equipe2} alt="Equipe" width={1080} height={1440} loading="lazy" decoding="async" className="w-full h-auto" />
+            <Picture source={equipe2} alt="Equipe" width={1080} height={1440} sizes="100vw" className="w-full h-auto" />
           </m.div>
           <m.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping1} alt="Shopping" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-auto" />
+            <Picture source={shopping1} alt="Shopping" width={960} height={1280} sizes="100vw" className="w-full h-auto" />
           </m.div>
           <m.div className="bg-white p-4 shadow-lg rotate-[-1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping2} alt="Shopping" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-auto" />
+            <Picture source={shopping2} alt="Shopping" width={960} height={1280} sizes="100vw" className="w-full h-auto" />
           </m.div>
           <m.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping3} alt="Shopping" width={1200} height={1600} loading="lazy" decoding="async" className="w-full h-auto" />
+            <Picture source={shopping3} alt="Shopping" width={1200} height={1600} sizes="100vw" className="w-full h-auto" />
           </m.div>
         </div>
 

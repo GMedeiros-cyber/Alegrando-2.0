@@ -34,17 +34,9 @@
   <!-- Preload do poster do Hero (LCP) -->
   <link rel="preload" as="image" fetchpriority="high" href="/hero-poster.webp" />
 
-  <!-- Fonts (mesmas famílias/pesos, carregadas de forma não-bloqueante) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap">
-  <link rel="stylesheet" media="print" onload="this.media='all'"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap">
-  </noscript>
+  <!-- Fontes self-hosted (@fontsource). Os preloads dos 2 woff2 críticos do H1 do
+       Hero (Montserrat 700 + Playfair itálico) são injetados no build pelo plugin
+       fontPreload do vite.config.ts. -->
 </head>
 
 <body>
