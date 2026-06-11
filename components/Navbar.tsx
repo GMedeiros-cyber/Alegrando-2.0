@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
-import logo from '../assets/alegrando.png';
+import logo from '../assets/alegrando.webp';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -91,6 +91,11 @@ const Navbar: React.FC = () => {
             <img
               src={logo}
               alt="Alegrando Eventos"
+              width={480}
+              height={188}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="h-12 w-auto transition-all duration-300"
             />
           </a>
@@ -138,7 +143,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -174,7 +179,7 @@ const Navbar: React.FC = () => {
                   Fale Conosco
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </nav>

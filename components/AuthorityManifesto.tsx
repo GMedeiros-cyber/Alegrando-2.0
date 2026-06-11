@@ -1,7 +1,7 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ShieldCheck, TrendingUp, Heart, DollarSign, CheckCircle, Bus, Shield } from 'lucide-react';
-import cadasturImg from '../assets/cadastur.png';
+import cadasturImg from '../assets/cadastur.webp';
 
 const AuthorityManifesto: React.FC = () => {
     return (
@@ -11,7 +11,7 @@ const AuthorityManifesto: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
 
                     {/* Left: Safety First (Moved from Right) */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -47,13 +47,13 @@ const AuthorityManifesto: React.FC = () => {
 
                         <div className="flex flex-wrap items-center gap-4 md:gap-6 pt-6 border-t border-slate-100 opacity-80 hover:opacity-100 transition-opacity">
                             <span className="text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Autorizado por</span>
-                            <img src={cadasturImg} alt="Cadastur" className="h-8 md:h-10 w-auto grayscale hover:grayscale-0 transition-all object-contain max-w-full" />
+                            <img src={cadasturImg} alt="Cadastur" width={600} height={96} loading="lazy" decoding="async" className="h-8 md:h-10 w-auto grayscale hover:grayscale-0 transition-all object-contain max-w-full" />
                         </div>
-                    </motion.div>
+                    </m.div>
 
                     {/* Right: Authority Text Block (Moved from Left) */}
                     <div className="text-left w-full pl-0 lg:pl-12 pt-8 lg:pt-0">
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -98,7 +98,7 @@ const AuthorityManifesto: React.FC = () => {
                                     <span className="text-slate-700 font-medium text-lg self-center">Melhoram a saúde financeira da escola</span>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
                     </div>
 
                 </div>

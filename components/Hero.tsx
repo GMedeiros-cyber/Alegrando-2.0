@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import ursinhoVideo from '../assets/ursinho.mp4';
 
 const Hero: React.FC = () => {
@@ -12,6 +12,8 @@ const Hero: React.FC = () => {
           loop
           muted
           playsInline
+          preload="metadata"
+          poster="/hero-poster.webp"
           className="w-full h-full object-cover"
         >
           <source src={ursinhoVideo} type="video/mp4" />
@@ -22,7 +24,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-6 text-center text-white mt-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -36,24 +38,20 @@ const Hero: React.FC = () => {
           </p>
 
 
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-2">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-1 h-1 bg-white rounded-full mb-1"
-          />
+          <div className="w-1 h-1 bg-white rounded-full mb-1 animate-scroll-dot" />
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

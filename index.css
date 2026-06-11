@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animações contínuas em CSS (rodam no compositor, fora da main thread) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scroll-dot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(12px); }
+}
+.animate-scroll-dot {
+  animation: scroll-dot 1.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-scroll-dot {
+    animation: none;
+  }
+}

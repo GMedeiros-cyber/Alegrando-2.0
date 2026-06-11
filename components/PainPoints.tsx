@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 // Componente para o Card de Dor
 interface PainPointCardProps {
@@ -18,35 +18,35 @@ const PainPointCard: React.FC<PainPointCardProps> = ({ text, position, delay = 0
                 // Seta saindo da direita do card, curvando para baixo em direção à imagem
                 return (
                     <svg className="hidden lg:block absolute -right-[80%] top-1/2 w-[80%] h-32 text-brand-orange z-[-1] pointer-events-none transform -translate-y-1/2" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
-                        <motion.path d="M0 25 C 50 25, 50 60, 100 60" stroke="currentColor" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
+                        <m.path d="M0 25 C 50 25, 50 60, 100 60" stroke="currentColor" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
                     </svg>
                 );
             case 'left-bottom':
                 // Seta saindo da direita, curvando para cima
                 return (
                     <svg className="hidden lg:block absolute -right-[80%] top-1/2 w-[80%] h-32 text-brand-orange z-[-1] pointer-events-none transform -translate-y-[60%]" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
-                        <motion.path d="M0 40 C 50 40, 50 0, 100 0" stroke="currentColor" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
+                        <m.path d="M0 40 C 50 40, 50 0, 100 0" stroke="currentColor" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
                     </svg>
                 );
             case 'right-top':
                 // Seta saindo da esquerda, curvando para baixo (indo para trás da imagem)
                 return (
                     <svg className="hidden lg:block absolute -left-[80%] top-1/2 w-[80%] h-32 text-brand-orange z-[-1] pointer-events-none transform -translate-y-1/2" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
-                        <motion.path d="M100 25 C 50 25, 50 60, 0 60" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
+                        <m.path d="M100 25 C 50 25, 50 60, 0 60" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
                     </svg>
                 );
             case 'right-middle':
                 // Seta reta
                 return (
                     <svg className="hidden lg:block absolute -left-[60%] top-1/2 w-[60%] h-4 text-brand-orange z-[-1] pointer-events-none transform -translate-y-1/2" viewBox="0 0 100 10" fill="none" preserveAspectRatio="none">
-                        <motion.path d="M100 5 L 0 5" stroke="currentColor" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
+                        <m.path d="M100 5 L 0 5" stroke="currentColor" strokeWidth="2" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
                     </svg>
                 );
             case 'right-bottom':
                 // Seta saindo da esquerda, curvando para cima
                 return (
                     <svg className="hidden lg:block absolute -left-[80%] top-1/2 w-[80%] h-32 text-brand-orange z-[-1] pointer-events-none transform -translate-y-[60%]" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
-                        <motion.path d="M100 40 C 50 40, 50 0, 0 0" stroke="currentColor" strokeWidth="2" strokeDasharray="7,7" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
+                        <m.path d="M100 40 C 50 40, 50 0, 0 0" stroke="currentColor" strokeWidth="2" strokeDasharray="7,7" fill="none" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} transition={{ duration: 1, delay: delay + 0.2 }} />
                     </svg>
                 );
             default:
@@ -55,7 +55,7 @@ const PainPointCard: React.FC<PainPointCardProps> = ({ text, position, delay = 0
     };
 
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -75,7 +75,7 @@ const PainPointCard: React.FC<PainPointCardProps> = ({ text, position, delay = 0
                     {text}
                 </div>
             </div>
-        </motion.div>
+        </m.div>
     );
 };
 
@@ -87,7 +87,7 @@ const painPoints = [
     <>Necessitam de uma didática inovadora com foco em <span className="font-bold text-brand-orange">retenção.</span></>,
 ];
 
-import painImage from '../assets/pain-points.jpg';
+import painImage from '../assets/painpoints.webp';
 const PAIN_IMAGE = painImage;
 
 const PainPoints: React.FC = () => {
@@ -116,14 +116,14 @@ const PainPoints: React.FC = () => {
 
                 {/* Header */}
                 <div className="text-center max-w-4xl mx-auto mb-16 md:mb-24">
-                    <motion.h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 leading-tight">
+                    <m.h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 leading-tight">
                         Entendemos as <span className="text-brand-orange relative inline-block mx-2">
                             <span className="font-expressive italic">dores</span>
                             <svg className="absolute -top-6 -right-8 w-12 h-12 text-brand-orange opacity-80" viewBox="0 0 50 50" fill="none">
-                                <motion.path d="M25 0L28 20L48 22L28 28L30 48L22 30L0 28L20 25L25 0Z" fill="currentColor" initial={{ scale: 0 }} whileInView={{ scale: 1 }} />
+                                <m.path d="M25 0L28 20L48 22L28 28L30 48L22 30L0 28L20 25L25 0Z" fill="currentColor" initial={{ scale: 0 }} whileInView={{ scale: 1 }} />
                             </svg>
                         </span> de professores e coordenadores!
-                    </motion.h2>
+                    </m.h2>
                 </div>
 
                 {/* Desktop Layout (lg+) — unchanged */}
@@ -149,6 +149,10 @@ const PainPoints: React.FC = () => {
                             <img
                                 src={PAIN_IMAGE}
                                 alt="Professora"
+                                width={800}
+                                height={533}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover rounded-3xl shadow-2xl border-4 border-white relative z-20"
                             />
                             <div className="absolute -inset-3 border-4 border-brand-orange/30 rounded-[2rem] transform rotate-1 z-0 pointer-events-none"></div>
@@ -183,6 +187,10 @@ const PainPoints: React.FC = () => {
                         <img
                             src={PAIN_IMAGE}
                             alt="Professora"
+                            width={800}
+                            height={533}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover"
                         />
                     </div>
@@ -195,7 +203,7 @@ const PainPoints: React.FC = () => {
                         style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                         {painPoints.map((text, i) => (
-                            <motion.div
+                            <m.div
                                 key={i}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -208,7 +216,7 @@ const PainPoints: React.FC = () => {
                                         {text}
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         ))}
                     </div>
 

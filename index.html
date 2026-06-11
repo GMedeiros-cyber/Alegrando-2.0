@@ -17,7 +17,9 @@
   <meta property="og:title" content="Alegrando Eventos | Turismo Pedagógico e Festas" />
   <meta property="og:description"
     content="Transformamos conteúdo escolar em experiências vivenciais seguras, divertidas e inesquecíveis." />
-  <meta property="og:image" content="https://alegrando.com.br/assets/alegrando.png" />
+  <meta property="og:image" content="https://alegrando.com.br/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -29,44 +31,20 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://alegrando.com.br/" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
-    rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            heading: ['Montserrat', 'sans-serif'],
-            fun: ['"Bebas Neue"', 'cursive'],
-            expressive: ['"Playfair Display"', 'serif'],
-          },
-          colors: {
-            brand: {
-              orange: '#FF6B35',
-              dark: '#0F172A',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+  <!-- Preload do poster do Hero (LCP) -->
+  <link rel="preload" as="image" fetchpriority="high" href="/hero-poster.webp" />
 
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none;
-    }
-  </style>
+  <!-- Fonts (mesmas famílias/pesos, carregadas de forma não-bloqueante) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap">
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@500;700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pacifico&display=swap">
+  </noscript>
 </head>
 
 <body>

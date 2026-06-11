@@ -1,13 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { MapPin, CheckCircle, Car, Users, Star, ArrowRight, Sparkles, Ticket, Armchair, Wand2 } from 'lucide-react';
 
 // Import assets
-import neogeoHeroImg from '../assets/neogeo.jpg';
+import neogeoHeroImg from '../assets/neogeo.webp';
 
-import barueriImg from '../assets/barueri.jpeg';
-import morumbiImg from '../assets/morumbi.jpeg';
-import internacionalImg from '../assets/internacional.jpg';
+import barueriImg from '../assets/barueri.webp';
+import morumbiImg from '../assets/morumbi.webp';
+import internacionalImg from '../assets/internacional.webp';
 
 const BirthdayPage: React.FC = () => {
     return (
@@ -34,7 +34,7 @@ const BirthdayPage: React.FC = () => {
                 </div>
 
                 <div className="relative z-10 container mx-auto px-6 max-w-5xl pt-20">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -60,7 +60,7 @@ const BirthdayPage: React.FC = () => {
                         <p className="text-lg md:text-2xl text-slate-100 leading-relaxed font-light max-w-3xl mx-auto drop-shadow-md">
                             No Neo Geo Family, o aniversário é uma experiência completa. Salões exclusivos, acesso às atrações do parque, ambiente moderno e segurança em cada detalhe.
                         </p>
-                    </motion.div>
+                    </m.div>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@ const BirthdayPage: React.FC = () => {
 
                 {/* Bloco 1: Parque Shopping Barueri */}
                 <div className="flex flex-col md:flex-row gap-12 items-center overflow-hidden">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -134,15 +134,15 @@ const BirthdayPage: React.FC = () => {
                     >
                         <div className="absolute -inset-4 bg-brand-orange/10 rounded-[3rem] -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-                            <img src={barueriImg} alt="Parque Shopping Barueri" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            <img src={barueriImg} alt="Parque Shopping Barueri" width={1280} height={960} loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <span className="inline-block px-4 py-1 bg-brand-orange text-white text-xs font-bold rounded-full mb-2">Novo Salão</span>
                                 <h3 className="text-white text-2xl font-bold">Parque Shopping Barueri</h3>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -193,12 +193,12 @@ const BirthdayPage: React.FC = () => {
                                 Rua General de Divisão Pedro Rodrigues da Silva, 400
                             </p>
                         </div>
-                    </motion.div>
+                    </m.div>
                 </div>
 
                 {/* Bloco 2: Morumbi Town Shopping (Inverted Layout) */}
                 <div className="flex flex-col md:flex-row-reverse gap-12 items-center overflow-hidden">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -206,7 +206,7 @@ const BirthdayPage: React.FC = () => {
                     >
                         <div className="absolute -inset-4 bg-blue-100 rounded-[3rem] rotate-2 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-                            <img src={morumbiImg} alt="Morumbi Town Shopping" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            <img src={morumbiImg} alt="Morumbi Town Shopping" width={800} height={600} loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <div className="flex gap-2 mb-2">
                                     <span className="inline-block px-4 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full">Salão Premium</span>
@@ -215,9 +215,9 @@ const BirthdayPage: React.FC = () => {
                                 <h3 className="text-white text-2xl font-bold">Morumbi Town Shopping</h3>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -267,12 +267,12 @@ const BirthdayPage: React.FC = () => {
                                 Av. Giovanni Gronchi, 5930 – Vila Andrade
                             </p>
                         </div>
-                    </motion.div>
+                    </m.div>
                 </div>
 
                 {/* Bloco 3: Shopping Internacional de Guarulhos */}
                 <div className="flex flex-col md:flex-row gap-12 items-center overflow-hidden">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -280,7 +280,7 @@ const BirthdayPage: React.FC = () => {
                     >
                         <div className="absolute -inset-4 bg-green-100 rounded-[3rem] -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[500px]">
-                            <img src={internacionalImg} alt="Shopping Internacional de Guarulhos" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                            <img src={internacionalImg} alt="Shopping Internacional de Guarulhos" width={800} height={600} loading="lazy" decoding="async" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                             <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
                                 <div className="flex gap-2 mb-2">
                                     <span className="inline-block px-4 py-1 bg-brand-orange text-white text-xs font-bold rounded-full">Neofestas 1, 2 e 3</span>
@@ -288,9 +288,9 @@ const BirthdayPage: React.FC = () => {
                                 <h3 className="text-white text-2xl font-bold">Shopping Internacional</h3>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -340,7 +340,7 @@ const BirthdayPage: React.FC = () => {
                                 Rua Engº Camilo Olivetti, 295 – Vila Endres
                             </p>
                         </div>
-                    </motion.div>
+                    </m.div>
                 </div>
 
             </div>

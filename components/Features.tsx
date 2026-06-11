@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookOpen, CheckCircle, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const features = [
   {
@@ -26,7 +26,7 @@ const Features: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {features.map((feature, index) => (
-            <motion.div
+            <m.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ const Features: React.FC = () => {
               <p className="text-slate-600 leading-relaxed">
                 {feature.description}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

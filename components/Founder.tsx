@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import silvanaImage from '../assets/silvana.jpg';
+import { m } from 'framer-motion';
+import silvanaImage from '../assets/silvana.webp';
 
 const Founder: React.FC = () => {
     return (
@@ -9,7 +9,7 @@ const Founder: React.FC = () => {
                 <div className="flex flex-col md:flex-row items-center gap-16">
 
                     {/* Silvana Image (Left) */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -23,6 +23,10 @@ const Founder: React.FC = () => {
                                 <img
                                     src={silvanaImage}
                                     alt="Silvana Moura - Fundadora"
+                                    width={853}
+                                    height={1280}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-500"
                                 />
                                 {/* Floating Badge */}
@@ -32,10 +36,10 @@ const Founder: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
                     {/* Founder Bio (Right) */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -71,7 +75,7 @@ const Founder: React.FC = () => {
                                 </p>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
                 </div>
             </div>

@@ -1,11 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Flame } from 'lucide-react';
-import equipe1 from '../assets/equipe.jpg';
-import equipe2 from '../assets/equipe2.jpg';
-import shopping1 from '../assets/shopping.jpeg';
-import shopping2 from '../assets/shopping2.jpg';
-import shopping3 from '../assets/shopping3.jpg';
+import equipe1 from '../assets/equipe.webp';
+import equipe2 from '../assets/equipe2.webp';
+import shopping1 from '../assets/shopping.webp';
+import shopping2 from '../assets/shopping2.webp';
+import shopping3 from '../assets/shopping3.webp';
 
 // Bonfire component removed as requested
 const Bonfire = () => null;
@@ -27,7 +27,7 @@ const Team: React.FC = () => {
 
         {/* Header Text */}
         <div className="text-center mb-16 relative z-10">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -42,7 +42,7 @@ const Team: React.FC = () => {
             <p className="text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
               Com uma equipe especializada, seguimos inovando e transformando cada excursão em uma aventura educativa memorável.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Collage Grid - Restoration of Open Layout */}
@@ -51,21 +51,21 @@ const Team: React.FC = () => {
           {/* Bonfire removed */}
 
           {/* Equipe 1 */}
-          <motion.div
+          <m.div
             className="absolute left-10 top-10 w-80 h-96 bg-white p-4 shadow-xl border-4 border-slate-50 rotate-[-3deg] z-20 hover:scale-105 transition-transform duration-500 hover:rotate-0 hover:z-50"
             initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
             whileInView={{ opacity: 1, scale: 1, rotate: -3 }}
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={equipe1} alt="Equipe Alegrando" className="w-full h-full object-cover" />
+              <img src={equipe1} alt="Equipe Alegrando" width={738} height={748} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             {/* Tape Effect */}
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-28 h-8 bg-orange-200/80 rotate-2"></div>
-          </motion.div>
+          </m.div>
 
           {/* Equipe 2 */}
-          <motion.div
+          <m.div
             className="absolute right-20 top-0 w-80 h-96 bg-white p-4 shadow-lg border-4 border-slate-50 rotate-[4deg] z-10 hover:scale-105 transition-transform duration-500 hover:rotate-0 hover:z-50"
             initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
             whileInView={{ opacity: 1, scale: 1, rotate: 4 }}
@@ -73,13 +73,13 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={equipe2} alt="Equipe em ação" className="w-full h-full object-cover" />
+              <img src={equipe2} alt="Equipe em ação" width={1080} height={1440} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-4 right-10 w-24 h-8 bg-blue-200/80 -rotate-3"></div>
-          </motion.div>
+          </m.div>
 
           {/* Shopping 1 */}
-          <motion.div
+          <m.div
             className="absolute left-[420px] top-64 w-80 h-96 bg-white p-4 shadow-lg border-4 border-slate-50 rotate-[2deg] z-15 hover:scale-105 transition-transform duration-500 hover:rotate-0 hover:z-50"
             initial={{ opacity: 0, scale: 0.8, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -87,13 +87,13 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={shopping1} alt="Passeio no Shopping" className="w-full h-full object-cover" />
+              <img src={shopping1} alt="Passeio no Shopping" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-3 left-10 w-24 h-6 bg-green-200/80 rotate-1"></div>
-          </motion.div>
+          </m.div>
 
           {/* Shopping 2 */}
-          <motion.div
+          <m.div
             className="absolute right-40 top-96 w-80 h-96 bg-white p-4 shadow-xl border-4 border-slate-50 rotate-[-6deg] z-30 hover:scale-105 transition-transform duration-500 hover:rotate-0 hover:z-50"
             initial={{ opacity: 0, scale: 0.8, rotate: -15 }}
             whileInView={{ opacity: 1, scale: 1, rotate: -6 }}
@@ -101,15 +101,15 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={shopping2} alt="Alegria e Diversão" className="w-full h-full object-cover" />
+              <img src={shopping2} alt="Alegria e Diversão" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-yellow-300 rounded-full flex items-center justify-center shadow-lg transform rotate-12 z-20">
               <span className="font-bold text-sm text-slate-900 uppercase text-center transform -rotate-12">100%<br />Diversão</span>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Shopping 3 */}
-          <motion.div
+          <m.div
             className="absolute left-10 bottom-10 w-80 h-96 bg-white p-4 shadow-lg border-4 border-slate-50 rotate-[-5deg] z-25 hover:scale-105 transition-transform duration-500 hover:rotate-0 hover:z-50"
             initial={{ opacity: 0, scale: 0.8, x: -50 }}
             whileInView={{ opacity: 1, scale: 1, x: 0 }}
@@ -117,31 +117,31 @@ const Team: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="w-full h-full overflow-hidden bg-slate-200">
-              <img src={shopping3} alt="Passeio Shopping" className="w-full h-full object-cover" />
+              <img src={shopping3} alt="Passeio Shopping" width={1200} height={1600} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-3 right-8 w-28 h-6 bg-purple-200/80 -rotate-2"></div>
-          </motion.div>
+          </m.div>
 
         </div>
 
         {/* Mobile Layout (Stacked) */}
         <div className="md:hidden flex flex-col gap-10 pb-12 relative z-10">
           {/* Bonfire removed */}
-          <motion.div className="bg-white p-4 shadow-lg rotate-[-2deg]" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}>
-            <img src={equipe1} alt="Equipe" className="w-full h-auto" />
-          </motion.div>
-          <motion.div className="bg-white p-4 shadow-lg rotate-[2deg]" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}>
-            <img src={equipe2} alt="Equipe" className="w-full h-auto" />
-          </motion.div>
-          <motion.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping1} alt="Shopping" className="w-full h-auto" />
-          </motion.div>
-          <motion.div className="bg-white p-4 shadow-lg rotate-[-1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping2} alt="Shopping" className="w-full h-auto" />
-          </motion.div>
-          <motion.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
-            <img src={shopping3} alt="Shopping" className="w-full h-auto" />
-          </motion.div>
+          <m.div className="bg-white p-4 shadow-lg rotate-[-2deg]" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}>
+            <img src={equipe1} alt="Equipe" width={738} height={748} loading="lazy" decoding="async" className="w-full h-auto" />
+          </m.div>
+          <m.div className="bg-white p-4 shadow-lg rotate-[2deg]" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}>
+            <img src={equipe2} alt="Equipe" width={1080} height={1440} loading="lazy" decoding="async" className="w-full h-auto" />
+          </m.div>
+          <m.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
+            <img src={shopping1} alt="Shopping" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-auto" />
+          </m.div>
+          <m.div className="bg-white p-4 shadow-lg rotate-[-1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
+            <img src={shopping2} alt="Shopping" width={960} height={1280} loading="lazy" decoding="async" className="w-full h-auto" />
+          </m.div>
+          <m.div className="bg-white p-4 shadow-lg rotate-[1deg]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}>
+            <img src={shopping3} alt="Shopping" width={1200} height={1600} loading="lazy" decoding="async" className="w-full h-auto" />
+          </m.div>
         </div>
 
       </div>

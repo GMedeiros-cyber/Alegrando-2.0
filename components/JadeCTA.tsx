@@ -1,12 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import logo from '../assets/logo.png';
+import { m } from 'framer-motion';
+import logo from '../assets/logo.webp';
 
 const JadeCTA: React.FC = () => {
     return (
         <section className="py-20 bg-slate-50">
             <div className="container mx-auto px-6">
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -18,6 +18,10 @@ const JadeCTA: React.FC = () => {
                             <img
                                 src={logo}
                                 alt="Jade IA"
+                                width={256}
+                                height={206}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-contain p-2"
                             />
                         </div>
@@ -40,7 +44,7 @@ const JadeCTA: React.FC = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                     </button>
-                </motion.div>
+                </m.div>
             </div>
         </section>
     );

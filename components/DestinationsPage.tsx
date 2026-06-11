@@ -1,29 +1,28 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import {
     MessageCircle,
     Landmark, Bus, Leaf, Tent, GraduationCap, Drama,
     FerrisWheel, Cpu, Rocket, Star
 } from 'lucide-react';
 import DestinationCard from './DestinationCard';
-import jadeLogoUrl from '../assets/logo.png';
+import jadeLogoUrl from '../assets/logo.webp';
 
 // Import assets
-import historiaImg from '../assets/historia.jpeg';
-import fazendaImg from '../assets/fazenda.jpeg';
-import agriculturaImg from '../assets/agricultura.jpeg';
-import museuImg from '../assets/museu.jpg';
-import autenticoImg from '../assets/autentico.png';
-import viniciusImg from '../assets/vinicius.png';
-import externatoImg from '../assets/externato.png';
+import historiaImg from '../assets/historia.webp';
+import fazendaImg from '../assets/fazenda.webp';
+import agriculturaImg from '../assets/agricultura.webp';
+import museuImg from '../assets/museu.webp';
+import autenticoImg from '../assets/autentico.webp';
+import viniciusImg from '../assets/vinicius.webp';
+import externatoImg from '../assets/externato.webp';
 
-import escaladaImg from '../assets/escalada.jpg';
-import neogeoImg from '../assets/neogeo.jpg';
-import playgroundImg from '../assets/playground.jpg';
-import aquaticoImg from '../assets/aquatico.jpeg';
+import escaladaImg from '../assets/escalada.webp';
+import neogeoImg from '../assets/neogeo.webp';
+import playgroundImg from '../assets/playground.webp';
+import aquaticoImg from '../assets/aquatico.webp';
 
-import onibusImg from '../assets/onibus.jpeg';
-import camisaImg from '../assets/camisa.jpeg';
+import camisaImg from '../assets/camisa.webp';
 
 // Reusing existing images 
 const teatroImg = historiaImg;
@@ -197,7 +196,7 @@ const DestinationsPage: React.FC = () => {
                 SEÇÃO 1 — HERO: DESTINOS INESQUECÍVEIS
             ═══════════════════════════════════════════════════════════ */}
             <div className="pt-40 pb-12 container mx-auto px-6 text-center">
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
@@ -220,7 +219,7 @@ const DestinationsPage: React.FC = () => {
                     <p className="text-slate-500 text-lg md:text-xl font-light leading-relaxed">
                         Explore nossa seleção de roteiros pedagógicos e de lazer, projetados para encantar e educar.
                     </p>
-                </motion.div>
+                </m.div>
             </div>
 
             {/* ═══════════════════════════════════════════════════════════
@@ -274,7 +273,7 @@ const DestinationsPage: React.FC = () => {
             <div className="container mx-auto px-6 pt-16 pb-12 overflow-hidden">
                 <div className="flex overflow-x-auto gap-6 md:gap-8 pt-2 pb-6 justify-start md:justify-center hide-scrollbar px-4">
                     {categoriesNav.map((cat, idx) => (
-                        <motion.div
+                        <m.div
                             key={idx}
                             whileHover={{ scale: 1.05 }}
                             className="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group"
@@ -285,7 +284,7 @@ const DestinationsPage: React.FC = () => {
                             <span className="text-sm md:text-base font-medium text-slate-500 group-hover:text-slate-800 transition-colors whitespace-nowrap">
                                 {cat.label}
                             </span>
-                        </motion.div>
+                        </m.div>
                     ))}
                 </div>
             </div>
@@ -301,7 +300,7 @@ const DestinationsPage: React.FC = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
 
                         {/* LEFT: Silvana — a pessoa por trás */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -316,7 +315,7 @@ const DestinationsPage: React.FC = () => {
                             <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 w-full max-w-sm">
                                 <div className="flex flex-col items-center text-center gap-4">
                                     <div className="w-28 h-28 rounded-full p-1 bg-gradient-to-br from-brand-orange to-orange-600 shadow-xl overflow-hidden">
-                                        <img src={camisaImg} alt="Silvana Moura" className="w-full h-full object-cover object-top rounded-full" />
+                                        <img src={camisaImg} alt="Silvana Moura" width={853} height={1280} loading="lazy" decoding="async" className="w-full h-full object-cover object-top rounded-full" />
                                     </div>
                                     <div>
                                         <p className="text-2xl font-bold text-slate-900">Silvana Moura</p>
@@ -325,10 +324,10 @@ const DestinationsPage: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
 
                         {/* RIGHT: Jornada 360 — conteúdo */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -354,7 +353,7 @@ const DestinationsPage: React.FC = () => {
                                     </div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </m.div>
 
                     </div>
                 </div>
@@ -384,7 +383,7 @@ const DestinationsPage: React.FC = () => {
                             </p>
                             <div className="flex items-center gap-4 border-t border-white/10 pt-6">
                                 <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 p-0.5 bg-white shrink-0">
-                                    <img src={autenticoImg} alt="Colégio Autêntico" className="w-full h-full object-contain" />
+                                    <img src={autenticoImg} alt="Colégio Autêntico" width={200} height={146} loading="lazy" decoding="async" className="w-full h-full object-contain" />
                                 </div>
                                 <div>
                                     <p className="text-white font-bold text-sm">Caroline Freire</p>
@@ -403,7 +402,7 @@ const DestinationsPage: React.FC = () => {
                             </p>
                             <div className="flex items-center gap-4 border-t border-white/10 pt-6">
                                 <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 p-0.5 bg-white shrink-0">
-                                    <img src={viniciusImg} alt="Colégio Vinicius de Moraes" className="w-full h-full object-contain" />
+                                    <img src={viniciusImg} alt="Colégio Vinicius de Moraes" width={370} height={102} loading="lazy" decoding="async" className="w-full h-full object-contain" />
                                 </div>
                                 <div>
                                     <p className="text-white font-bold text-sm">Juliana Beltran</p>
@@ -422,7 +421,7 @@ const DestinationsPage: React.FC = () => {
                             </p>
                             <div className="flex items-center gap-4 border-t border-white/10 pt-6">
                                 <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 p-0.5 bg-white shrink-0">
-                                    <img src={externatoImg} alt="Externato Parque Continental" className="w-full h-full object-contain" />
+                                    <img src={externatoImg} alt="Externato Parque Continental" width={225} height={225} loading="lazy" decoding="async" className="w-full h-full object-contain" />
                                 </div>
                                 <div>
                                     <p className="text-white font-bold text-sm">Vívian Testone</p>
@@ -440,7 +439,7 @@ const DestinationsPage: React.FC = () => {
             ═══════════════════════════════════════════════════════════ */}
             <section className="py-24 bg-orange-50/30 relative overflow-hidden">
                 <div className="container mx-auto px-6 text-center relative z-10">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -448,7 +447,7 @@ const DestinationsPage: React.FC = () => {
                     >
                         <div className="flex justify-center mb-6">
                             <div className="p-3 bg-white rounded-full shadow-lg border border-slate-100 relative">
-                                <img src={jadeLogoUrl} alt="Jade" className="w-14 h-14 object-contain" />
+                                <img src={jadeLogoUrl} alt="Jade" width={256} height={206} loading="lazy" decoding="async" className="w-14 h-14 object-contain" />
                                 <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
                             </div>
                         </div>
@@ -473,7 +472,7 @@ const DestinationsPage: React.FC = () => {
                         <p className="mt-6 text-xs text-slate-400 font-medium uppercase tracking-widest">
                             Disponível 24h
                         </p>
-                    </motion.div>
+                    </m.div>
                 </div>
             </section>
 

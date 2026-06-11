@@ -1,19 +1,18 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 // Import logos
-import adventista from '../assets/adventista.png';
-import autentico from '../assets/autentico.png';
-import externato from '../assets/externato.png';
-import winner from '../assets/winner.png';
-import vinicius from '../assets/vinicius.png';
+import adventista from '../assets/adventista.webp';
+import autentico from '../assets/autentico.webp';
+import externato from '../assets/externato.webp';
+import winner from '../assets/winner.webp';
+import vinicius from '../assets/vinicius.webp';
 
 const schools = [
-    { name: 'Colégio Adventista', logo: adventista },
-    { name: 'Colégio Autêntico', logo: autentico },
-    { name: 'Externato', logo: externato },
-    { name: 'Winner School', logo: winner },
-    { name: 'Colégio Vinicius de Moraes', logo: vinicius },
+    { name: 'Colégio Adventista', logo: adventista, w: 420, h: 274 },
+    { name: 'Colégio Autêntico', logo: autentico, w: 200, h: 146 },
+    { name: 'Externato', logo: externato, w: 225, h: 225 },
+    { name: 'Winner School', logo: winner, w: 371, h: 136 },
+    { name: 'Colégio Vinicius de Moraes', logo: vinicius, w: 370, h: 102 },
 ];
 
 const TrustedSchools: React.FC = () => {
@@ -32,20 +31,7 @@ const TrustedSchools: React.FC = () => {
                 <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
                 <div className="flex overflow-hidden">
-                    <motion.div
-                        className="flex gap-12 md:gap-24 items-center"
-                        animate={{
-                            x: ["0%", "-50%"],
-                        }}
-                        transition={{
-                            x: {
-                                repeat: Infinity,
-                                repeatType: "loop",
-                                duration: 20,
-                                ease: "linear",
-                            },
-                        }}
-                    >
+                    <div className="flex gap-12 md:gap-24 items-center animate-marquee">
                         {/* Double the array to create seamless loop */}
                         {[...schools, ...schools].map((school, index) => (
                             <div
@@ -55,11 +41,15 @@ const TrustedSchools: React.FC = () => {
                                 <img
                                     src={school.logo}
                                     alt={`Logo ${school.name}`}
+                                    width={school.w}
+                                    height={school.h}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-auto object-contain max-h-24"
                                 />
                             </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

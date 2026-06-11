@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import logoUrl from '../assets/logo.png';
+import logoUrl from '../assets/logo.webp';
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL;
@@ -9,11 +9,16 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
 const WEBHOOK_FESTA_LEAD = import.meta.env.VITE_WEBHOOK_FESTA_LEAD;
 
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+// Cliente Supabase inicializado sob demanda (somente na 1ª consulta), não no load do módulo.
+let _supabaseClient: ReturnType<typeof createClient> | null = null;
+const getSupabaseClient = () => {
+  if (!_supabaseClient) _supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+  return _supabaseClient;
+};
 
 // ─── CSS (injected on mount) ─────────────────────────────────────────────────
 const WIDGET_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+/* Pacifico carregada via <link> no index.html (evita @import render-blocking) */
 /* Container */
 #chat-widget-container {
   position: fixed;
@@ -173,7 +178,7 @@ function parseWhatsAppLinks(text: string) {
   if (!text) return text;
   const whatsappRegex = /(https:\/\/wa\.me\/\d+[^\s<]*)/g;
   return text.replace(whatsappRegex, (url) => {
-    return `<a href="${url}" target="_blank" class="jade-whatsapp-cta-button">${WHATSAPP_SVG} Finalizar Orçamento no WhatsApp</a>`;
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="jade-whatsapp-cta-button">${WHATSAPP_SVG} Finalizar Orçamento no WhatsApp</a>`;
   });
 }
 
@@ -276,7 +281,7 @@ function TypingIndicator() {
   return (
     <div className="jade-typing-indicator-container">
       <div className="jade-typing-logo-wrapper">
-        <img src={logoUrl} alt="Jade" className="jade-typing-logo" />
+        <img src={logoUrl} alt="Jade" width={256} height={206} loading="lazy" decoding="async" className="jade-typing-logo" />
       </div>
       <div className="jade-typing-bubble">
         <div className="jade-typing-dot" />
@@ -710,7 +715,7 @@ export default function JadeChatWidget() {
 
         try {
           const limit = 6;
-          let query = supabaseClient
+          let query = getSupabaseClient()
             .from('documents')
             .select('id, content, categoria, destaque')
             .order('destaque', { ascending: false })
@@ -1018,7 +1023,7 @@ export default function JadeChatWidget() {
           setItems(prev => [
             ...prev,
             { kind: 'bot', id: uid(), html: parseBotContent('Clique abaixo para finalizar no WhatsApp:') },
-            { kind: 'bot', id: uid(), html: `<a href="${fullUrl}" target="_blank" class="jade-whatsapp-cta-button">${WHATSAPP_SVG} Finalizar Orçamento de Festa no WhatsApp</a>` },
+            { kind: 'bot', id: uid(), html: `<a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="jade-whatsapp-cta-button">${WHATSAPP_SVG} Finalizar Orçamento de Festa no WhatsApp</a>` },
           ]);
           setFlow(prev => ({ ...prev, finalizado: true }));
           setTimeout(() => executeStep('duvida_encerrada', 'append'), 0);
@@ -1212,7 +1217,7 @@ export default function JadeChatWidget() {
     } catch (err) {
       setItems(prev => prev.filter(it => it.id !== typingId));
       console.error('Erro na comunicação com o assistente:', err);
-      addBotMsg('Estamos com problemas técnicos no momento. Por favor, <a href="https://wa.me/5511916032904" target="_blank" class="jade-whatsapp-cta-button" style="display:inline-flex; margin-top:8px;">fale conosco pelo WhatsApp</a>');
+      addBotMsg('Estamos com problemas técnicos no momento. Por favor, <a href="https://wa.me/5511916032904" target="_blank" rel="noopener noreferrer" class="jade-whatsapp-cta-button" style="display:inline-flex; margin-top:8px;">fale conosco pelo WhatsApp</a>');
       setInputEnabled(true);
     }
   }, [inputValue, addUserMsg, addBotMsg, executeStep]);
@@ -1370,7 +1375,7 @@ export default function JadeChatWidget() {
       {/* FAB Button */}
       <button id="chat-widget-button" className={isOpen ? 'open' : ''} onClick={isOpen ? () => setIsOpen(false) : handleOpen}>
         <div className="chat-button-icon-wrapper">
-          <img src={logoUrl} alt="Chat" className="chat-button-icon" />
+          <img src={logoUrl} alt="Chat" width={256} height={206} loading="lazy" decoding="async" className="chat-button-icon" />
         </div>
         {!isOpen && <span className="chat-button-text">Falar com a <span className="chat-button-jade">Jade</span></span>}
       </button>
@@ -1381,7 +1386,7 @@ export default function JadeChatWidget() {
           {/* Header */}
           <div id="chat-widget-header">
             <div className="chat-header-info">
-              <img src={logoUrl} alt="Alegrando" className="chat-logo-header" style={{ width: 55, height: 55, objectFit: 'contain' }} />
+              <img src={logoUrl} alt="Alegrando" width={55} height={55} loading="lazy" decoding="async" className="chat-logo-header" style={{ width: 55, height: 55, objectFit: 'contain' }} />
               <div className="chat-title-group">
                 <span className="chat-title">Jade</span>
                 <span className="chat-subtitle">Alegrando Eventos</span>

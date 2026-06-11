@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Instagram, Mail, MessageCircle } from 'lucide-react';
-import logo from '../assets/alegrando.png';
+import logo from '../assets/alegrando.webp';
 
 const GOOGLE_MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Rua+Antonieta+Aguirre+de+Moraes+Barros+59+Sala+06+Vila+Augusta+Guarulhos+SP';
 
@@ -15,6 +15,10 @@ const Footer: React.FC = () => {
             <img
               src={logo}
               alt="Alegrando Eventos"
+              width={480}
+              height={188}
+              loading="lazy"
+              decoding="async"
               className="h-16 w-auto max-w-[180px] object-contain brightness-110"
             />
             <p className="text-sm leading-relaxed max-w-xs text-slate-400">

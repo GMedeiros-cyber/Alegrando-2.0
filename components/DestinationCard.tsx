@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
 interface Category {
@@ -28,7 +28,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
     }, [images.length]);
 
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -37,16 +37,18 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
         >
             {/* Background Image Carousel */}
             <div className="absolute inset-0 z-0">
-                <AnimatePresence mode="popLayout">
-                    <motion.img
+                <AnimatePresence>
+                    <m.img
                         key={currentImageIndex}
                         src={images[currentImageIndex]}
                         alt={title}
+                        loading="lazy"
+                        decoding="async"
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-cover"
                     />
                 </AnimatePresence>
                 {/* Gradient Overlay for Text Readability - Enhanced for Mobile */}
@@ -102,7 +104,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({ title, subtitle, imag
                     </a>
                 </div>
             </div>
-        </motion.div>
+        </m.div>
     );
 };
 
